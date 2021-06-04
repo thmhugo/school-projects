@@ -1,6 +1,7 @@
-# school-projects
+# Projets réalisés à l'Université de Paris
 
-This repo gathers all my school projects done at the [Université de Paris](https://u-paris.fr/).
+![\_](https://img.shields.io/tokei/lines/github/thmhugo/school-projects?style=for-the-badge)
+![\_](https://img.shields.io/github/languages/top/thmhugo/school-projects?style=for-the-badge)
 
 | Nom (Année)                              | Description | Langage | Technologies | Nombre de lignes | Lien |
 | ---------------------------------- |:--:| :-------------------------------------------------------------------------------------------------------------------: | :-: | :-: |:---------------------------------: |
