@@ -1,0 +1,27 @@
+~| Set the given color and size.
+~|
+~| @note See documentation for `color` and `size` for more information.
+~|
+~| Implementation:
+~| 1. call `color c`.
+~| 2. call `size s`.
+~|
+~| @todo add `size s`.
+~| @todo remove `"`.
+~|
+~| @param c Is the color to set.
+~| @param s Is the size to set.
+proc setStyle(c, s) = {
+  color "c";
+}
+
+~| Will contains the message to print.
+~| @param msg A `string` message.
+var msg;
+
+{
+  msg = "Hello ~| World!";
+  # A simple comment
+  setStyle(blue, 10);
+  print msg;
+}

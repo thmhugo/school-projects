@@ -1,0 +1,56 @@
+~| A procedure declaration.
+~| Which draw a rosette with a specified color and size.
+~|
+~| @note `i` and `j` are only used as variable declarations inside a procedure.
+~|
+~| @param col Is the pen color to use.
+~| @param s Is the pen size to use.
+proc drawRosette(i, j, col, s, angle) = {
+	color col;
+	size s;
+	while i <= 10 do {
+		turn 36;
+		j = 0;
+		while j <= 5 do {
+			forward 200;
+			turn angle;
+			j += 1;
+		};
+		i += 1;
+	};
+}
+
+# Variable declarations
+var penSize;
+var i;
+var col;
+
+~| Variable used to define angles.
+~| @note Recommended values : 36, 72, 144, 288.
+var angle;
+
+# Main scope
+{
+	down;
+
+	# Inits variables
+    penSize = 10;
+	col = blue;
+	i = 0;
+	angle = 72;
+
+	# Write the title
+	write "-- Rosette with an angle of ";
+	write angle;
+	write " --";
+
+	# Main process
+	while i <= 5 do {
+		drawRosette(1, 1, col, penSize, angle);
+		i += 1;
+		if i == 1 then col = magenta;
+		if i == 2 then col = red;
+		if i == 3 then col = yellow;
+		penSize -= 2;
+	};
+}

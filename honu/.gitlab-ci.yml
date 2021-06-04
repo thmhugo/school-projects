@@ -1,0 +1,11 @@
+image: emilerolley/opam2-dune
+
+# build:
+#   stage: build
+#   script:
+#     - make
+
+test:
+  stage: test
+  script:
+    - make tests

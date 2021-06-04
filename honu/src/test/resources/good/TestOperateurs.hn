@@ -1,0 +1,12 @@
+var x;
+var y;
+var z;
+{
+	x = 4;
+	y = 10;
+	x += 2*3;
+	x -= 5;
+	x += y;
+	z = x > y;
+	y = not z;
+}

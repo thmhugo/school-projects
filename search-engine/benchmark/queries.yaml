@@ -1,0 +1,81 @@
+# Commons french misspelled words.
+# @see (https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Liste_de_fautes_d%27orthographe_courantes)
+- misswords:
+  - {input: "a partir", output: ["partir"]}
+  - {input: "A partir", output: ["partir"]}
+  - {input: "a permi", output: ["permis"]}
+  - {input: "a permi", output: ["permis"]}
+  - {input: "abbe", output: ["abbé"]}
+  - {input: "acces", output: ["accès"]}
+  - {input: "accés", output: ["accès"]}
+  - {input: "accês", output: ["accès"]}
+  - {input: "accës", output: ["accès"]}
+  - {input: "accës", output: ["accès"]}
+  - {input: "accadémie", output: ["académie"]}
+  - {input: "accdémie", output: ["académie"]}
+  - {input: "accdémie", output: ["académie"]}
+  - {input: "acadèmie", output: ["académie"]}
+  - {input: "accdémies", output: ["académies"]}
+  - {input: "accadémies", output: ["académies"]}
+  - {input: "acadèmies", output: ["académies"]}
+  - {input: "acadêmies", output: ["académies"]}
+  - {input: "au seins", output: ["sein"]}
+  - {input: "au sein", output: ["sein"]}
+  - {input: "acueilli", output: ["accueilli"]}
+  - {input: "acceuilli", output: ["accueilli"]}
+  - {input: "aceuilli", output: ["accueilli"]}
+  - {input: "aceuilli", output: ["accueilli"]}
+  - {input: "d'avantage", output: ["davantage"]}
+  - {input: "etats", output: ["états"]}
+  - {input: "etat", output: ["état"]}
+  - {input: "ètat", output: ["état"]}
+  - {input: "éxiste", output: ["existe"]}
+  - {input: "exsite", output: ["existe"]}
+  - {input: "familial", output: ["familiale"]}
+  - {input: "familliale", output: ["familiale"]}
+  - {input: "famillial", output: ["familiale"]}
+  - {input: "lieu-dit", output: ["lieu"]}
+  - {input: "lieux-dit", output: ["lieux"]}
+  - {input: "lieux-dit", output: ["lieux"]}
+  - {input: "faraon", output: ["pharaon"]}
+  - {input: "réthorique", output: ["rhétorique"]}
+  - {input: "rèthorique", output: ["rhétorique"]}
+  - {input: "rhètorique", output: ["rhétorique"]}
+  - {input: "satéllite", output: ["satellite"]}
+  - {input: "satelite", output: ["satellite"]}
+  - {input: "satèlite", output: ["satellite"]}
+  - {input: "satéllites", output: ["satellites"]}
+  - {input: "satelites", output: ["satellites"]}
+  - {input: "satèlites", output: ["satellites"]}
+  - {input: "s'il", output: ["il"]}
+  - {input: "t'il", output: ["il"]}
+  - {input: "theatre", output: ["théâtre"]}
+  - {input: "téâtre", output: ["théâtre"]}
+  - {input: "teatre", output: ["théâtre"]}
+  - {input: "evidemment", output: ["évidemment"]}
+  - {input: "évidamment", output: ["évidemment"]}
+  - {input: "évidament", output: ["évidemment"]}
+  - {input: "evidament", output: ["évidemment"]}
+  - {input: "evidammant", output: ["évidemment"]}
+  - {input: "évidemmant", output: ["évidemment"]}
+  - {input: "etc...", output: ["etc"]}
+  - {input: "Pqris", output: ["paris"]}
+
+# Stop words -> deletion.
+- stopwords:
+  - {input: "qu'un", output: []} # stop word
+  - {input: "qu'une", output: []} # stop word
+  - {input: "que une", output: []} # stop word
+  - {input: "que un", output: []} # stop word
+  - {input: "d'une", output: []} # stop word
+  - {input: "d'un", output: []} # stop word
+  - {input: "l'une", output: []} # stop word
+  - {input: "l'un", output: []} # stop word
+
+# # Corpus based sentences.
+- sentences:
+  - {input: "Lieux culturels à Pqris", output: ["lieux", "culturels", "paris"]}
+  - {input: "Lieux cltrels à Paris", output: ["lieux", "culturels", "paris"]}
+  - {input: "Grope de msique", output: ["groupe", "musique"]}
+  - {input: "Grup de musiqe", output: ["groupe", "musique"]}
+  - {input: "Group de musiaue", output: ["groupe", "musique"]}

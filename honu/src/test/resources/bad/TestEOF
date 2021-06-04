@@ -1,0 +1,13 @@
+Var angle;
+Debut
+angle = 0-90;
+BasPinceau;
+Avance 100;
+Tourne angle;
+Avance 100;
+Tourne angle;
+Avance 100;
+Tourne angle;
+Avance 100;
+Fin
+Pippo

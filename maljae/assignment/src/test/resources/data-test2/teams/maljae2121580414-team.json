@@ -1,0 +1,35 @@
+{
+  "groupId": "9",
+  "identifier": "maljae2121580414",
+  "preferences": [
+    "task2",
+    "task1"
+  ],
+  "students": [{
+    "confirmed": true,
+    "groupId": "9",
+    "email": "onvadisparaitrecesttriste@pleurs"
+  },
+  {
+    "confirmed": true,
+    "groupId": "9",
+    "email": "jesuistropnombreux@mdr.frite"
+  },
+  {
+    "confirmed": true,
+    "groupId": "9",
+    "email": "thanosestpresent@ouille.com"
+  },
+  {
+    "confirmed": true,
+    "groupId": "9",
+    "email": "ohmaisjemesenspastresbien@gmail.com"
+  },
+  {
+    "confirmed": true,
+    "groupId": "9",
+    "email": "quandjeseraisgrandjeseraisgrand@mavie.com"
+  }
+],
+  "secret": 76
+}

@@ -1,0 +1,39 @@
+{
+    "id" : "c2",
+    "description" : "Chapitre 2 - Se nourrir.",
+
+    "quests" : [
+        {
+			"id" : "q1c2",
+			"description" : "Te voilà à présent équipé d'une hache ! Tu vas pouvoir récupérer du bois directement sur les arbres pour pouvoir te construire un abris avant la tombée de la nuit.\nTu commences à avoir faim va vite ramasser quelques fruits.",
+            "goal" : "Ramasser 3 fruits #1",
+            "function" : [],
+            "test" : {
+				"item" : "FRUIT",
+				"expected" : 3
+			},
+            "items" : {
+				"HUNGER" : [[2,2]],
+				"AXE": []
+			}
+		},
+
+        {
+            "id" : "q2c2",
+			"description" : "Maintenant que tu possèdes des fruits dans ton inventaire, tu peux utiliser la fonction 'manger_fruit()'.\n\nAttention ! Tous les fruits que tu as ramassé ne sont peut être pas sains. Pour être sûr que le fruit que tu t'apprêtes à manger n'est pas pourri, utilise la condition `fruit_est_pourri()` et l'action `jeter_fruit()` ainsi que les boucles 'if <condition> then' et 'else'.\n\nToutes les 5 actions réalisées, tu perds une pomme de ta barre de vie. Manger un fruit la remplie de 3 au contraire du fruit pourri qui la vide de 1. Veille à ne pas la vider complètement.",
+			"goal" : "Avoir au moins 5 pommes dans sa jauge de faim #2",
+			"function" : [
+				"if",
+				"else",
+				"manger_fruit()",
+				"fruit_est_pourri()",
+				"jeter_fruit()"
+			],
+			"test" : {
+				"item" : "HUNGER",
+				"expected" : "2"
+			},
+			"items" : {}
+		}
+    ]
+}

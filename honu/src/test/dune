@@ -1,0 +1,6 @@
+(dirs ../src)
+
+(tests
+  (names test_parser test_interpreter)
+  (package ounit2)
+  (libraries ounit2 parsing interpreting))

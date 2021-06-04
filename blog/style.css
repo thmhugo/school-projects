@@ -1,0 +1,378 @@
+/* Blog */
+body{
+
+  background-color: #FBF5F2;
+}
+
+h1
+{
+  text-align: center;
+}
+h2
+{
+  text-align: center;
+  margin-top: 15px;
+}
+.formulaire{
+  text-align: center;
+}
+p
+{
+  text-align: center;
+  color:#34495e;
+}
+strong
+{
+  color:#34495e;
+  font-style: bold;
+}
+.box{
+  margin-top: 200px;
+}
+
+.bttonVerif
+{
+  display: flex;
+  text-align: center;
+  justify-content:center;
+}
+
+input[type='button']{
+  background-color: #FBF5F2;
+  border:0;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #2ecc71;
+  padding: 14px 40px;
+  outline: none;
+  color: grey;
+  border-radius: 24px;
+  transition: 0.25s;
+  cursor: pointer;
+  color:black;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.boxAjout input[type="submit"]
+{
+  border:0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #2ecc71;
+  padding: 14px 40px;
+  outline: none;
+  color: grey;
+  border-radius: 24px;
+  transition: 0.25s;
+  cursor: pointer;
+  color:black;
+}
+  .box input[type ="submit"]
+  {
+    border:0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 14px 40px;
+    outline: none;
+    color: #34495e;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+  }
+
+.box input[type = "text"], .box input[type = "password"], .box input[type="email"], .boxAjout input[type ="text"]
+{
+  border:0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  border: 2px solid #3498bd;
+  padding: 14px 10px;
+  text-align: center;
+  width: 240px;
+  outline: none;
+  color: #34495e;
+  border-radius: 24px;
+  transition: 0.25s;
+}
+
+
+
+
+
+.commentaire
+{
+  text-align: center;
+  width: 40%;
+  margin: auto 30% auto 30%;
+
+}
+
+.ln
+{
+  border: #34495e solid 1px;
+  width: 30%;
+  margin: 1% 35% 1% 35%;
+}
+
+ .box input[type = "text"]:focus, .box input[type = "password"]:focus, .box input[type ="email"]:focus, .boxAjout input[type ="text"]:focus
+ {
+   width: 280px;
+   border-color: #2ecc71;
+ }
+
+.boxAjout input[type="submit"]:hover, input[type='button']:hover
+{
+  background: #2ecc71;
+  color:white;
+}
+
+.info{
+  font-family: "montserrat",sans-serif;
+  text-align: center;
+  color: #34495e;
+  background-color: #FBF5F2;
+  float:left;
+  margin: 10px 10px 10px 10px;
+  height: 80px;
+  width: 100px;
+}
+
+.info a{
+  color: #34495e;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0 10px;
+  transition: 0.4s;
+}
+
+
+textarea
+{
+  display: flex;
+  justify-content:center;
+  border-radius: 10px;
+  border:2px solid #3498bd;
+  background-color: #FBF5F2;
+  color:black;
+  text-align:center;
+  width:240px;
+  height: 100px;
+  text-align: center;
+  margin: 20px auto;
+}
+
+textarea:focus
+{
+  border-color: #2ecc71;
+  width: 280px;
+  height: 110px;
+}
+
+.news{
+  border:2px solid black;
+  margin-bottom: 20px;
+  width: 40%;
+  text-align: center;
+  margin-left: 30%;
+}
+
+.header{
+  margin-bottom: 20px;
+  height: 100px;
+  background: #34495e;
+  padding: 0 20px;
+  color: #fff;
+}
+
+
+/* entete */
+body{
+    background-color: #FBF5F2;
+}
+*{
+  margin: 0;
+  padding: 0;
+  font-family: "montserrat",sans-serif;
+}
+.header{
+  height: 100px;
+  background: #34495e;
+  padding: 0 20px 0 0;
+  color: #fff;
+}
+.logo{
+  line-height: 100px;
+  float: left;
+  text-transform: uppercase;
+}
+
+i{
+  font-size: 1em;
+}
+.menu{
+  float: right;
+  line-height: 100px;
+}
+.menu a{
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0 10px;
+  transition: 0.4s;
+}
+.show-menu-btn,.hide-menu-btn{
+  transition: 0.4s;
+  font-size: 30px;
+  cursor: pointer;
+  display: none;
+}
+.show-menu-btn{
+  float: right;
+}
+.show-menu-btn i{
+  line-height: 100px;
+}
+.menu a:hover,
+.show-menu-btn:hover,
+.hide-menu-btn:hover{
+  color: #3498bd;
+}
+
+#chk{
+  position: absolute;
+  visibility: hidden;
+  z-index: -1111;
+}
+
+.content{
+  padding: 0 20px;
+}
+
+.content p{
+  text-align: justify;
+}
+
+
+
+
+
+
+/*popUp */
+
+.btnPopup{
+  border:none;
+  width: auto;
+  font-size: 15pt;
+  color: black;
+  cursor:pointer;
+}
+
+.btnPopup i
+{
+    color: red;
+}
+
+.overlay{
+  position:fixed;
+  left:0px;
+  top:0px;
+  background-color: rgba(0,0,0,0.5);
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.popup{
+  margin:10% auto;
+  width: 400px;
+  height: 430px;
+  background-color: rgb(228,228,228);
+  border-radius: 5px;
+  box-shadow: 15px 20px 0 rgba(0,0,0,0.5) ;
+  padding:10px;
+}
+
+.btnClose{
+  float: right;
+  cursor: pointer;
+}
+
+/*Paginaton*/
+.lignePagi{
+  display: flex;
+  justify-content: center;
+margin-top: 20px;
+margin-bottom: 20px;
+}
+.pagination a
+{
+  text-decoration: none;
+  color: black;
+  padding: 2px 6px 2px 6px;
+  border:2px solid #2ecc71;
+  border-radius: 50%;
+  margin-left: 2px;
+  margin-right: 2px;
+  width:20px;
+}
+
+.pageAct
+{
+  color: black;
+  padding: 2px 7px 2px 7px;
+  border:1px solid #3498bd;
+  border-radius: 50%;
+  margin-left: 2px;
+  margin-right: 2px;
+  /*width:20px;*/
+}
+
+
+
+@media screen and (max-width:900px) {
+  .show-menu-btn,.hide-menu-btn{
+    display: block;
+  }
+  .menu{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #333;
+    right: -100%;
+    top: 0;
+    text-align: center;
+    padding: 80px 0;
+    line-height: normal;
+    transition: 0.7s;
+  }
+  .menu a{
+    display: block;
+    padding: 20px;
+  }
+  .hide-menu-btn{
+    position: absolute;
+    top: 40px;
+    right: 40px;
+  }
+  #chk:checked ~ .menu{
+    right: 0;
+  }
+
+  .news{
+    border:2px solid black;
+    margin-bottom: 20px;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+
+}

@@ -1,0 +1,254 @@
+@import url("dark.css");
+
+/*----------------------------*/
+/*-------    GLOBAL    -------*/
+/*----------------------------*/
+
+.root {
+	-fx-alignment: center;
+	-fx-background-color: -fx-dark-1;
+	-fx-font-family: "A Love of Thunder", monospace;
+}
+
+.label {
+	-fx-text-fill: -fx-yellow;
+}
+
+.inline-borderpane {
+	-fx-background-color: -fx-dark-3;
+	-fx-border-width: 1px;
+	-fx-border-color: -fx-dark-2;
+	-fx-effect: dropshadow(three-pass-box, -fx-dark-2, 10, 0.5, 0, 0);
+}
+
+.button {
+	-fx-border-insets: 10px;
+	-fx-background-insets: 30px;
+	-fx-bacground-color: -fx-yellow;
+	-fx-text-fill: -fx-dark-2;
+	-fx-content-display: left;
+	-fx-effect: dropshadow(three-pass-box, -fx-dark-2, 10, 0.5, 0, 0);
+}
+
+.button:hover {
+	-fx-cursor: hand;
+	-fx-text-fill: -fx-yellow-dark;
+}
+
+/*----------------------------*/
+/*-------      TOP     -------*/
+/*----------------------------*/
+
+.progress-bar {
+	-fx-alignment: center;
+	-fx-accent: -fx-green;
+	-fx-control-inner-background: -fx-complementary;
+	-fx-background-radius: 0;
+	-fx-border-color: -fx-dark-3;
+}
+
+#title-progress {
+	-fx-alignment: center;
+}
+
+#progress {
+	-fx-alignment: center;
+}
+
+#progress-flow-pane {
+	-fx-alignment: center;
+	-fx-padding: 0;
+}
+
+#file-manager-menu {
+	-fx-spacing: 5px;
+	-fx-background-color: -fx-dark-1;
+}
+
+#file-manager-menu .button {
+	-fx-border-insets: 0px;
+	-fx-background-insets: 0px;
+	-fx-background-color: -fx-dark-3;
+	-fx-text-fill : -fx-yellow;
+	-fx-background-radius: 0;
+}
+
+#file-manager-menu .button:hover {
+	-fx-background-color: -fx-complementary-light;
+	-fx-text-fill: -fx-dark-1;
+	-fx-cursor: hand;
+}
+
+#status-label {
+	-fx-font-family: "Hack", monospace;
+}
+
+/*----------------------------*/
+/*-------     RIGHT    -------*/
+/*----------------------------*/
+
+.scroll-pane {
+	-fx-vbar-policy: always;
+	-fx-background-color: -fx-complementary;
+}
+
+.functions-list {
+	-fx-background-color : -fx-dark-1;
+	-fx-padding : 10px;
+	-fx-spacing: 5;
+}
+
+.functions-list .button {
+	-fx-text-fill:-fx-yellow;
+	-fx-padding : .6em;
+	-fx-font-size:1.1em;
+}
+
+
+.functions-list .button:hover {
+	-fx-text-fill:-fx-green;
+}
+
+.scroll-pane > .viewport{
+	-fx-background-color : -fx-dark-1;
+}
+
+#process-button {
+	-fx-alignment: bottom-right;
+	-fx-effect: none;
+}
+
+#launch-button {
+	-fx-background-color: -fx-green;
+	-fx-text-fill: -fx-yellow;
+}
+
+#reset-button {
+	-fx-alignment: bottom-right;
+	-fx-background-color: -fx-red;
+	-fx-text-fill: -fx-yellow;
+}
+
+#text-editor {
+	-fx-font-family: "Hack Bold", monospace;
+	-fx-text-fill: -fx-complementary-light;
+	-fx-border-color: -fx-complementary;
+	-fx-border-width: 2px;
+}
+
+#text-editor .scroll-pane {
+	-fx-vbar-policy: never;
+}
+
+#text-editor .content {
+	-fx-background-color: -fx-dark-1;
+}
+
+#quest-vbox {
+	-fx-alinment: center;
+}
+
+#quest-list {
+	-fx-alignment: center-right;
+	-fx-background-color: -fx-dark-2;
+	-fx-border-color: -fx-complementary;
+}
+
+#quest-list .cell {
+	-fx-background-color: transparent;
+	-fx-text-fill: -fx-green;
+	-fx-font-family: "Hack", monospace;
+	-fx-padding: 8px;
+}
+
+#error-label {
+	-fx-display: none;
+	-fx-font-family:"Hack Bold", monospace;
+	-fx-text-fill:  #ff3600;
+}
+
+.cell:empty {
+    -fx-opacity: 0;
+}
+
+/*----------------------------*/
+/*-------     LEFT     -------*/
+/*----------------------------*/
+
+.hunger-bar{
+	-fx-alignment: center;
+	-fx-orientation: horizontal;
+	-fx-border-color: -fx-dark-2;
+	-fx-border-width: 2px;
+	-fx-background-color: -fx-dark-1;
+	-fx-background-radius: 5;
+}
+
+#viz-hbox {
+	-fx-alignment: center;
+}
+
+#viz-grid-pane {
+	-fx-alignment: center;
+	-fx-border-color: -fx-dark-1;
+}
+
+#viz-top-vbox {
+	-fx-alignment: center;
+	-fx-spacing :10;
+}
+
+#inventory-box {
+	-fx-alignment: center;
+}
+
+#inventory-list {
+	-fx-alignment: center-right;
+	-fx-orientation: horizontal;
+	-fx-background-color: -fx-dark-3;
+}
+
+#inventory-list .cell {
+	-fx-background-color: -fx-dark-2;
+	-fx-text-fill: -fx-yellow-dark;
+	-fx-border-color: -fx-complementary;
+}
+
+/*----------------------------*/
+/*-------  SCROLL BAR  -------*/
+/*----------------------------*/
+
+.scroll-bar {
+	-fx-background-color: -fx-dark-3;
+}
+
+.scroll-bar:vertical .track-background, .scroll-bar:horizontal .track-background {
+	-fx-background-color: -fx-dark-3;
+	-fx-background-insets: 0;
+}
+
+.scroll-bar:vertical .thumb {
+	-fx-background-color: -fx-complementary;
+}
+
+.scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+	-fx-background-color: transparent;
+	-fx-padding: 5;
+}
+
+.scroll-bar:vertical:focused, .scroll-bar:horizontal:focused {
+	-fx-background-color: transparent, rgb(96, 96, 96), rgb(96, 96, 96);
+}
+
+.scroll-bar:horizontal .thumb:hover, .scroll-bar:vertical .thumb:hover {
+	-fx-background-color: #4d4646;
+}
+
+.scroll-bar:horizontal .thumb:pressed, .scroll-bar:vertical .thumb:pressed {
+	-fx-background-color: #4d4646;
+}
+
+.scroll-bar:horizontal .track, .scroll-bar:vertical .track {
+	-fx-background-color: transparent;
+	-fx-border-color: transparent;
+}

@@ -1,0 +1,17 @@
+image: gcc
+
+C-build:
+    stage: build
+    script:
+        - make create_dirs net.o libnet.a manager multicaster
+C-test:
+    stage: test
+    needs: ["C-build"]
+    script:
+        - make create_dirs c-compile-tests c-run-tests
+
+Java-build:
+    image: openjdk:latest
+    stage: build
+    script:
+        - javac -cp build -d build src/client/*.java

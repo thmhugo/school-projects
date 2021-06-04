@@ -1,0 +1,23 @@
+Debut
+    down;
+    size 4;
+    forward 200;
+    push;
+    turn 45;
+    color blue;
+    forward 200;
+    color red;
+    pop;
+    push;
+    forward 200;
+    push;
+    turn 45;
+    forward 200;
+    color green;
+    pop;
+    turn -45;
+    forward 200;
+    pop;
+    turn -45;
+    forward 400;
+Fin

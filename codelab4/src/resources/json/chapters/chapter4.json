@@ -1,0 +1,18 @@
+{
+	"id": "c4",
+	"description": "Chapitre 4 - S'abriter",
+	"quests": [
+		{
+			"id": "q1c4",
+			"description": "Maintenant que tu as un abris, tu peux t'abriter des intempéries en te déplaçant sur sa case.",
+			"goal": "Abrite toi dans ton abris #1",
+			"function": [],
+			"test": {
+				"item" : "CHARACTER",
+				"expected" : "6,12"
+			},
+			"nb_instructions_max" : -1,
+			"items" : {}
+		}
+	]
+}

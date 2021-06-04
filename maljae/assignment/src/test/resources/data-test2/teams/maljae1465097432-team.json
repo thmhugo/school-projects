@@ -1,0 +1,25 @@
+{
+  "groupId": "9",
+  "identifier": "maljae1465097432",
+  "preferences": [
+    "task2",
+    "task1"
+  ],
+  "students": [{
+    "confirmed": true,
+    "groupId": "9",
+    "email": "a@a"
+  },
+  {
+    "confirmed": true,
+    "groupId": "9",
+    "email": "jesuistresgrand@gmail.com"
+  },
+  {
+    "confirmed": true,
+    "groupId": "9",
+    "email": "grandiose@gmail.com"
+  }
+],
+  "secret": 57
+}

@@ -1,0 +1,17 @@
+# Binaries #
+build
+
+# Sessions #
+sessions
+
+# VSCode #
+.settings
+.vscode
+.project
+/.idea/
+
+# Vim #
+*.vim
+
+# Screenshots used for the report #
+screenshots

@@ -1,0 +1,3 @@
+(lang dune 2.6)
+(name ounit2)
+(using menhir 2.1)

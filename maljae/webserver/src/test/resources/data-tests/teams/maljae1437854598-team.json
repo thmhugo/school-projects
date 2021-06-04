@@ -1,0 +1,15 @@
+{
+  "identifier": "maljae1437854598",
+  "preferences": [
+    "task1",
+    "task2"
+  ],
+  "students": [
+    {
+      "groupId": "1",
+      "confirmed": true,
+      "email": "test2@etu.univ-paris-diderot.fr"
+    }
+  ],
+  "secret": 92
+}

@@ -1,0 +1,15 @@
+@import url("quest-commons.css");
+
+.dialog-pane>.content.label {
+	-fx-font-size: 10px;
+}
+
+.dialog-pane .button {
+	-fx-padding: 35px;
+	-fx-border-insets: 10px;
+	-fx-font-size: 11px;
+}
+
+.dialog-pane:header .header-panel .label {
+	-fx-font-size: 14px;
+}

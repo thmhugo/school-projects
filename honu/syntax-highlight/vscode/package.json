@@ -1,0 +1,25 @@
+{
+    "name": "honu",
+    "displayName": "Honu",
+    "description": "Honu Programming Language",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.46.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "honu",
+            "aliases": ["Honu", "honu"],
+            "extensions": [".hn"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "honu",
+            "scopeName": "source.honu",
+            "path": "./syntaxes/honu.tmLanguage.json"
+        }]
+    }
+}

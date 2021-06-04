@@ -1,0 +1,17 @@
+click==7.1.2
+gensim==4.0.1
+joblib==1.0.1
+nltk==3.5
+npyscreen==4.10.5
+numpy==1.19.5
+pyspellchecker==0.6.0
+regex==2020.11.13
+scikit-learn==0.24.1
+scipy==1.5.4
+six==1.15.0
+sklearn==0.0
+smart-open==4.2.0
+threadpoolctl==2.1.0
+tqdm==4.58.0
+prompt_toolkit==3.0.0
+prettytable==2.1.0

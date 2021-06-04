@@ -1,0 +1,15 @@
+# A simple procedure
+
+# Procedure definition
+proc multBy2(a) = {
+	print a * 2;
+}
+
+#
+#  Syntax for online declaration:
+#
+#     proc multBy2(a) = print a * 2
+#
+
+# Entry point
+{ multBy2(10); }

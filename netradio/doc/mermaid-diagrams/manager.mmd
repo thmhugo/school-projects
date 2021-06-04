@@ -1,0 +1,41 @@
+sequenceDiagram
+
+	activate Manager
+	par still active ?
+		Manager ->>+ Multicaster: RUOK
+		activate Manager
+		alt it is
+			Multicaster-->>-Manager: IMOK
+		else it is not
+			Multicaster--xManager: Ø
+			deactivate Manager
+		end
+	end
+	par multicaster registration
+		Multicaster->>+Manager: REGI
+		activate Multicaster
+		alt is registered
+			Manager-->>Multicaster: REOK
+		else to many multicaster registered
+			Manager--x-Multicaster: RENO
+		end
+		deactivate Multicaster
+	end
+	par register a new message
+		Manager->>+Multicaster: MESS
+		activate Manager
+		Multicaster-->>-Manager: ACKM
+		deactivate Manager
+	end
+	par get multicasters
+		Client ->> Manager: LIST
+		activate Manager
+		activate Client
+		Manager -->> Client: LINB num-diff
+		loop num-diff times
+			Manager -->> Client: ITEM
+		end
+		deactivate Client
+		deactivate Manager
+	end
+	deactivate Manager

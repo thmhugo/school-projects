@@ -1,0 +1,14 @@
+{
+  "groupId": "9",
+  "identifier": "maljae2068985876",
+  "preferences": [
+    "task2",
+    "task1"
+  ],
+  "students": [{
+    "confirmed": true,
+    "groupId": "9",
+    "email": "watashiwadisparaitredesu@ewar"
+  }],
+  "secret": 79
+}

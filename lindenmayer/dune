@@ -1,0 +1,14 @@
+(copy_files# %{env:HOME=default}/.opam/default/lib/cairo2/cairo.ml)
+
+(library
+ (name lsystems)
+ (modules (:standard \ main))
+ (flags :standard -w -27-26-32-33)
+)
+
+(executable
+ (name main)
+ (modules main)
+ (libraries cairo2 graphics lsystems)
+ (flags :standard -w -27-26-32-33)
+)

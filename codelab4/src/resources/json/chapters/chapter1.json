@@ -1,0 +1,80 @@
+{
+    "id" : "c1",
+    "description" : "Chapitre 1 - La hache.",
+
+    "quests" : [
+        {
+            "id" : "q1c1",
+			"description" : "Jour 1.\nTu viens de te réveiller sur la plage d'une île qui semble déserte. Tu n'arrive pas à te souvenir comment tu as fais pour te retrouver ici.\nIl va falloir que tu te construise un abri le temps que tu trouves une solution pour retrouver la civilisation.\n\nPour ça il va falloir que tu explore l'île. Utilise la fonction 'avancer()' pour avancer d'une case.",
+            "goal" : "Se rendre à l'endroit indiqué #1",
+            "function" : ["avancer()"],
+            "test" : {
+				"item" : "CHARACTER",
+				"expected" : "6,11"
+			},
+            "items" : {
+                "arrow" : [[7,10]]
+            }
+		},
+
+        {
+            "id" : "q2c1",
+			"description" : "Tu aperçois un arbre sur ta gauche. Va jusqu'à lui pour l'inspecter.\nTu peux utiliser les fonctions 'tourner_a_gauche()' et 'tourner_a_droite()' pour changer ton orientation.\n\n(Tu ne peux écrire qu'une seule instruction par ligne).",
+            "goal" : "Se rendre à l'endroit indiqué #2",
+			"function" : ["tourner_a_gauche()", "tourner_a_droite()"],
+            "test" : {
+				"item" : "CHARACTER",
+				"expected" : "3,11"
+			},
+            "items" : {
+                "arrow" : [[4,10]]
+            }
+        },
+
+        {
+            "id" : "q3c1",
+			"description" : "En te rapprochant de l'arbre tu te rends compte qu'il va te falloir une hache si tu veux pouvoir récupérer des planches assez solide pour pouvoir construire un arbri qui résistera aux itempéries.\nPour construire une hache il va te falloir récupérer des branches tombées sur le sol.\n\nMet toi face à une branche et ramasse là grâce à la fonction 'ramasser()'.",
+            "goal" : "Récupérer une branche #3",
+            "function" : ["ramasser()"],
+            "test" : {
+				"item" : "BRANCH",
+				"expected" : 1
+            },
+            "items" : {}
+        },
+
+        {
+            "id" : "q4c1",
+            "description" : "Super ! Tu vois, elle est arrivée dans ton inventaire. Il te sera utile pour stocker tout ce que tu trouves.\n\nPour fabriquer la hache il te faut deux branches de plus.",
+            "goal" : "Récupérer deux branche en plus #4",
+            "function" : [],
+            "test" : {
+				"item" : "BRANCH",
+				"expected" : 3
+			},
+            "items" : {}
+        },
+
+        {
+            "id" : "q5c1",
+			"description" : "A présent que tu as toutes les branches, il te faut récupérer une pierre.",
+			"goal" : "Récupérer une pierre #5",
+            "function" : [],
+            "test" : {
+				"item" : "STONE",
+				"expected" : 1
+			},
+            "items" : {}
+        }
+    ],
+
+	"do_at_end" : {
+		"item_to_create" : "AXE",
+		"recipe" : {
+			"BRANCH" : 3,
+			"STONE" : 1
+		},
+        "message" : "Tu as tout ce qu'il te faut pour fabriquer ta hache !",
+        "position" : null
+	}
+}

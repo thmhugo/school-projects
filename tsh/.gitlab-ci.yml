@@ -1,0 +1,11 @@
+image: antune/hea_tsh
+
+C-build:
+    stage: build
+    script:
+        - make create_dirs tsh
+
+C-test:
+    stage: test
+    script:
+        - make create_dirs compile_test copy_test_resources run_test clean_test_resources

@@ -1,0 +1,35 @@
+{
+  "identifier": "maljae100534132",
+  "preferences": [
+    "task1",
+    "task2"
+  ],
+  "students": [
+    {
+      "groupId": "1",
+      "confirmed": true,
+      "email": "test3.test@etu.univ-paris-diderot.fr"
+    },
+    {
+      "groupId": "1",
+      "confirmed": true,
+      "email": "test3.test@etu.univ-paris-diderot.fr"
+    },
+    {
+      "groupId": "1",
+      "confirmed": true,
+      "email": "test3.test@etu.univ-paris-diderot.fr"
+    },
+    {
+      "groupId": "1",
+      "confirmed": true,
+      "email": "test3.test@etu.univ-paris-diderot.fr"
+    },
+    {
+      "groupId": "1",
+      "confirmed": true,
+      "email": "test2@etu.univ-paris-diderot.fr"
+    }
+  ],
+  "secret": 68
+}

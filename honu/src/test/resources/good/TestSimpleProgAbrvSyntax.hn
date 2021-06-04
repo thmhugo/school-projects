@@ -1,0 +1,20 @@
+# A simple Honu program
+
+var cond;
+
+{ # Main scope
+    cond = 10;
+    while cond do {
+        forward 90;
+        if cond then print cond else cond = cond - 1;
+
+        if cond then {
+            cond = cond - 1;
+            print cond;
+        }
+        else {
+            cond = cond + 1;
+            print cond;
+        };
+    };
+}

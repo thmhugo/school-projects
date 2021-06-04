@@ -1,0 +1,34 @@
+{
+    "id" : "ct",
+    "description" : "Chapitre Test.",
+
+    "quests" : [
+            {
+                "id" : "q1c1",
+                "description" : "Description de test.",
+                "goal" : "Ce test doit fonctionner.",
+                "function" : ["avancer()", "ramasser()"],
+                "test" : {
+					"item" : "WOOD",
+					"expected" : 1 
+                },
+                "items" : {
+
+                }
+            },
+
+            {
+                "id" : "q2c1",
+                "description" : "Description de test.",
+                "goal" : "Ce test doit fonctionner (bis).",
+                "function" : ["avancer()", "ramasser()", "tourner_a_gauche()", "tourner_a_droite()"],
+                "test" : {
+					"item" : "WOOD",
+					"expected" : 2
+				},
+                "items" : {
+
+                }
+            }
+    ]
+}

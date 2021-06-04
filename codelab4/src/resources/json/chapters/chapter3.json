@@ -1,0 +1,66 @@
+{
+	"id" : "c3",
+	"description" : "Chapitre 3 - L'abri.",
+
+	"quests" : [
+		{
+			"id" : "q1c3",
+			"description" : "A présent que tu sais comment te nourrir tu vas enfin pouvoir finir la construction de ton abri.\nMalheureusement, tu commences à fatiguer, tu ne peux plus retenir autant d'instructions que tu veux.\n\nAvec la boucle 'while <condition> do', la condition 'chemin_est_libre()' et l'action 'couper()', récupère 3 rondins de bois en écrivant moins de 10 instructions.",
+            "goal" : "Couper 3 arbres #1 (max 10 instructions)",
+            "function" : [
+				"while",
+				"chemin_est_libre()",
+				"couper()"
+			],
+			"test" : {
+				"item" : "WOOD",
+				"expected" : 3
+			},
+			"nb_instructions_max" : 10,
+            "items" : {
+
+			}
+		},
+
+        {
+            "id" : "q2c3",
+            "description" : "Maintenant que tu as des rondins de bois, il te faut récupérer 3 feuilles pour recouvrir ton abri.\nTu as le droit à 12 instructions maximum.\nMais n'oublies surtout pas de manger !",
+            "goal" : "Récupérer 3 feuilles #2 (max 12 instructions)",
+            "function" : [],
+            "test" : {
+				"item" : "LEAF",
+				"expected" : 3
+			},
+			"nb_instructions_max" : 12,
+            "items" : {
+                "LEAF" : [[4,0],[8,3],[8,8],[12,7],[4,9],[3,8]]
+            }
+        },
+
+        {
+            "id" : "q3c3",
+            "description" : "Bien. Maintenant que tu as tout les matériaux qu'il te faut, il te suffit de te rendre jusqu'à la plage pour y construire ta cabane.",
+            "goal" : "Se rendre à l'endroit indiqué #3 (max 12 instructions)",
+            "function" : [],
+            "test" : {
+				"item" : "CHARACTER",
+				"expected" : "6,11"
+			},
+			"nb_instructions_max" : 12,
+            "items" : {
+				"ARROW" : [[7,10]],
+				"STONE" : [[4,12],[7,11]]
+			}
+		}
+	],
+
+	"do_at_end" : {
+		"item_to_create" : "SHELTER",
+		"recipe" : {
+			"WOOD" : 3,
+			"LEAF" : 3
+		},
+		"message" : "Super ! Tu as un abri qui va te tenir au sec !",
+        "position" : [6,12]
+	}
+}

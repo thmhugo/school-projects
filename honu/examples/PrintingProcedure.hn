@@ -1,0 +1,26 @@
+# An other example of procedures
+
+# Procedure definition
+proc mult(a, b, c, d) = {
+	print a * b * c * d;
+}
+
+# A recursive function wich print [n] times the value [v].
+proc printNTime(n, v) = {
+	if n
+	then print v
+	else {
+	 	print v;
+		printNTime(n - 1, v);
+	};
+}
+
+var n;
+var v;
+
+# Entry point
+{
+ 	n = 5 + 2 / 2;
+	v = n / 2;
+	printNTime(n, v);
+}

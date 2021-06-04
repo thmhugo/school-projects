@@ -1,0 +1,30 @@
+@import url("dark.css");
+
+.dialog-pane {
+	-fx-background-color: -fx-dark-1;
+}
+
+.dialog-pane>.content.label {
+	-fx-text-fill: -fx-complementary-light;
+}
+
+.dialog-pane .button {
+	-fx-background-insets: 30px;
+	-fx-background-color: -fx-yellow;
+	-fx-text-fill: -fx-dark-1;
+}
+
+.dialog-pane .button:hover {
+	-fx-cursor: hand;
+	-fx-background-color: -fx-green;
+	-fx-text-fill: -fx-dark-1;
+}
+
+.dialog-pane:header .header-panel {
+	-fx-background-color: -fx-dark-1;
+}
+
+.dialog-pane:header .header-panel .label {
+	-fx-text-fill: -fx-complementary-light;
+	-fx-font-family: "A Love of Thunder";
+}

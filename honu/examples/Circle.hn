@@ -1,0 +1,49 @@
+~| Draws a circle.
+~|
+~| @note `x` is only used as variable declarations inside a procedure.
+~|
+~| @param d is 'side' length of the circle.
+~| @param c Is the pen color to use.
+proc circle(d, c, x) = {
+	color c;
+	while x < 36 do {
+		forward d;
+		turn 10;
+		x += 1;
+	};
+}
+
+~| Draws intricate circles.
+~|
+~| @note `i` is only used as variable declarations inside a procedure.
+~|
+~| @todo Should add the possibility to declare local variables for procedures.
+~|
+~| @param col1 Is the color used for the interior circle.
+~| @param col2 Is the color used for the exterior circle.
+~| @param s Is the pen size to use.
+proc draw(i, s, col1, col2) = {
+	size s;
+	i = 0;
+	while i < 36 do {
+		circle(20, col1, 0);
+		circle(30, col2, 0);
+		i += 1;
+		turn 10;
+	};
+}
+
+~| Variable used as a counter for while loops.
+var i;
+
+{
+	# Setup the turtle.
+	down;
+	turn -45;
+	forward 100;
+
+	# Draws circles.
+	i = 0;
+	draw(i, 5, red, blue);
+	draw(i, 2, yellow, magenta);
+}

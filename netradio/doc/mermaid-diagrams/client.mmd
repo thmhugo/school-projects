@@ -1,0 +1,57 @@
+sequenceDiagram
+
+	activate Client
+	par register a new message
+		Client ->>+ Multicaster: MESS
+		activate Client
+		alt
+			Multicaster-->>-Client: ACKM
+		else no responds
+			Multicaster--xClient: Ø
+			deactivate Client
+		end
+	end
+	par get multicasters
+		Client ->> Manager: LIST
+		activate Manager
+		activate Client
+		alt
+			Manager -->> Client: LINB num-diff
+			loop num-diff times
+				Manager -->> Client: ITEM
+			end
+		deactivate Manager
+		else no responds
+			Manager--xClient: Ø
+			deactivate Client
+		end
+	end
+	par get last messages
+		alt
+			Client->>+Multicaster: LAST nb-mess
+			activate Client
+			loop nb-mess times
+				Multicaster-->>Client: OLDM
+			end
+			Multicaster-->>-Client: ENDM
+		else no responds
+			Multicaster--xClient: Ø
+			deactivate Client
+		end
+    end
+    par weather request
+
+        Client ->>Multicaster: RWET location
+        activate Multicaster
+        activate Client
+        alt response to client
+            Multicaster--xClient : WERR
+		else
+            loop packet-count times
+                Multicaster->>Client: WETI content
+            end
+            Multicaster->>Client : PEOF
+        end
+        deactivate Client
+        deactivate Multicaster
+	end

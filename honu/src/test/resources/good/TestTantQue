@@ -1,0 +1,22 @@
+# Example of `Tant que exp Faire instr` instruction
+
+Var cond;
+Debut
+	# Center the turtle (pen)
+	Tourne 0-45;
+	Avance 250;
+	Tourne 45;
+	BasPinceau;
+
+	# Used only for syntax testing
+	cond = 150;
+	Tant que cond Faire cond = cond - 3;
+
+	# Draw a spiral
+	cond = 150;
+	Tant que cond Faire Debut
+		Avance 60;
+		Tourne 0-cond;
+		cond = cond - 3;
+	Fin;
+Fin

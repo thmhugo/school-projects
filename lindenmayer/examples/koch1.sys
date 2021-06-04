@@ -1,0 +1,10 @@
+### Koch squares and lakes
+A+A+A+A
+
+A A+B-AA+A+AA+AB+AA-B+AA-A-AA-AB-AAA
+B BBBBBB
+
+A L10
+B M10
++ T90
+- T-90

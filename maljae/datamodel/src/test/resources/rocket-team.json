@@ -1,0 +1,33 @@
+{
+    "groupId" : "8",
+
+    "identifier" : "rocket",
+
+    "preferences" :
+    [
+	"task2",
+	"task1"
+    ],
+
+
+    "students" :
+    [
+	{
+	    "email" : "luke.skywalker@etu.univ-paris-diderot.fr",
+      	"groupId" : "8",
+	    "confirmed" : false
+	},
+	{
+	    "email" : "leila.skywalker@etu.univ-paris-diderot.fr",
+      	"groupId" : "8",
+	    "confirmed" : true
+	},
+	{
+	    "email" : "darth.vader@etu.univ-paris-diderot.fr",
+      	"groupId" : "8",
+	    "confirmed" : true
+	}
+    ],
+
+    "secret" : 73
+}

@@ -1,0 +1,15 @@
+{
+  "opening_date"          : "",
+  "closing_date"          : "",
+  "nb_users_per_team"     : { "min" : 3, "max" : 4 },
+  "nb_teams_per_subject"  : { "default" : 3 },
+  "data_directory"        : "./maljae-data",
+
+  "tasks"                 : [],
+
+  "transportProtocol": "smtp",
+  "host": "smtp.gmail.com",
+  "username": "",
+  "password": "",
+  "port": 587
+}

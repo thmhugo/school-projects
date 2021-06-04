@@ -1,0 +1,13 @@
+### Flocon de Von Koch. Figure 3 du sujet
+## Axiome:
+GA++BA++A
+
+## Regles:
+A GA-BA++A-A
+
+## Interpretations
+A L30
++ T60
+- T-60
+G C36,113,163
+B C23,165,137

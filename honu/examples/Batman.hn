@@ -1,0 +1,59 @@
+Var angle;
+
+Debut
+
+ChangeEpaisseur 3;
+angle = 0;
+
+Tourne 0-45;
+HautPinceau;
+ChangeCouleur noir;
+Avance 100;
+BasPinceau;
+Tourne 45;
+Avance 400;
+
+Tourne 0-150;
+Avance 150;
+
+Tourne 150-90;
+Avance 100;
+
+Tourne 60;
+Avance 150;
+
+Tourne 0-150;
+Avance 400;
+
+Tourne 0-90;
+Avance 250;
+
+HautPinceau;
+
+Tourne 0-90;
+
+Avance 180;
+Tourne 0-90;
+Avance 50;
+
+BasPinceau;
+Avance 50;
+Tourne 180+40;
+Avance 30;
+
+Tourne 0-70;
+Avance 40;
+
+HautPinceau;
+Tourne 0-150;
+Avance 100;
+
+BasPinceau;
+Avance 50;
+Tourne 180+40;
+Avance 30;
+
+Tourne 0-70;
+Avance 40;
+Fin
+

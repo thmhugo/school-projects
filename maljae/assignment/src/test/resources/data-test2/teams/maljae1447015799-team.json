@@ -1,0 +1,25 @@
+{
+  "groupId": "9",
+  "identifier": "maljae1447015799",
+  "preferences": [
+    "task2",
+    "task1"
+  ],
+  "students": [{
+    "confirmed": true,
+    "groupId": "9",
+    "email": "bb@b"
+  },
+  {
+    "confirmed": true,
+    "groupId": "9",
+    "email": "Unemailvraimentlong@ewar"
+  },
+  {
+    "confirmed": true,
+    "groupId": "9",
+    "email": "Paslepluspetitemail@laposte.net"
+  }
+  ],
+  "secret": 85
+}

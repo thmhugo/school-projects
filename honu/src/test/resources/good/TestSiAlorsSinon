@@ -1,0 +1,23 @@
+# Test file for
+#
+#   Si exp Alors instr Sinon instr
+#
+
+Debut
+	BasPinceau;
+
+	Si 10+50 Alors
+		Avance 10
+	Sinon
+		Tourne 40;
+
+	Si 10-10
+	Alors
+		Debut
+			Avance 10;
+			Tourne 40;
+			Avance 10;
+		Fin
+	Sinon
+		Tourne 40;
+Fin

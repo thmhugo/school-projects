@@ -1,0 +1,15 @@
+/**********		VARIABLES		**********/
+
+* {
+	-fx-dark-1: #2c373b;
+	-fx-dark-2: #283033;
+	-fx-dark-3:#434e52;
+	-fx-dark-4: #807d79;
+	-fx-complementary: #83776a;
+	-fx-complementary-light: #e2d1be;
+	
+	-fx-green: #5a9258;
+	-fx-yellow-dark: #b0a160;
+	-fx-yellow: #ecce6d;
+	-fx-red: #925858;
+}

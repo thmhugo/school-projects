@@ -1,0 +1,165 @@
+@import url("dark.css");
+
+.root {
+	-fx-alignment: center;
+	-fx-background-color: -fx-dark-1;
+	-fx-font-family: "A Love of Thunder", monospace;
+	-fx-padding: 10px;
+}
+
+.titleLabel {
+	-fx-padding: 60px 0px 0px 0px;
+	-fx-font-size: 40px;
+	-fx-text-fill: -fx-complementary-light;
+}
+
+.subTitleLabel {
+	-fx-padding: 0px 30px 60px 0px;
+	-fx-font-size: 30px;
+	-fx-font-family: 'fantasy';
+	-fx-font-style: italic;
+	-fx-text-fill: -fx-complementary-light;
+}
+
+.footer-section {
+	-fx-padding: 0px;
+	-fx-alignment: center;
+}
+
+.footer-section:disabled {
+	-fx-padding: 0px 0px -20px 0px;
+}
+
+#main-section {
+	-fx-alignment: center;
+}
+
+#header-section {
+	-fx-padding: 0px;
+	-fx-alignment: center;
+}
+
+/* BUTTON */
+
+#submit-button {
+	-fx-padding: 40px;
+	-fx-border-insets: 30px;
+	-fx-background-insets: 30px;
+	-fx-background-color: -fx-complementary;
+	-fx-text-fill: -fx-dark-1;
+	-fx-graphic: url("../icon/add-user25.png");
+	-fx-content-display: left;
+}
+
+#submit-button:hover {
+	-fx-cursor: hand;
+	-fx-background-color: -fx-complementary-light;
+}
+
+.delete-add-buttons {
+	-fx-alignment: center;
+	-fx-spacing: 0;
+	-fx-padding: 5px 0 0 190px;
+}
+
+.delete-add-buttons .button {
+	-fx-padding: 10px;
+	-fx-background-insets: 5px;
+	-fx-background-color: -fx-complementary-light;
+	-fx-content-display: left;
+}
+
+#launch-button {
+	-fx-graphic: url("../icon/play.png");
+}
+
+#launch-button:hover {
+	-fx-cursor: hand;
+	-fx-background-color: -fx-green;
+}
+
+#delete-button {
+	-fx-graphic: url("../icon/trash.png");
+}
+
+#delete-button:hover {
+	-fx-cursor: hand;
+	-fx-background-color: -fx-red;
+}
+
+/* LIST VIEW */
+
+.list-view {
+	-fx-padding: -50px 15px 0px 15px;
+	-fx-background-color: transparent;
+}
+
+.list-view .list-cell {
+	-fx-background-color: -fx-complementary-light;
+}
+
+.list-view .list-cell:hover {
+	-fx-cursor: hand;
+	-fx-background-color: -fx-green;
+	-fx-text-fill: -fx-complementary-light;
+}
+
+.list-view .list-cell:filled:selected {
+	-fx-background-color: -fx-green;
+	-fx-text-fill: -fx-complementary-light;
+}
+
+/* FORM */
+
+.form {
+	-fx-alignment: center;
+	-fx-padding: 0 0 0 15px;
+}
+
+.text-field {
+	-fx-background-color: -fx-complementary;
+	/* -fx-pref-column-count: 20; */
+}
+
+.text-field:focused {
+	-fx-background-color: -fx-complementary-light;
+}
+
+/*****************************************/
+
+/**********		SCROLL BAR		**********/
+
+.scroll-bar {
+	-fx-background-color: -fx-dark-3;
+}
+
+.scroll-bar:vertical .track-background, .scroll-bar:horizontal .track-background {
+	-fx-background-color: -fx-dark-3;
+	-fx-background-insets: 0;
+}
+
+.scroll-bar:vertical .thumb {
+	-fx-background-color: -fx-complementary;
+}
+
+.scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+	-fx-background-color: transparent;
+	-fx-padding: 5;
+}
+
+.scroll-bar:vertical:focused, .scroll-bar:horizontal:focused {
+	-fx-background-color: transparent, rgb(96, 96, 96), rgb(96, 96, 96);
+}
+
+.scroll-bar:horizontal .thumb:hover, .scroll-bar:vertical .thumb:hover {
+	-fx-background-color: #4d4646;
+}
+
+.scroll-bar:horizontal .thumb:pressed, .scroll-bar:vertical .thumb:pressed {
+	-fx-background-color: #4d4646;
+}
+
+.scroll-bar:horizontal .track, .scroll-bar:vertical .track {
+	-fx-background-color: transparent;
+	-fx-border-color: transparent;
+}

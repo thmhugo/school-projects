@@ -1,0 +1,62 @@
+{
+    "id" : "c1",
+    "description" : "Chapitre 1 - La découverte.",
+
+    "quests" : [
+        {
+            "id" : "q1c1",
+            "description" : "Il te faut du bois ! Déplace toi jusqu'à cette branche grâce à la fonction avancer() et récupère là avec ramasser_bois().",
+            "goal" : "Récupérer une branche.",
+            "function" : ["avancer()", "ramasser()"],
+			"test" : {
+				"item" : "WOOD",
+				"expected" : 1
+			},
+            "items" : {
+
+            }
+        },
+
+        {
+            "id" : "q2c1",
+            "description" : "Super ! Tu vois, il est arrivé dans ton inventaire. Ton inventaire te sera utile pour stocker tout ce que tu trouves. Ajoute une autre branche à ton inventaire. C'est deux nouvelles fonctions te permettent de tourner : ̀tourner_a_gauche() et tourner_a_droite().",
+            "goal" : "Récupérer une branche en plus.",
+            "function" : ["avancer()", "tourner_a_gauche()", "tourner_a_droite()", "ramasser()"],
+            "test" : {
+				"item" : "WOOD",
+				"expected" : 2
+			},
+            "items" : {
+
+            }
+        },
+
+        {
+            "id" : "q3c1",
+            "description" : "Tu ne peux pas avoir tout ce que tu veux dans ton inventaire, récupère les objets avec parcimonie... Retourne ici.",
+            "goal" : "Se rendre à l'endroit indiqué.",
+            "function" : ["avancer()", "tourner_a_gauche()", "tourner_a_droite()", "ramasser()"],
+            "test" : {
+				"item" : "CHARACTER",
+				"expected" : "2,2"
+			},
+            "items" : {
+
+            }
+        },
+
+        {
+            "id" : "q4c1",
+            "description" : "Pendant ta survie, tu vas avoir faim. Mais il y a de quoi manger sur cette île ! Va chercher ce fruit en utilsant ramasser_fruit()!",
+            "goal" : "Aller chercher le fruit indiqué.",
+            "function" : ["avancer()", "tourner_a_gauche()", "tourner_a_droite()", "ramasser()", "ramasser_fruit()"],
+            "test" : {
+				"item" : "FRUIT",
+				"expected" : 1
+			},
+            "items" : {
+
+            }
+        }
+    ]
+}

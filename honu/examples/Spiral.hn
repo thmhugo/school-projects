@@ -1,0 +1,29 @@
+~| Draws a part of the spiral.
+~|
+~| @note `x` and `y` are only used as variable declarations inside a procedure.
+~|
+~| @param c Is the pen color to use.
+proc onePart(x, y, c) = {
+	color c;
+	while x < 36 do {
+		forward y;
+		turn 59;
+		size (x / 10);
+		x += 1;
+		y += 1;
+	};
+}
+
+var x;
+{
+	forward 200;
+	x = 36;
+	down;
+	onePart(0, 0, red);
+	onePart(0, x*1, magenta);
+	onePart(0, x*2, blue);
+	onePart(0, x*3, cyan);
+	onePart(0, x*4, magenta);
+	onePart(0, x*5, red);
+	onePart(0, x*6, blue);
+}

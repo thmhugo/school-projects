@@ -1,0 +1,12 @@
+var angle;
+Debut
+angle = 0-90/0;
+BasPinceau;
+Avance 100;
+Tourne angle;
+Avance 100;
+Tourne angle;
+Avance 100;
+Tourne angle;
+Avance 100;
+Fin

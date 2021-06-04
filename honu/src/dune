@@ -1,0 +1,4 @@
+(executable
+  (name honu)
+  (libraries parsing utils hdoc interpreting lambda-term)
+  (preprocess (pps ppx_jane)))

@@ -1,0 +1,11 @@
+{
+	"state" : {
+		"tree" : [[0,0],[1,1],[2,2]],
+		"direction" : [[0,0]],
+		"leaf" : [[1,1]],
+		"character" : [[5,5]]
+	},
+	"inventory" : {
+		"leaf" : 1
+	}
+}

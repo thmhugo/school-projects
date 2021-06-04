@@ -1,0 +1,15 @@
+# Test file for if without else.
+#
+# 	Si exp Alors instr
+
+Debut
+	BasPinceau;
+	# May never draw in red
+	Si 0 Alors color red;
+	Avance 100;
+	Si 2 Alors
+		color red
+	Sinon
+		Tourne 90;
+	Avance 100;
+Fin

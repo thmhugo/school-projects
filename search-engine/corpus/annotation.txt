@@ -1,0 +1,21 @@
+En programmation, une annotation est un élément permettant d'ajouter des méta-données à un code source. Selon le langage de programmation et ce qu'a choisi le programmeur, elles peuvent être accessibles uniquement lors de la compilation, présentes uniquement dans le fichier compilé, voire accessibles à l'exécution. Cette technique est une alternative aux fichiers de configuration, souvent écrits dans des formats tels que le XML ou le YAML.
+
+Selon le langage, les annotations peuvent être ajoutées aux classes, méthodes, attributs, paramètres, variables locales et paquetages ou même aux annotations elles-mêmes.
+
+Les annotations ou leurs équivalents existent pour Microsoft .NET (attributs .NET), Java (depuis la version 1.5), PHP (depuis la version 51) et Python (decorators).
+
+Des équivalents existent pour le langage C aux travers des attributs, qui sont des extensions non standard au langage C. Ils sont moins puissants que les annotations car spécifiques au compilateur utilisé et ils ne sont accessibles qu'à la compilation. Par exemple, GCC propose des attributs pour les fonctions2, variables3 et types4.
+
+
+Pour et contre les annotations
+Avantages
+
+    Les annotations permettent aux programmeurs de déclarer dans leur code source comment leurs programmes doivent se comporter. C'est un exemple de construction déclarative.
+    Elles suivent le principe DRY, regroupant ainsi les méta-données avec le code auxquelles elles s'appliquent. Les méta-données restent normalement toujours synchronisées avec le code.
+    Elles peuvent être générées automatiquement (ex : par Javadoc).
+
+Inconvénients
+
+    L'ajout de méta-données dans un fichier compilé ou dans la mémoire à l'exécution requiert des ressources mémoire additionnelles.
+    Il y a peu de standards dictant comment ces méta-données doivent être employées.
+

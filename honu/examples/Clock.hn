@@ -1,0 +1,106 @@
+~| Draws a circle.
+~|
+~| @note `x` is only used as variable declarations inside a procedure.
+~|
+~| @param d is 'side' length of the circle.
+~| @param c Is the pen color to use.
+proc circle(d, c, x) = {
+	down;
+	color c;
+	size 5;
+	while x < 36 do {
+		forward d;
+		turn 10;
+		x+=1;
+	};
+	size 1;
+	up;
+}
+
+~| Moves to the right place to draw the surrounding circle
+~| by calling circle.
+~|
+~| @param col Is the pen color to use.
+proc surroundingCircle(col) = {
+	# go to the right of the figure
+	# to start the surrounding circle
+	turn -90; 
+	forward 160;
+	turn -90;
+	forward 8;
+	turn 180;
+	down;
+
+	size 3;
+	circle(27.5, col, 0);
+	forward 8;
+	turn 90;
+	forward 160;
+}
+
+~| Draws the hands of the clock and write some text.
+proc hands() = {
+	size 3;
+	color red;
+	down;
+	turn 10;
+
+
+	# the big one
+	forward 100;
+	turn 180;
+	forward 100;
+
+	# the small one
+	turn 40;
+	forward 70;
+	turn 180;
+	forward 70;
+
+	# go to the text starting position
+	up;
+	color black;
+	turn 40;
+	forward 60;
+	turn -90;	
+	forward 40;
+	
+	write "+------------+";
+	turn 90;
+	forward 10;
+	write "| HONU CLOCK |";
+	forward 10;
+	write "+------------+";
+
+}
+
+var i;
+{
+	i = 0;
+	size 1;
+	forward 100;
+	turn -90;
+	forward 100;
+	turn 90;
+
+	while i < 12 do {
+		up;
+		turn -30;
+		forward 100;
+		down;
+		color blue;
+		forward 25;
+		color black;
+		up;
+		forward 20;
+		write i+1;
+		turn 180;
+		forward 145;
+		turn -180;
+		i += 1;
+	};
+
+	
+	surroundingCircle(blue);
+	hands();
+}

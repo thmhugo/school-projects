@@ -1,0 +1,93 @@
+Mini-projet 2 : code SMT-LIB pour l'apprentissage d'automates séparateurs
+
+
+Objectif du mini-projet
+-----------------------
+
+Les solveurs SMT comme le Z3 nous permettent de résoudre rapidement
+divers problèmes complexes. Pour utiliser un solveur SMT, une étape
+importante consiste à générer le code exprimant votre problème au
+format SMT-LIB. Le but de ce mini-projet est d'automatiser la
+génération du code SMT-LIB pour le problème d'apprentissage
+d'automates séparateurs. La lecture de la Section 16.3 des notes de
+cours et le visionnage des vidéos sont fortement recommandés.
+
+Le code que vous devez écrire prend en entrée deux listes de mots I
+et E, lues à partir d'un fichier .dat passé en argument, et renvoie
+sur la sortie standard le code SMT-LIB exprimant le problème
+d'apprentissage d'un automate qui accepte tous les mots de I et
+rejette tous les mots de E.
+
+NB : ce projet ne vous demande pas de **résoudre** le problème
+d'apprentissage d'automates, mais seulement de **générer** du code
+SMT-LIB qui peut ensuite être passé à un solveur. Bien sûr, vous êtes
+encouragé à tester que le code SMT-LIB généré par votre programme
+donne effectivement la bonne réponse ! Voir également la section
+« Tester son mini-projet » ci-dessous.
+
+Vous devez compléter le code dans le fichier apprentissage.ml :
+
+- la fonction alphabet_from_list : string list -> char list
+- la fonction declare_types : string list -> char list -> string 
+- la fonction define_sorts_and_functions : string
+- la fonction assert_transition_constraints : string list -> string
+- la fonction assert_acceptance : string list -> string list > string
+- la fonction smt_code : string list -> string list -> string
+
+Nous avons inclus des fonctions auxiliaires supplémentaires, que vous
+pourrez choisir d'utiliser. Les types et les commentaires dans
+apprentissage.ml sont indicatifs.  D'autres choix peuvent être
+pertinents.
+
+
+Tester son mini-projet
+----------------------
+
+Suivez les étapes suivantes pour tester votre projet au fur et à
+mesure :
+
+1. Testez les fonctions individuelles en utilisant les listes "li" et
+   "le" définies dans le fichier apprentissage.ml. Vous pouvez
+   modifier ces listes selon vos besoins. N'oubliez pas de commenter
+   ces tests dans votre version finale !
+
+2. Nous avons fourni deux exemples de fichiers d'entrée input_1.dat et
+   input_2.dat, qui contiennent deux listes I et E.
+
+   Pour compiler un exécutable natif, vous pouvez utiliser le Makefile
+   en appelant
+
+     make
+
+   Vous pouvez bien sûr créer vos propres fichiers test aussi.
+
+   Par exemple, pour le fichier d'entrée input_1.dat, votre programme
+   devrait envoyer sur la sortie standard le code SMT-LIB contenu dans
+   le fichier output_attendu_1.smtlib.
+
+3. Enfin, pour vérifier votre algorithme et pour résoudre le problème
+   d'entrée, vous pouvez passer le code SMT-LIB que votre programme
+   affiche au solveur Z3. Par exemple, vous pouvez copier-coller le
+   code SMT-LIB dans l'interface Z3 en ligne à l'adresse :
+
+     https://rise4fun.com/z3
+
+
+Rendre son mini-projet
+----------------------
+
+ - date limite : mercredi 16 décembre 2020
+ - sur la page Moodle du cours
+     https://moodle.u-paris.fr/course/view.php?id=1657
+ - en binôme, qui est sauf exception le même que pour MP₁
+ - sous la forme d'une archive XX-nom1-nom2.zip où `XX' est le numéro
+   de binôme déclaré à la page
+     https://moodle.u-paris.fr/mod/choicegroup/view.php?id=82687
+   et `nom1' et `nom2' sont les noms de famille des deux membres du
+   binôme, contenant l'arborescence suivante :
+     XX-nom1-nom2/apprentissage.ml
+     XX-nom1-nom2/Makefile
+
+   Optionnellement, vous pouvez ajouter un fichier
+     XX-nom1-nom2/RENDU
+   en format texte simple, avec vos remarques ou commentaires.

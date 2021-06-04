@@ -1,0 +1,30 @@
+{
+  "groupId": "9",
+  "identifier": "maljae1964485357",
+  "preferences": [
+    "task2",
+    "task1"
+  ],
+  "students": [{
+    "confirmed": true,
+    "groupId": "9",
+    "email": "cccc@cc"
+  },
+  {
+    "confirmed": true,
+    "groupId": "9",
+    "email": "questcequejesuislong@gmail.com"
+  },
+  {
+    "confirmed": true,
+    "groupId": "9",
+    "email": "ondiraitunserpentouahou@gmail.com"
+  },
+  {
+    "confirmed": true,
+    "groupId": "9",
+    "email": "jesuispetitdansmatete@gmail.com"
+  }
+],
+  "secret": 87
+}

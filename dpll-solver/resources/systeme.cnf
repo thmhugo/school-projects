@@ -1,0 +1,15 @@
+c Table des propositions
+c 1: B le backend fonctionne
+c 2: D le sgbd fonctionne
+c 3: U l'iu fonctionne
+c
+p cnf 3 5
+c Contrainte phi_A :
+-1 2 0
+c Contrainte phi_B :
+1 -2 0
+1 -3 0
+c Contrainte phi_C :
+1 2 3 0
+c On soupçonne B ∧ D :
+-1 -2 0

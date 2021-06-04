@@ -1,0 +1,7 @@
+# A procedure should be call with the right number of argument.
+
+proc f(x, y, z) = { }
+
+{
+	f(0, 1);
+}

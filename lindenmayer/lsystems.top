@@ -1,0 +1,22 @@
+#!ocaml -init
+
+(* Ce script lance un toplevel OCaml avec tous les modules
+   de votre projet sauf main.ml.
+   - Il faut d'abord avoir compiler votre projet en bytecode: make byte
+   - Ensuite, lancer: ocaml -init lsystems.top
+     Ou peut-être même directement ./lsystems.top
+*)
+
+#directory "_build/default/";;
+#directory "_build/default/.lsystems.objs";;
+#directory "_build/default/.lsystems.objs/byte";;
+#load "lsystems.cma";;
+let () = print_string "Lsystems modules loaded.\n\n"
+open Lsystems
+
+(* Si vous le souhaitez: *)
+(* #load "graphics.cma" *)
+(* #use "main.ml" *)
+
+(* NB : with a recent dune and utop, just do instead: dune utop
+   Or consider https://dune.readthedocs.io/en/stable/toplevel-integration.html *)

@@ -1,0 +1,93 @@
+body
+{
+  background: #7F7FD5;
+  background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+  background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+}
+
+.message
+{
+  border-radius: 25px;
+  padding: 10px;
+  font-family: verdana ;
+  font-size: 15px ;
+}
+
+#message_send
+{
+  border: 2px solid #dedede;
+  background-color: #78e08f;
+  margin: 3pt 1pt 2pt auto ;
+}
+#message_received
+{
+  border: 2px solid #dedede;
+  background-color: #82ccdd;
+  margin: 3pt auto 2pt 1pt ;
+}
+
+#conversation
+{
+  width: 400pt;
+  height: 500px;
+  margin: 10pt auto 2pt auto;
+  padding: 7px 7px 1px 7px ;
+  display: flex;
+  flex-direction : column;
+  border:1px black dotted;
+  overflow-y: scroll;
+	border-radius: 15px ;
+	background-color: rgba(0,0,0,0.4) ;
+}
+#send
+{
+  border-radius: 3px ;
+}
+.dd
+{
+  display : flex ;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4pt;
+}
+#contacts
+{
+  margin-top: 50pt ;
+  width: 400pt ;
+  border:1px black dotted;
+  background-color: rgba(0,0,0,0.3) ;
+}
+#user
+{
+  height: 50px;
+  margin-left: 5pt ;
+  padding-top: 3pt ;
+}
+
+#user_button:focus{
+  background-color: rgba(0,0,0,0.4) ;
+  border : none ;
+  margin: 0 ;
+  padding: 0;
+  outline: none ;
+}
+
+#user_button:hover{
+  background-color: rgba(0,0,0,0.4) ;
+}
+
+#user_button
+{
+  margin: 0 ;
+  padding: 0;
+  border: none ;
+  width: 400pt ;
+  background-color: rgba(0,0,0,0.3) ;
+  display: flex;
+  flex-direction: row;
+}
+
+.search
+{
+  margin-bottom: 5pt ;
+}

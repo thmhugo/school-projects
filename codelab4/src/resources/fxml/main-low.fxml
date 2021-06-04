@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<?import java.lang.* ?>
+<?import java.util.* ?>
+<?import javafx.scene.* ?>
+<?import javafx.scene.control.* ?>
+<?import javafx.scene.layout.* ?>
+<?import java.util.ArrayList?>
+
+<BorderPane minHeight="540" maxHeight="540" minWidth="960" maxWidth="960" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codelab4.MainWindowController" stylesheets="@../css/main-low.css">
+	<top>
+		<HBox prefHeight="35" prefWidth="900" id="header">
+			<HBox id="file-manager-menu">
+				<Button styleClass="button" text="Ouvrir" onAction="#loadCode"/>
+				<Button styleClass="button" text="Sauvegarder" onAction="#saveCode"/>
+				<Label fx:id="fileStatusLabel" id="status-label" />
+			</HBox>
+
+			<BorderPane id="title-progress">
+				<center>
+					<HBox id="progress">
+						<Label styleClass="progress-label" text="Progression : "/>
+						<FlowPane id="progress-flow-pane" fx:id="progressBox" />
+						<Label styleClass="progress-label" fx:id="progressIndicator" />
+					</HBox>
+				</center>
+			</BorderPane>
+		</HBox>
+	</top>
+
+	<left>
+		<VBox styleClass="content-vbox" id="content-left">
+			<BorderPane styleClass="inline-borderpane" prefWidth="450" prefHeight="475">
+				<center>
+					<VBox id="vizualisation-vbox" >
+						<HBox>
+							<Label id="inventory-label" text="Carte"/>
+						</HBox>
+						<VBox id="viz-top-vbox">
+							<HBox id="inventory-box">
+								<ListView fx:id="inventoryList" id="inventory-list" prefHeight="40" />
+							</HBox>
+							<HBox fx:id="hungerBox" styleClass="hunger-bar" >
+							</HBox>
+						</VBox>
+						<HBox id="viz-hbox" prefWidth="336" prefHeight="336">
+							<GridPane id="viz-grid-pane" fx:id="vizualisationGridPane" prefHeight="336" prefWidth="336">
+								<Pane id="map-pane" fx:id="mapDisplayPane"/>
+							</GridPane>
+						</HBox>
+					</VBox>
+				</center>
+			</BorderPane>
+		</VBox>
+	</left>
+
+	<right>
+		<VBox styleClass="content-vbox" id="content-right" prefHeight="475">
+			<VBox styleClass="inline-borderpane" id="quest-vbox">
+				<Label id="quest-label" text="Quetes"/>
+				<ListView fx:id="questList" id="quest-list" prefHeight="68" prefWidth="200"/>
+			</VBox>
+
+			<BorderPane id="editor-pane" styleClass="inline-borderpane">
+				<left>
+					<VBox id="functions-vbox" prefWidth="150" prefHeight="250">
+						<Label text="Actions"/>
+						<ScrollPane id="scrollpanes">
+							<content>
+							<VBox styleClass="functions-list" fx:id="list_actions" >
+							</VBox>
+
+							</content>
+						</ScrollPane>
+						<Label text="Conditions"/>
+						<ScrollPane id="scrollpanes">
+							<content>
+							<VBox styleClass="functions-list" fx:id="list_conditions" >
+							</VBox>
+							</content>
+						</ScrollPane>
+
+						<Label text="Boucles"/>
+						<ScrollPane id="scrollpanes">
+							<content>
+								<VBox styleClass="functions-list" fx:id="list_boucles" >
+								</VBox>
+							</content>
+						</ScrollPane>
+					</VBox>
+				</left>
+				<center>
+					<VBox id="editor-vbox" prefHeight="360">
+						<Label text="Editor"/>
+						<Label fx:id="errorLabel" id="error-label" text="" minHeight="0"/>
+						<TextArea fx:id="textArea" id="text-editor" prefHeight="400"/>
+						<HBox prefHeight="30" id="process-button">
+							<Button	id="reset-button" text="Réinitialiser" onAction="#reinitialize"/>
+							<Button	id="launch-button" text="Lancer" onAction="#interpret"/>
+						</HBox>
+					</VBox>
+				</center>
+			</BorderPane>
+		</VBox>
+	</right>
+</BorderPane>

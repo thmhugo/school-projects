@@ -1,0 +1,135 @@
+
+# Draw a Rosace !
+proc rosace(x,y) = {
+	x = 10;
+	while x do {
+		turn 36;
+		y = 5;
+		while y do {
+			forward 54;
+			turn 72;
+			y = y - 1;
+		};
+		x = x - 1;
+	};
+}
+
+proc batman(factor) = {
+	size 1;
+	Tourne 0-45;
+	# HautPinceau;
+	ChangeCouleur noir;
+	# Avance 100*factor;
+	BasPinceau;
+	Tourne 45;
+	Avance 400*factor;
+
+	Tourne 0-150;
+	Avance 150*factor;
+
+	Tourne 150-90;
+	Avance 100*factor;
+
+	Tourne 60;
+	Avance 150*factor;
+
+	Tourne 0-150;
+	Avance 400*factor;
+
+	Tourne 0-90;
+	Avance 250*factor;
+
+	HautPinceau;
+
+	Tourne 0-90;
+
+	Avance 180*factor;
+	Tourne 0-90;
+	Avance 50*factor;
+
+	BasPinceau;
+	Avance 50*factor;
+	Tourne 180+40;
+	Avance 30*factor;
+
+	Tourne 0-70;
+	Avance 40*factor;
+
+	HautPinceau;
+	Tourne 0-150;
+	Avance 100*factor;
+
+	BasPinceau;
+	Avance 50*factor;
+	Tourne 180+40;
+	Avance 30*factor;
+
+	Tourne 0-70;
+	Avance 40*factor;
+}
+
+Var message;
+Var factor;
+Var col;
+
+{
+	message = "HONU !";
+	factor = 0.5;
+	col = green;
+    down;
+
+    size 4;
+
+	color col;
+
+    push;
+	push;
+    turn 45;
+    forward 200;
+	color magenta;
+	rosace(0,0);
+	color green;
+    pop;
+    push;
+    forward 200;
+
+    push;
+    turn 45;
+    forward 200;
+	color blue;
+	rosace(0,0);
+	color green;
+    pop;
+    turn -45;
+    forward 200;
+	color rouge;
+	rosace(0,0);
+	color green;
+    pop;
+    turn -45;
+    forward 200;
+	color blue;
+	rosace(0,0);
+	color black;
+	pop;
+
+	# goes to the right position to start batman !
+	up ;
+	forward 300;
+	turn 90;
+	forward (250/2)*factor;
+	down;
+	turn -90;
+
+	push;
+	batman(factor);
+	pop;
+	up;
+	size 4;
+	turn -90;
+	forward (250/2)*factor;
+	turn -90;
+	forward 520;
+	down;
+	write message;
+}

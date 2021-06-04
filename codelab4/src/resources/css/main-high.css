@@ -1,0 +1,130 @@
+@import url("main-commons.css");
+
+/*----------------------------*/
+/*-------    GLOBAL    -------*/
+/*----------------------------*/
+
+.root {
+	-fx-font-size: 11px;
+	-fx-padding: 0 0 40px 0;
+}
+
+.button {
+	-fx-padding: 50px;
+}
+
+/*----------------------------*/
+/*-------      TOP     -------*/
+/*----------------------------*/
+
+.progress-label {
+	-fx-padding: 4px 10px;
+}
+
+.progress-bar {
+	-fx-padding: 0px;
+	-fx-border-width: 4px;
+}
+
+#file-manager-menu {
+	-fx-padding: 20px 0 0px 40px;
+}
+
+#file-manager-menu .button {
+	-fx-padding: 5px 10px 5px 10px;
+}
+
+#status-label {
+	-fx-padding : 5px;
+}
+
+/*----------------------------*/
+/*-------     RIGHT    -------*/
+/*----------------------------*/
+
+#process-button {
+	-fx-text-size: 15px;
+	-fx-border-width: 0px;
+	-fx-padding: 0px;
+}
+
+#content-right {
+	-fx-padding: 0 15px 10px 0;
+}
+
+#functions-vbox {
+	-fx-spacing: 15px;
+	-fx-padding: 10px
+}
+
+#editor-pane {
+	-fx-padding: 5px;
+}
+
+#editor-vbox {
+	-fx-spacing: 5px;
+	-fx-padding: 10px;
+}
+
+#text-editor {
+	-fx-font-size: 14px;
+}
+
+#quest-vbox {
+	-fx-padding: 5px 20px 20px 20px;
+}
+
+#quest-list {
+	-fx-border-width: 5px;
+}
+
+#quest-list .cell {
+	-fx-font-size: 14px;
+}
+
+#quest-label {
+	-fx-padding: 10px;
+}
+
+#error-label{
+	-fx-padding: 0 15px 5px 0;
+	-fx-font-size:13px;
+}
+
+/*----------------------------*/
+/*-------     LEFT     -------*/
+/*----------------------------*/
+
+.content-vbox {
+	-fx-spacing: 7px;
+}
+
+#vizualisation-vbox {
+	-fx-spacing: 10px;
+	-fx-padding: 10px 0 0 10px;
+}
+
+#content-left {
+	-fx-padding: 0 0 15px 40px;
+}
+
+#content-right {
+	-fx-padding: 0 40px 15px 0;
+}
+
+#functions-vbox {
+	-fx-spacing: 15px;
+	-fx-padding: 10px
+}
+
+#viz-hbox {
+	-fx-spacing: 0px;
+}
+
+#viz-grid-pane {
+	-fx-border-width: 5px;
+}
+
+#inventory-list .cell {
+	-fx-border-width: 3px;
+}
