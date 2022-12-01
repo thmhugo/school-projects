@@ -1,0 +1,62 @@
+\input{misc/header.tex}
+
+\title{Quantum speedup for matrix approximation via uniform sampling}
+\author[]{Hugo Thomas\footnote{\texttt{hugo.thomas.3@etu.sorbonne-universite.fr}} --
+Sorbonne Université, Master 1 in Quantum Information, Paris}
+% \affil[]{}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    This document is the report of the three-month internship done under the
+    supervision of Simon Apers\footnote{\texttt{apers@irif.fr}} at the Institut de Recherche en Informatique
+    Fondamentale (IRIF), Paris.
+    % The first four sections are the result of a paired work
+    % with Hugo Abreu.
+    We first propose a quantum algorithm for the $\varepsilon$-spectral
+    approximation of arbitrary tall and thin matrices of dimensions ${n \times
+    d}$ with $n \gg d$ where each row has at most $S$ nonzero entries in
+    $\smash{\tilde{O} \big(S\frac{\sqrt{nd}}{\varepsilon} + d)\big)}$ quantum
+    queries and time $\smash{\tilde O(S\frac{\sqrt{nd}}{\varepsilon} +
+    d^\omega)}$, which generalizes results by \citeauthor{apers_quantum_2020}
+    \cite{apers_quantum_2020} that consider undirected weighted graphs. It is
+    based on an approach by \citeauthor{cohen_uniform_2014}
+    (\cite{cohen_uniform_2014}), where the time complexity is slightly improved
+    by considering \emph{e.g.} Johnson-Lindenstrauss transforms. In the second part,
+    we expose a practical application in convex optimization : approximate the
+    central path of Interior-Point Methods.
+\end{abstract}
+\tableofcontents
+
+\thispagestyle{firststyle}
+
+\input{sections/introduction}
+
+\input{sections/leverage_scores}
+
+\input{sections/grover_search_for_marked_elements}
+
+\input{sections/sampling_procedure}
+
+\input{sections/uniform_sampling}
+
+\input{sections/time_complexity}
+
+\input{sections/applications}
+
+\printbibliography
+
+\input{sections/appendix}
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

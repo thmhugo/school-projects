@@ -1,0 +1,91 @@
+\section{Grover search}
+Considering the following function
+\begin{equation*}
+    f : [n] \> \{0, 1\} \quad \text{s.t.} \quad \big|\{i : f(i) = 1\}\big| = k \; ,
+\end{equation*}
+$f$ is the indicator of the rows kept in the matrix. In order to construct the
+search oracle, we need to consider a list $\bs z$ whose $z_i$ are uniform random
+number in $[0, 1]$ for all $i \in [n]$\footnote{$[n]$ shortens notation of the
+set $ \{0, \cdots, n-1\}$}. $f$ is so that
+\begin{equation} \label{eq:grover-oracle}
+   f(i) = \begin{cases}
+       1 & \text{if } z_i \leq p_i \\
+       0 & \text{otherwise }
+   \end{cases}\, .
+\end{equation}
+Note that there are two possibilities to find the $k$ marked elements.
+
+\subsection{Repeated search}
+With the naive approach of repeating $k$ Grover searches, it is very likely to
+get less than $k$ disctinct marked elements. To address this issue, one can
+repeat $\Theta(k \log k)$ times Grover search over the set $[n]$. This finds all
+the distinct $k$ marked elements with a sufficiently high probability, see
+\textit{e.g.} the coupon collector's problem. This requires $O(\sqrt{nk}\log k)$
+= $\tilde O (\sqrt{nk})$ queries to $f$.
+
+It is however possible to reduce the number of queries to $O(\sqrt{nk})$.
+
+\subsection{Updating the list}
+The list $\bs z$ of \textit{choices} is classically stored offline, and both the
+access to an element and an update require time $O(1)$. Thus, after a call to
+$f$, it is possible to efficiently update $\bs z$ in order to \textit{unmark}
+the returned element. The following \autoref{alg:query-and-update} exposes how
+the list $\bs z$ is updated at each iteration.
+
+\begin{algorithm}[H]
+    \caption{\textsc{QueryAndUpdate}($\bs z = \{z_i\}, f$)}
+    \label{alg:query-and-update}
+    \begin{algorithmic}[1]
+        \State $i \<$ \textit{Grover search with $f$ over $[n]$}
+        \State $z_i \< \infty$
+        \State \Return $i$
+    \end{algorithmic}
+\end{algorithm}
+
+Step 2 ensures that the $i$-th element is not marked anymore. At the $j$-th call
+to the above procedure there remains $(k - j)$ marked elements, thus finding one
+of them requires time $O(\sqrt{\frac{n}{k-j}})$. A single call to
+\textsc{QueryAndUpdate} is thus as expensive as a call to $f$.
+
+
+\begin{theoremEnd}{proposition}\label{prop:quantum-queries-grover}
+    $k$ calls to \textsc{QueryAndUpdate} find $k$ distinct marked elements
+    among $n$ in $O(\sqrt{nk})$ quantum queries.
+\end{theoremEnd}\label{prop:k-call-qandu}
+\begin{proofEnd}
+
+Let $S$ be the total number of queries.
+
+It can be expressed as a sum of all expected number of queries (we omit the big
+$O$ notation on purpose):
+\begin{equation*}
+  S = \sum_{i = 0}^{k-1} \sqrt{\frac{n}{k-i}}
+    = \sum_{i = 1}^{k} \sqrt{\frac{n}{i}}
+    = \sqrt n \cdot \sum_{i = 1}^{k} i^{-\frac{1}{2}} \, .
+\end{equation*}
+Let $g(x) = x^{-\frac{1}{2}}$, since $g'(x) < 0 $ for all $x > 0$, $g$ is a
+strictly decreasing function over $\mathbb R^+_*$. In addition, a formula to
+bound a sum of a stricly decreasing function by integrals states that
+\begin{equation*}
+    \int_{a}^{b+1} g(s)ds \leq \sum_{i = a}^{b} g(i) \leq \int_{a-1}^{b} g(s)ds \, ,
+\end{equation*}
+which yields as long as $a = 1$ and $b = k$
+
+\begin{table}[H]
+    \setlength\tabcolsep{1.5pt}
+    \centering
+    \begin{tabular}{lccccc}
+                      & $ \displaystyle\int_{1}^{k+1} g(s)ds $ & $\leq$ & $\displaystyle \sum_{i = 1}^{k} g(i)$ & $\leq$ & $\displaystyle \int_{0}^{k} g(s)ds$ \\
+    $\Leftrightarrow$ & $\displaystyle \sqrt n \left[ 2 \sqrt s \right]_1^{k+1}$ & $\leq$ & $\sqrt n \displaystyle\sum_{i = 1}^{k} i^{-\frac{1}{2}}$ & $\leq$ & $\sqrt n \displaystyle \left[ 2 \sqrt s \right]_0^{k}$ \\
+    $\Leftrightarrow$ & $\displaystyle 2 \sqrt n (\sqrt{k+1} - 1)$ & $\leq$ & $S$ & $\leq$ & $2 \sqrt{nk} \, .$
+    \end{tabular}
+\end{table}
+
+Thus, $k$ calls to \textsc{QueryAndUpdate} find $k$ distinct marked
+elements in $O(\sqrt{nk})$ quantum queries.
+
+Note that herin we do not consider the time to construct $f$ at each iteration.
+It is well when considering only the query complexity. Such implementation
+requires a circuit of $O(\log n)$ qubits, and the associated quantum circuit
+runs in time $O(h(n))$ as long as classicaly $f$ runs in time $O(h(n))$.
+\end{proofEnd}

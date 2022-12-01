@@ -1,0 +1,145 @@
+@inproceedings{apers_quantum_2020,
+  address   = {Durham, NC, USA},
+  title     = {Quantum {Speedup} for {Graph} {Sparsification}, {Cut} {Approximation} and {Laplacian} {Solving}},
+  isbn      = {978-1-72819-621-3},
+  url       = {https://ieeexplore.ieee.org/document/9317921/},
+  doi       = {10.1109/FOCS46700.2020.00065},
+  urldate   = {2022-05-22},
+  booktitle = {2020 {IEEE} 61st {Annual} {Symposium} on {Foundations} of {Computer} {Science} ({FOCS})},
+  publisher = {IEEE},
+  author    = {Apers, Simon and {de} Wolf, Ronald},
+  month     = nov,
+  year      = {2020},
+  pages     = {637--648}
+}
+
+
+@article{zhandry_secure_2015,
+  title    = {Secure identity-based encryption in the quantum random oracle model},
+  volume   = {13},
+  issn     = {0219-7499, 1793-6918},
+  url      = {https://www.worldscientific.com/doi/abs/10.1142/S0219749915500148},
+  doi      = {10.1142/S0219749915500148},
+  abstract = {We give the first proof of security for an identity-based encryption (IBE) scheme in the quantum random oracle model. This is the first proof of security for any scheme in this model that does not rely on the assumed existence of so-called quantum-secure pseudorandom functions (PRFs). Our techniques are quite general and we use them to obtain security proofs for two random oracle hierarchical IBE schemes and a random oracle signature scheme, all of which have previously resisted quantum security proofs, even assuming quantum-secure PRFs. We also explain how to remove quantum-secure PRFs from prior quantum random oracle model proofs. We accomplish these results by developing new tools for arguing that quantum algorithms cannot distinguish between two oracle distributions. Using a particular class of oracle distributions that we call semi-constant distributions, we argue that the aforementioned cryptosystems are secure against quantum adversaries.},
+  language = {en},
+  number   = {04},
+  urldate  = {2022-05-08},
+  journal  = {International Journal of Quantum Information},
+  author   = {Zhandry, Mark},
+  month    = jun,
+  year     = {2015},
+  pages    = {1550014}
+}
+
+@article{christiani_independence_2015,
+  title     = {From {Independence} to {Expansion} and {Back} {Again}},
+  copyright = {arXiv.org perpetual, non-exclusive license},
+  url       = {https://arxiv.org/abs/1506.03676},
+  doi       = {10.48550/ARXIV.1506.03676},
+  abstract  = {We consider the following fundamental problems: (1) Constructing \$k\$-independent hash functions with a space-time tradeoff close to Siegel's lower bound. (2) Constructing representations of unbalanced expander graphs having small size and allowing fast computation of the neighbor function. It is not hard to show that these problems are intimately connected in the sense that a good solution to one of them leads to a good solution to the other one. In this paper we exploit this connection to present efficient, recursive constructions of \$k\$-independent hash functions (and hence expanders with a small representation). While the previously most efficient construction (Thorup, FOCS 2013) needed time quasipolynomial in Siegel's lower bound, our time bound is just a logarithmic factor from the lower bound.},
+  urldate   = {2022-07-05},
+  author    = {Christiani, Tobias and Pagh, Rasmus and Thorup, Mikkel},
+  year      = {2015},
+  note      = {Publisher: arXiv
+               Version Number: 1},
+  keywords  = {Data Structures and Algorithms (cs.DS), E.1; E.2; G.2.2; F.2.2; G.3, FOS: Computer and information sciences}
+}
+
+@misc{li_iterative_2013,
+  title     = {Iterative {Row} {Sampling}},
+  url       = {http://arxiv.org/abs/1211.2713},
+  abstract  = {There has been significant interest and progress recently in algorithms that solve regression problems involving tall and thin matrices in input sparsity time. These algorithms find shorter equivalent of a n*d matrix where n {\textgreater}{\textgreater} d, which allows one to solve a poly(d) sized problem instead. In practice, the best performances are often obtained by invoking these routines in an iterative fashion. We show these iterative methods can be adapted to give theoretical guarantees comparable and better than the current state of the art. Our approaches are based on computing the importances of the rows, known as leverage scores, in an iterative manner. We show that alternating between computing a short matrix estimate and finding more accurate approximate leverage scores leads to a series of geometrically smaller instances. This gives an algorithm that runs in \$O(nnz(A) + d{\textasciicircum}\{{\textbackslash}omega + {\textbackslash}theta\} {\textbackslash}epsilon{\textasciicircum}\{-2\})\$ time for any \${\textbackslash}theta {\textgreater} 0\$, where the \$d{\textasciicircum}\{{\textbackslash}omega + {\textbackslash}theta\}\$ term is comparable to the cost of solving a regression problem on the small approximation. Our results are built upon the close connection between randomized matrix algorithms, iterative methods, and graph sparsification.},
+  urldate   = {2022-06-02},
+  publisher = {arXiv},
+  author    = {Li, Mu and Miller, Gary L. and Peng, Richard},
+  month     = apr,
+  year      = {2013},
+  note      = {Number: arXiv:1211.2713
+               arXiv:1211.2713 [cs]},
+  keywords  = {Computer Science - Data Structures and Algorithms},
+  file      = {arXiv Fulltext PDF:/Users/tonnerre/Zotero/storage/4GBBWM9N/Li et al. - 2013 - Iterative Row Sampling.pdf:application/pdf;arXiv.org Snapshot:/Users/tonnerre/Zotero/storage/V7TLA856/1211.html:text/html}
+}
+
+
+@misc{cohen_uniform_2014,
+  title     = {Uniform {Sampling} for {Matrix} {Approximation}},
+  url       = {http://arxiv.org/abs/1408.5099},
+  abstract  = {Random sampling has become a critical tool in solving massive matrix problems. For linear regression, a small, manageable set of data rows can be randomly selected to approximate a tall, skinny data matrix, improving processing time significantly. For theoretical performance guarantees, each row must be sampled with probability proportional to its statistical leverage score. Unfortunately, leverage scores are difficult to compute. A simple alternative is to sample rows uniformly at random. While this often works, uniform sampling will eliminate critical row information for many natural instances. We take a fresh look at uniform sampling by examining what information it does preserve. Specifically, we show that uniform sampling yields a matrix that, in some sense, well approximates a large fraction of the original. While this weak form of approximation is not enough for solving linear regression directly, it is enough to compute a better approximation. This observation leads to simple iterative row sampling algorithms for matrix approximation that run in input-sparsity time and preserve row structure and sparsity at all intermediate steps. In addition to an improved understanding of uniform sampling, our main proof introduces a structural result of independent interest: we show that every matrix can be made to have low coherence by reweighting a small subset of its rows.},
+  urldate   = {2022-05-31},
+  publisher = {arXiv},
+  author    = {Cohen, Michael B. and Lee, Yin Tat and Musco, Cameron and Musco, Christopher and Peng, Richard and Sidford, Aaron},
+  month     = aug,
+  year      = {2014},
+  note      = {Number: arXiv:1408.5099
+               arXiv:1408.5099 [cs, stat]},
+  keywords  = {Computer Science - Data Structures and Algorithms, Computer Science - Machine Learning, Statistics - Machine Learning},
+  file      = {arXiv Fulltext PDF:/Users/tonnerre/Zotero/storage/KWVR7CP3/Cohen et al. - 2014 - Uniform Sampling for Matrix Approximation.pdf:application/pdf;arXiv.org Snapshot:/Users/tonnerre/Zotero/storage/DIVFWQGN/1408.html:text/html}
+}
+
+
+@article{jl_transfrom,
+  author  = {Johnson, William and Lindenstrauss, Joram},
+  year    = {1984},
+  month   = {01},
+  pages   = {189-206},
+  title   = {Extensions of Lipschitz maps into a Hilbert space},
+  volume  = {26},
+  isbn    = {9780821850305},
+  journal = {Contemporary Mathematics},
+  doi     = {10.1090/conm/026/737400}
+}
+
+@misc{st_sparsification,
+  doi       = {10.48550/ARXIV.0808.4134},
+  url       = {https://arxiv.org/abs/0808.4134},
+  author    = {Spielman, Daniel A. and Teng, Shang-Hua},
+  keywords  = {Data Structures and Algorithms (cs.DS), Discrete Mathematics (cs.DM), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  title     = {Spectral Sparsification of Graphs},
+  publisher = {arXiv},
+  year      = {2008},
+  copyright = {arXiv.org perpetual, non-exclusive license}
+}
+
+
+@article{dasgupta_elementary_2003,
+  title    = {An elementary proof of a theorem of {Johnson} and {Lindenstrauss}},
+  volume   = {22},
+  issn     = {1042-9832, 1098-2418},
+  url      = {https://onlinelibrary.wiley.com/doi/10.1002/rsa.10073},
+  doi      = {10.1002/rsa.10073},
+  language = {en},
+  number   = {1},
+  urldate  = {2022-08-17},
+  journal  = {Random Structures and Algorithms},
+  author   = {Dasgupta, Sanjoy and Gupta, Anupam},
+  month    = jan,
+  year     = {2003},
+  pages    = {60--65}
+}
+
+
+@inproceedings{Cornelissen_2022,
+  doi       = {10.1145/3519935.3520045},
+  url       = {https://doi.org/10.1145%2F3519935.3520045},
+  year      = 2022,
+  month     = {jun},
+  publisher = {{ACM}
+               },
+  author    = {Arjan Cornelissen and Yassine Hamoudi and Sofiene Jerbi},
+  title     = {Near-optimal Quantum algorithms for multivariate mean estimation},
+  booktitle = {Proceedings of the 54th Annual {ACM} {SIGACT} Symposium on Theory of Computing}
+}
+
+
+@book{numerical_2006,
+  series    = {Springer {Series} in {Operations} {Research} and {Financial} {Engineering}},
+  title     = {Numerical {Optimization}},
+  isbn      = {9780387303031},
+  url       = {http://link.springer.com/10.1007/978-0-387-40065-5},
+  language  = {en},
+  urldate   = {2022-08-01},
+  publisher = {Springer New York},
+  year      = {2006},
+  doi       = {10.1007/978-0-387-40065-5},
+  author    = {Nocedal, Jorge and Wright,  Stephen J.}
+}

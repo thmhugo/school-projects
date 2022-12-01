@@ -1,0 +1,25 @@
+\section{Application}
+There are several applications of matrix sparsification, and the one we chosed
+to depict is convex optimization, and more precisely the interior points methods
+(IPM). A quick summary on IPM -- with the explicit algorithm -- is provided in
+\autoref{ap:ipm}.
+
+We denote herin the distance between two vectors $u, v \in \mathbb R^{n}$ by the
+following weighed norm with respect to the operator $Q$, which we denote the
+$Q$-induced norm,
+\begin{equation}\label{eq:def-h-norm}
+\| u - v \|_Q = \sqrt{(u-v)^TQ(u-v)}\, ,
+\end{equation}
+to quantify the convergence rate. For our purpose, we denote by $x$ the actual
+\emph{current} value of Newton's iterations, by $y$ the approximated one, and by
+$x'$ and $y'$ the result of a Newton's iteration starting from $x$ and $y$
+respectively; the start superscript denotes the minimizer of $\Phi$. We want to
+bound $\|y' - x^* \|$, so that it describes a path that converges towards to the
+actual minimizer.
+
+
+\input{sections/application/hessian.tex}
+
+\input{sections/application/gradient.tex}
+
+\input{sections/application/convergence.tex}

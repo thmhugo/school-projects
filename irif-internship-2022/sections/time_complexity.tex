@@ -1,0 +1,119 @@
+\section{Time complexity analysis}
+To obtain the time complexity of the whole procedure, it suffices considering
+the time of a single iteration, and since there is a logarithmic number of
+iterations, considering all of them fits in the $\tilde O$ notation.
+
+% At first, it is clear that given $\bs B \in \mathbb R^{O(d\log d)\times d}$,
+% computing $(\B^T\B)^+$ takes time $\tilde O(d^\omega)$, and this is done only
+% once per iteration.
+
+
+
+% After that, we need to obtain the time complexity of calculating a single
+% leverage score. Using \autoref{prop:lv-as-norm}, and
+% \autoref{prop:time-complexity-jl-lv} and considering $\Pi \B (\B^T\B)^+$ known,
+% calculating an approximate leverage score takes time $\tilde O(S)$ per score and
+% has to be done $\tilde O(\sqrt{nd})$ times per iteration. The knowledge of $\Pi
+% \B (\B^T\B)^+$ requires additional time $\tilde O(d^\omega)$.
+
+In order to end up with a sublinear time algorithm, it is necessary to avoid
+representing explicitly the intermediate matrices $\A'_l$.
+
+
+\subsection{Data structure for matrix sampling}\label{sec:data-structure-matrix}
+
+In order to represent each subsampling $\A'_l$ of the original matrix, a random
+$n$-bit-string $Z_l$ is associated to the $l$-th iteration, and is such that
+
+\begin{equation}\label{eq:z-l-i}
+    (Z_l)_i\footnote{Given a string $z$, $(z)_i$ denotes its $i$-th bit.} =
+    \begin{cases}
+        1 & \text{ w.p. } \frac 1 2 \, , \\
+        0 & \text{otherwise.}
+    \end{cases}
+\end{equation}
+
+% At a given iteration $l$, when querying one line $i$, one wants to query a
+% single element of $Z'_l$, its $k$-bit, which we denote $(Z'_l)_k$
+
+% \begin{equation}
+%   \label{eq:element-product}
+%   (z')_l^i = z_l^1 \wedge \cdots \wedge z_l^i \text{,}
+% \end{equation}
+% with $z_i^k$ corresponding to the $k$-th bit of $Z_i$.
+
+
+
+\begin{theoremEnd}{claim}
+    Since the set of the rows of $\A'_l$ must be a subset of those of $\A'_{l -
+    1}$, the matrix $\A'_l$ can be represented through a bit-string, denoted $Z'_l$,
+    obtained by doing the element-wise product (logical conjunction) of the
+    \emph{previous}
+    strings. That is,
+
+    \begin{equation}\label{eq:zprime-l-i}
+        (Z'_l)_i = \displaystyle\bigwedge_{k \leq l} (Z_k)_i, \quad \forall i \in [n] \, .
+    \end{equation}
+\end{theoremEnd}
+
+\begin{proofEnd} By simple probabilistic argument. Let $1 \leq l \leq L$. For any
+$1 \leq k \leq l$, it holds by \autoref{eq:z-l-i} that the $i$-th bit of  $Z_k$
+is 1 with probability half for all $i$ in $[n]$, which implies that
+$$
+(Z'_l)_i = \wedge_{k=1}^l (Z_k)_i = 1 \textit{ w.p. } \frac{1}{2^l} \, .
+$$
+
+Thus, the expected number of ones in $Z'_l$ is $\frac{n}{2^l}$, which is exactly
+the expected number of rows of $\A_l$.
+\end{proofEnd}
+It would not be possible to explicitly compute this string while staying in
+sub-linear time. In any cases, at each iteration $\tilde O(\sqrt{nd}) < n$
+queries are done to the matrix, so the full string doesn't need to be explicitly
+constructed.
+
+
+\subsection{$k$-wise independent strings}
+We use $k$-wise independent string to simulate access to the random string. The
+result we use is the following theorem from \cite{zhandry_secure_2015}.
+
+\begin{theorem} \label{thm:q-query-alg}
+    Any $q$-query algorithm cannot distinguish between a uniformly random string
+    and a $2q$-wise independent string.
+\end{theorem}
+
+This allows us to discard an explicit string $Z_l$ of size $O(n)$ and use
+instead a $k$-wise independent string with $k \in \tilde O(\sqrt{nd})$. This is
+achived thanks to $k$-independent hashing functions whose definition is recalled
+in \autoref{ap:def-k-independent}.
+
+From \autoref{thm:k-indep-data-structure}, we can assert that such a data
+structure can be constructed in time $\tilde{O}(\sqrt{nd})$. An access to a bit
+is done in time $\tilde{O}(1)$ and thus obtaining a single bit of $Z'_l$ as
+depicted in \autoref{eq:zprime-l-i} takes time $\tilde O (1)$ since $L = \tilde
+O(1)$.
+
+Hence, at first -- recalling the result of \autoref{sec:time-complexity-jl} --
+we compute a single leverage score in time $O(S)$ with an additional
+preprocessing time of $O(d^\omega)$. Thus the whole sampling procedure, which
+yields an approximation $\B$ of the input matrix $\A$ the $\tilde O(d)$ rows and
+such that
+$$
+\A \approx_{O(1)} B
+$$
+is achieved in time $\tilde O(S\sqrt{nd} + d^\omega)$.
+
+
+\subsection{$\varepsilon$-spectral approximation}
+The ouput matrix of \textsc{Approximate} is a $O(1)$-spectral approximation of
+the input matrix $\A$ with $O(d\log d)$ rows. In order to obtain, in the end, an
+$\varepsilon$-spectral approximation $\B$ of $\A$, \emph{i.e.,} a matrix $\B \in
+\mathbb R^{O(\varepsilon^{-2}d\log d) \times d}$ such that, for $\varepsilon >
+0$ and for all $\x \in \mathbb R^d$,
+$$
+(1-\varepsilon) \x^T\A\x\leq \x^T\B\x\leq (1+\varepsilon)\x^T\A\x \, ,
+$$
+it suffices, with input $\A$ and as long as we obtained $\A \approx_{O(1)} \B$,
+to sample $O(\varepsilon^{-2} d \log d )$ rows of $\A$ according to $\bs
+\tau^{\B}(\A)$. This additional step requires $\smash{\tilde
+O(S\frac{\sqrt{nd}}{\varepsilon})}$ quantum queries and supplementary time of
+$\smash{\tilde O(S\frac{\sqrt{nd}}{\varepsilon} + d^\omega)}$.

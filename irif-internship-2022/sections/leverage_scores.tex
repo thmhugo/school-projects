@@ -1,0 +1,67 @@
+\section{Leverage scores}
+In order to estimate the importance of a row of a matrix relative to the others,
+we define its leverage score.
+\begin{definition}[Leverage score]\label{def:leverage-score}
+Given a matrix $\A \in \mathbb R^{n \times d}$, the leverage score of $a_i^T$,
+the $i$-th row of $\A$, is defined as
+$$
+\tau_i := a_i^T (\bs {A^TA})^+ a_i
+$$
+where $\A^+$ denotes the Moore-Penrose pseudoinverse of $\A$.
+\end{definition}
+
+In the algorithm, approximate leverage scores are computed, \textit{i.e.,\ }leverage scores of $\A$ according to some approximation $\B$, denoted \textit{generalized leverage scores}.
+
+\begin{definition}[Generalized leverage scores]
+Let $\A \in \mathbb R ^{n \times d}$ and $\B \in \mathbb R^{m \times d}$. The
+leverage score of the $i$-th rows of $\A$ according to $\B$ is
+$$
+\tau_i^{\B}(\A) =
+    \begin{cases}
+        a_i^T(\bs{B ^T B})^+a_i & \text{if } a_i \perp \ker \B \\
+        \infty & \text{otherwise}
+    \end{cases} \, .
+$$
+\end{definition}
+
+The case distinction comes from the fact that if $a_i \not\perp \ker \B$, the
+generalized leverage score would be null, while $a_i$ could be the only row
+pointing in its direction, and thus should be kept.
+
+For the sake of conciseness, if $\B = \A$, we denote $\tau_i^{\B}(\A)$ by
+$\tau_i(\A)$, and as long as the knowledge $\A$ is not important, we simply
+denote $\tau_i(\A)$ by $\tau_i$.
+
+If $\A$ and $\B$ are relatively close, \textit{i.e.\ }$\B$ is an
+$\lambda$-spectral approximation of $\A$, it holds that
+$$
+\frac{1}{\lambda} \A^T\A \preccurlyeq \B^T\B \preccurlyeq \A^T\A \, ,
+$$
+which we write
+$$
+\A \approx_\lambda \B \, .
+$$
+% This yields the following proposition
+\begin{theoremEnd}{theorem}[Leverage score approximate]
+    Let $\A \in \mathbb R ^{n \times d}$ and $\B \in \mathbb R^{m \times d}$. If
+    $\A \approx_\lambda \B$, then
+    $$
+        \tau_i(\A) \leq \tau_i^{\B}(\A) \leq \lambda \cdot \tau_i(\A) \, .
+    $$
+\end{theoremEnd}
+\begin{proofEnd}
+    By definition of $\A \approx_\lambda \B$, we have
+$$
+    \frac{1}{\lambda} \A^T\A \preccurlyeq \B^T\B \preccurlyeq \A^T\A \, ,
+$$
+    thus
+$$
+    (\A^T\A)^+ \preccurlyeq (\B^T\B)^+ \preccurlyeq \lambda \cdot (\A^T\A)^+ \, ,
+$$
+    which yields, using the definition of the generalized leverage scores and
+    by the positive semi-definiteness of each of the matrices,
+$$
+    \tau_i(\A) \leq \tau_i^{\B}(\A) \leq \lambda \cdot \tau_i(\A) \, .
+$$
+
+\end{proofEnd}

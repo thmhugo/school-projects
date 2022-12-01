@@ -1,0 +1,274 @@
+\subsection{Gradient approximation}
+The goal here is to obtain an approximation of $\nabla \Phi$, the gradient
+involved in the interior points method.
+
+\subsubsection{Initial approach}\label{sec:initial-approach}
+
+To do so, we'll consider a vector of random variables, such that its mean is
+equal to our gradient, using result of \citeauthor{Cornelissen_2022} which
+exposes a quantum algorithm for estimating the mean of a $n$-dimensional random
+variable; they provide the following informal theorem.
+
+\begin{theorem}[\cite{Cornelissen_2022}]\label{th:estimate-mean}
+    Given a $n$-dimensional random variable $X$, there exists a quantum
+    algorithm that returns with high probability an estimate $\tilde \mu$ of the
+    mean $\mu$ of $X$ such that
+\begin{equation*}
+    \| \tilde \mu - \mu \|_2 \leq \frac{\sqrt{n \emph{tr}(\Sigma_X)}}{T}
+\end{equation*}
+in $\tilde O(T)$ queries as long as $T > n$.
+\end{theorem}
+Note that the bound is obtained in 2-norm, but the convergence rate of Newton's
+method is in terms of the $H$-norm. As usual, we use $B \in \mathbb R^{m \times
+n}, s \in \mathbb R^{m}$ and $H = B^T diag(s)^{-2} B$ where we denote $diag(s)$ by $S$. Let $X = B^T
+S^{-1}\ket{e}$, where $e \sim \mathcal{U}[m]$. We denote $h := \sum_e B^T S^{-1}
+\ket e = B^TS^{-1} \ket{\bs 1} $, where $\ket {\bs 1}$ is the full-one vector,
+thus  $\mu_X := \esp X = \frac 1 m B^TS^{-1}\ket{\bs 1} = \frac 1 m h$. We
+denote by $\Sigma_Z$ the covariance matrix of the $n$-dimensional random
+variable $Z$. The goal is to obtain an $\tilde h$ such that $\|h - \tilde
+h\|_{H^{-1}} \leq \varepsilon$ . In other words, we want $\tilde\mu_X$ such that
+\begin{equation*}
+    \|\mu_X - \tilde \mu_X \|_{H^{-1}} \leq \frac \varepsilon m
+\end{equation*}
+which, by using \autoref{prop:change-norm}, means
+\begin{equation*}
+    \left\|H^{-\frac 1 2} \mu_X - H^{-\frac 1 2}\tilde \mu_X \right\|_{2} \leq \frac \varepsilon m \, ;
+\end{equation*}
+that is,
+\begin{equation} \label{eq:estimate-bound}
+    \| \mu_Y -  \tilde \mu_Y \|_{2} \leq \frac \varepsilon m \, ,
+\end{equation}
+for a certain random variable $Y$.
+As such, let $Y = H^{-\frac 1 2}X = H^{-\frac 1 2} B^T S^{-1}\ket{e}$ where $e
+\sim \mathcal{U}[m]$, hence $\mu_Y = H^{-\frac 1 2} \mu_X$; we use the result of
+\cite{Cornelissen_2022} to get the $\tilde \mu_Y$.
+
+
+The covariance matrix of $Y$ is
+\begin{equation*}
+\begin{aligned}
+\Sigma_Y &= \esp{YY^T} - \esp{Y}\esp{Y^T} \\ &= H^{-\frac 1 2} \Sigma_X H^{-\frac 1 2} - \esp{Y}\esp{Y^T}\, ,
+\end{aligned}
+\end{equation*}
+where
+\begin{equation*}
+    \Sigma_X = \frac{1}{m} H - \frac{1}{m^2}h h^T
+    \quad \text{and} \quad
+    \esp{Y} = \frac{1}{m}H^{-\frac 1 2}h \, ,
+\end{equation*}
+hence
+\begin{equation*}
+    \Sigma_Y = \frac 1 m \mathbbm 1 - \frac{2}{m^2} H^{-\frac 1 2} h h^T H^{-\frac 1 2} \preccurlyeq \esp{YY^T} \, .
+\end{equation*}
+
+\begin{theoremEnd}{claim}\label{clm:sigma-y-bound}
+    $\Sigma_Y \preccurlyeq \frac 1 m \mathbbm 1$ .
+\end{theoremEnd}
+\begin{proofEnd}
+In order to prove \autoref{clm:sigma-y-bound}, we'll use the properties of
+positive-(semi)definite matrices shown in \autoref{sec:psd-prop} to show that
+$\frac{1}{m^2} H^{-\frac 1 2} h h^T H^{-\frac 1 2} \succcurlyeq 0$, where $H = A
+A^T, A = B^TS^{-1}$ and $h = B^TS^{-1}\ket{\bs 1}$.
+
+Since $H = A A^T$, $H \succcurlyeq 0$\footnote{We can assume $H \succ 0$ since --
+in the context of IPM -- $H$ is nonsingular.} thus by
+\autoref{prop:psd-inverse} $H^{-1} \succ 0$ and by \autoref{prop:psd-root}
+$H^{-\frac{1}{2}} \succ 0$ Hence,
+\begin{equation*}
+\begin{aligned}
+ H^{-\frac{1}{2}} h h^T H^{-\frac{1}{2}}
+    & = (H^{-\frac{1}{2}}h)(h^TH^{-\frac{1}{2}}) \\
+    & = (H^{-\frac{1}{2}}h)(H^{-\frac{1}{2}}h)^T \\
+    & \succcurlyeq 0
+\end{aligned}
+\end{equation*}
+which implies,
+    $$ \Sigma_Y \preccurlyeq \frac 1 m \mathbbm 1 - \frac{1}{m^2} H^{-\frac 1 2} h h^T H^{-\frac 1 2} \preccurlyeq \displaystyle\frac 1 m \mathbbm 1$$
+\end{proofEnd}
+Using \autoref{th:estimate-mean} with the random variable $Y$ yields $\tilde \mu_Y$ such
+that
+\begin{equation}\label{eq:apply-th-y}
+\| \mu_Y - \tilde \mu_Y\|_2 \leq \frac{\sqrt{n \text{tr}(\Sigma_Y)}}{T} \, .
+\end{equation}
+Having $\Sigma_Y  \preccurlyeq \frac 1 m \mathbbm 1$ implies
+$\text{tr}(\Sigma_Y) \leq \frac{n}{m}$ since $\Sigma_Y \in \mathbb R^{n \times
+n}$. Following our initial assumption -- \autoref{eq:estimate-bound} -- we want
+the left side of \autoref{eq:apply-th-y} to be smaller than $\frac \varepsilon
+m$, \emph{i.e.},
+\begin{equation*}
+    \frac{n}{\sqrt m T} \leq \frac \varepsilon m \, ,
+\end{equation*}
+which is achieved if and only if
+\begin{equation*}
+    T \geq \frac{n \sqrt m}{\varepsilon} \, .
+\end{equation*}
+
+
+\subsubsection{Using sparsified Hessian}
+We consider we have a $\lambda$-spectral approximation $\tilde{H}$  of $H$ such
+that
+\begin{equation}\label{eq:approx}
+\frac{1}{\lambda} H \preccurlyeq \tilde H \preccurlyeq H \, ,
+\end{equation}
+which we can rephrase
+\begin{equation} \label{eq:approx-root}
+\frac{1}{\sqrt \lambda} H^{\frac{1}{2}} \preccurlyeq \tilde H^{\frac{1}{2}} \preccurlyeq  H^{\frac{1}{2}} \, ,
+\end{equation}
+and we'll use another straightforward formulation, \emph{i.e.},
+\begin{equation} \label{eq:approx-inverse-root}
+H^{-\frac{1}{2}} \preccurlyeq \tilde H^{- \frac{1}{2}} \preccurlyeq \sqrt \lambda H^{-\frac{1}{2}} \, .
+\end{equation}
+In a similar manner as in \autoref{sec:initial-approach}, we define $\tilde Y =
+\tilde H^{-\frac{1}{2}}X = \tilde H^{-\frac{1}{2}} B^T S^{-1}\ket{e}$ where $e
+\sim \mathcal{U}[m]$. This yields
+\begin{equation*}
+    \begin{aligned}
+        \esp{\tilde Y \tilde Y^T}
+            & = \tilde H^{-\frac 1 2} \esp{XX^T}  \tilde H^{-\frac 1 2} \\
+            & = \frac 1 m \tilde H^{-\frac 1 2} H \tilde H^{-\frac 1 2} \, .
+    \end{aligned}
+\end{equation*}
+From \autoref{prop:product-of-root-psd}, we deduce
+\begin{equation*}
+    \frac {1}{m} \mathbbm 1\preccurlyeq \esp{YY^T} \preccurlyeq \frac{\lambda}{m} \mathbbm 1.
+\end{equation*}
+Tracing each part, and using \autoref{clm:sigma-y-bound} yields
+\begin{equation*}
+    \text{tr}(\Sigma_{\tilde{Y}}) \leq \frac{n\lambda}{m} \, .
+\end{equation*}
+The \autoref{th:estimate-mean} ensures the existence of $\tilde
+\mu_{\tilde Y}$ such that
+\begin{equation*}
+\| \mu_{\tilde Y} - \tilde \mu_{\tilde Y} \|_2
+    \leq \frac{\sqrt{n \text{tr}(\Sigma_{\tilde Y})}}{T}
+    \leq \frac{n \sqrt \lambda}{\sqrt m T}.
+\end{equation*}
+Recall that we want $\| \mu_{\tilde Y} - \tilde \mu_{\tilde Y} \|_2 \leq \frac
+\varepsilon m$. As such, we set
+\begin{equation*}
+T \geq \frac{n \sqrt{m\lambda}}{\varepsilon} \, .
+\end{equation*}
+Therefore, choosing $T$ as defined above yields
+\begin{equation*}
+\| \mu_{\tilde Y} - \tilde \mu_{\tilde Y} \|_2
+    = \left\| \tilde H^{- \frac 1 2} (\mu_{X} - \tilde \mu_{X}) \right\|_2
+    = \left\| \mu_{X} - \tilde \mu_{X} \right\|_{\tilde H^{-1}} \leq \frac \varepsilon m,
+\end{equation*}
+and consequently
+\begin{equation}\label{eq:h-tilde-bound}
+    \|h - \tilde h \|_{\tilde H^{-1}} \leq \varepsilon \, ,
+\end{equation}
+which is a quantity preserved by the initial sparsification: \autoref{eq:approx}
+ensures that for all $\x \in \mathbb R^n$, the following holds :
+\begin{equation*}
+\sqrt{\x^T H^{-1} \x} \leq \sqrt{\x^T \tilde H^{-1} \x } \leq \sqrt{\lambda} \cdot \sqrt{\x^T H^{-1} \x} \, ,
+\end{equation*}
+hence, by definition of $\| \cdot \|_{H^{-1}}$, we have
+\begin{equation*}
+    \|h - \tilde h \|_{H^{-1}}
+    \leq \|h - \tilde h \|_{\tilde H^{-1}}
+    \leq \sqrt \lambda \|h - \tilde h \|_{H^{-1}} \, .
+\end{equation*}
+Note that the above inequality would have hold if we were doing $T =
+\frac{n\sqrt m}{\varepsilon}$ queries to compute the approximate with respect to
+both $H^{-1}$ and $\tilde H^{-1}$. However, to compute $\tilde h$ and bound it
+with respect to $\| \cdot \|_{\tilde H^{-1}}$, we do $\sqrt \lambda T$ queries,
+and as such, \autoref{eq:h-tilde-bound} effectively holds.
+
+
+\subsubsection{Application within Newton's step -- Measure of progress}
+We consider we have an approximate of the gradient $\nabla \Phi$, $\tilde \nabla
+\Phi$, such that for all $\x \in \mathbb R^n$, it holds that
+\begin{equation}\label{eq:approx-gradient-bound}
+    \left\|\nabla \Phi (\x) - \tilde \nabla \Phi (\x) \right\|_{H^{-1}} \leq \varepsilon \, ,
+\end{equation}
+where $H$ is the current (in terms of the Newton's steps) Hessian matrix. The
+above inequality can be directly used to bound the convergence of Newton's
+method. We first recall that
+\begin{equation*}
+   \begin{aligned}
+    x' = x - H^{-1}\nabla\Phi(x) \, ; \\
+    y' = x - \tilde H^{-1}\tilde \nabla \Phi(x)\, ,
+   \end{aligned}
+\end{equation*}
+and we define
+\begin{equation*}
+    \hat y = x - H^{-1} \tilde \nabla \Phi(x) \, ,
+\end{equation*}
+where we only use the approximate gradient, the Hessian is the actual one. The
+measure of progress can be expressed as follows, using the triangular inequality
+\begin{equation*}
+    \| y'- x^* \|_H \leq \| y'- \hat y \|_H + \| \hat y - x' \|_H + \| x' - x^* \|_H \, ,
+\end{equation*}
+where we'll bound each of the three terms. The first term the least
+straightforward to bound.
+\begin{equation}\label{eq:bound-first-term}
+    \begin{aligned}
+        \| y' - \hat y \|_H
+            & = \|\tilde H^{-1}\tilde \nabla \Phi(x) - H^{-1}\tilde \nabla \Phi(x) \|_H \\
+            & = \| H^{\frac{1}{2}}\tilde H^{-1}\tilde \nabla \Phi(x) - H^{\frac{1}{2}}H^{-1}\tilde \nabla \Phi(x) \|_2 \\
+            & = \| H^{\frac{1}{2}}\tilde H^{-1}H^{\frac{1}{2}}(H^{-\frac{1}{2}}\tilde \nabla \Phi(x)) \\
+            & \qquad - H^{\frac{1}{2}}H^{-1}H^{\frac{1}{2}}(H^{-\frac{1}{2}}\tilde \nabla \Phi(x)) \|_2 \\
+            & = \|(H^{\frac{1}{2}}\tilde H^{-1}H^{\frac{1}{2}} - \mathbbm 1) (H^{-\frac{1}{2}}\tilde \nabla \Phi(x))\|_2 \\
+            & \leq (\lambda - 1) \left(\|x - x^*\|_H - \varepsilon\right) \, .
+    \end{aligned}
+\end{equation}
+% \hft{Explain the steps}
+
+The first step is the straight application of \autoref{prop:change-norm}. The
+second step is a multiplication by $H^{\frac 1 2}H^{-\frac 1 2} = \mathbbm 1$ in
+order to factorize and simplify in step 3. The last step is obtained as follows:
+we use triangular inequality to separate it into a product of norms, and on the
+one hand we have
+\begin{equation*}
+    \begin{aligned}
+        \| H^{-\frac{1}{2}}\tilde \nabla \Phi(x)\|_2
+        & \leq \| H^{-\frac{1}{2}} \nabla \Phi(x)\|_2 + \varepsilon\\
+        & = \| H^{-1} \nabla \Phi(x)\|_H + \varepsilon \\
+        & = \| x' - x \|_H + \varepsilon \\
+        & \leq \| x - x^*\|_H + \varepsilon
+   \end{aligned}
+\end{equation*}
+assuming that Newton's method does not overshoot. And on the other, hand we use
+\autoref{prop:product-of-root-psd} together with \autoref{eq:approx} to obtain
+\begin{equation*}
+    \|H^{\frac{1}{2}}\tilde H^{-1}H^{\frac{1}{2}} - \mathbbm 1 \|_H \leq \lambda - 1 \, .
+\end{equation*}
+For the second term, from \autoref{eq:approx-gradient-bound} we have
+\begin{equation}\label{eq:bound-second-term}
+   \begin{aligned}
+    \| \hat y - x' \|_H
+        & = \|H^{-1}\nabla\Phi(x) - H^{-1}\tilde\nabla\Phi(x) \|_H \\
+        & = \|\nabla\Phi(x) - \tilde\nabla\Phi(x) \|_{H^{-1}} \\
+        & \leq \varepsilon
+   \end{aligned}
+\end{equation}
+The last one is bounded by the convergence rate of the exact Newton's method
+(see \emph{e.g.,} \cite[p. 43]{numerical_2006}); such that
+\begin{equation}\label{eq:bound-third-term}
+    \| x' - x^* \|_H \leq \frac{1}{2} \| x - x^*\|^2_H \, .
+\end{equation}
+Gathering \autoref{eq:bound-first-term}, \autoref{eq:bound-second-term}, and
+\autoref{eq:bound-third-term}, we obtain the following measure of progress.
+\begin{equation*}
+    \begin{aligned}
+        \| y' - x^* \|_H
+            & \leq (\lambda - 1) \left(\|x - x^*\|_H - \varepsilon\right) + \varepsilon + \frac{1}{2} \| x - x^*\|_H \\
+            & \leq (\lambda - \frac{1}{2})\|x - x^*\|_H + (2 - \lambda) \varepsilon \, .
+    \end{aligned}
+\end{equation*}
+
+In order to have, let's say, $\lambda - \frac{1}{2} = \frac{9}{10}$, we set
+$\lambda = \frac{14}{10}$. Recall that $\lambda$ is the approximation factor for
+the sparsification of the Hessian, and from
+\autoref{eq:bound-opt-approx-hessian}, we wanted $1 \leq \lambda < \frac{3}{2}
+$, which is maintained here. In order to end up with a \emph{clean} expression
+for the measure of progress, we set $\varepsilon \leftarrow \frac{3}{5}
+\varepsilon$, and as such, we have
+\begin{equation*}
+        \| y' - x^* \|_H \leq \frac{9}{10}\|x - x^*\|_H + \varepsilon \, .
+\end{equation*}
+
+With this measure of progress, we can prove that we converge towards the
+minimizer $x^*$ when we consider the approximate procedure. More formally we
+show that $y^*$ is in an $O(\varepsilon)$-ball around $x^*$.

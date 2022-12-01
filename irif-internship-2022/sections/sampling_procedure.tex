@@ -1,0 +1,39 @@
+\section{Sampling procedure}
+
+The sampling procedure is given query access to a matrix $\bs{A} \in
+\mathbb{R}^{n \times d}$, a matrix $\bs{B} \in \mathbb{R}^{\tilde O(d) \times
+d}$ and a number of rows to be sampled $k$. It then outputs a constant-factor
+approximation $\bs{\hat{A}}$ of $\bs{A}$.
+
+This sampling procedure, by using Grover's algorithm in the quantum setting,
+avoids the explicit construction of the vector of leverage scores.
+
+\begin{algorithm}[H]
+  \caption{\textsc{Sample}($\bs{A}$, $\bs{B}$, $k$)}
+  \label{alg:sample}
+  \begin{algorithmic}[1]
+    \Ensure $\bs{z} = \{z_i \sim \mathcal U (0, 1)\}_{i \in [n]}$
+    \Comment{Stored offline.}
+
+    \Ensure $\bs{A} \in \mathbb R ^{n \times d}$, $\bs{B} \in \mathbb R^{\tilde O(d) \times d}$ such that $A \approx_\lambda B$
+    \State \textit{allocate $\bs{\hat{A}}$}
+    \State \textit{define a function $f$ such that}
+    \begin{equation*}
+      f(i) = \begin{cases}
+               1 & \text{if } z_i \leq \min \{1, \alpha \cdot a_i^{T}(\bs{B}^{T}\bs{B})^{+} a_i \cdot c \log d\} \text{,}\\
+               0 & \text{otherwise.}
+             \end{cases}
+    \end{equation*}
+
+    \Repeat
+      \State $i \<$ \textsc{QueryAndUpdate}($\bs z$,$f$)
+      \State \textit{add row $a_i$ to $\bs {\hat A}$, rescaled by $p_i^{-1/2}$}
+    \Until{\textit{sampled $O(k)$ rows}}
+    \State \Return $\bs {\hat A}$
+  \end{algorithmic}
+\end{algorithm}
+
+One thing to note is that the parameter $k$ is normally set to $O(d \log d)$ (as
+will be seen in more detail in \autoref{sec:uniform_sampling}), except when
+computing an $\varepsilon$-spectral approximation, in which case $k$ is set to
+$O(\frac{d\log d}{\varepsilon})$.

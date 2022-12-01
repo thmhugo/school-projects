@@ -1,0 +1,68 @@
+\subsection{Approximate Hessian}
+
+Considering a $\lambda$-spectral approximation of $S^{-1}B$, and taking into
+account that our Hessian is $H = B^TS^{-2}B$, we denote the approximated Hessian
+$\tilde H$ for some $\lambda \geq 1$. First, note that this implies
+\begin{equation}\label{eq:hessian-bounds}
+    \begin{aligned}
+        & \frac{1}{\lambda} H \preccurlyeq \tilde H \preccurlyeq H \\
+\Leftrightarrow \quad & H^{-1} \preccurlyeq \tilde H^{-1} \preccurlyeq \lambda H^{-1} \, .
+    \end{aligned}
+\end{equation}
+At first, we consider an iteration  where the initial points are equal. In order
+to use the above inequality, we need to express $\| x' - y' \|$ in terms of
+both Hessians, \emph{i.e.,} considering Newton's step. That is,
+\begin{equation} \label{eq:vector-distance}
+    \begin{aligned}
+        \left\| x' - y' \right\|
+            & = \left\| \Big(x - H^{-1}\nabla\Phi_\mu(x)\Big) - \Big(y - \tilde H^{-1}\nabla\Phi_\mu(y)\Big)\right\| \\
+            & = \left\| x - H^{-1}\nabla\Phi_\mu(x) - x + \tilde H^{-1}\nabla\Phi_\mu(x)\right\| \\
+            & = \left\| \tilde H^{-1}\nabla\Phi_\mu(x) - H^{-1}\nabla\Phi_\mu(x) \right\| \\
+            & = \left\| \Big[ \tilde H^{-1} - H^{-1}\Big ] \nabla\Phi_\mu(x) \right\| \, . \\
+    \end{aligned}
+\end{equation}
+Thus, it suffices to bound $\big[ \tilde H^{-1} - H^{-1}\big ] $ to obtain
+bounds on $\left\| x' - y' \right\|$. A straightforward consequence of
+\autoref{eq:hessian-bounds}, is that
+\begin{equation*}
+\boldsymbol 0 \preccurlyeq \tilde H^{-1} - H^{-1} \preccurlyeq (\lambda - 1) H^{-1} \, ,
+\end{equation*}
+where $\boldsymbol 0$ is a full-zero matrix.
+Therefore, it holds for all vectors, and especially $\nabla \Phi_\mu(x)$, that
+\begin{equation*}
+    0 \leq \left\| \Big[ \tilde H^{-1} - H^{-1}\Big ] \nabla\Phi_\mu(x) \right\|
+ \leq \left\| (\lambda - 1) H^{-1} \nabla\Phi_\mu(x) \right\| \, ,
+\end{equation*}
+
+Note that $\left\| H^{-1} \nabla\Phi_\mu(x) \right\|$ is equal to $\|x' - x \|$
+\emph{i.e.,} the length of the \emph{actual} Newton's step. As long as $\lambda
+< 2$, $y'$ is closer to $x'$ than was $x$. The above equation can thus be
+equivalently rewritten thanks to \autoref{eq:vector-distance} as
+\begin{equation} \label{eq:x1-y1-bound}
+    0 \leq \left\| x' - y' \right\|
+ \leq (\lambda - 1) \left\|x' - x \right\| \, .
+\end{equation}
+
+In other words, it is possible to bound the distance bewteen $x'$, the actual
+point we would like to obtain, and its approximation $y'$ within a
+multiplicative factor as long as we consider $\lambda$-spectral approximation of
+the Hessian.
+
+In order to prove convergence of the Newton's method when we consider
+$\lambda$-spectral approximation of the Hessian, we bound $\|y' - x^* \|$ in
+terms of $\|x - x^*\|$. It holds that
+\begin{equation}\label{eq:bound-opt-approx-hessian}
+    \begin{aligned}
+       \| y'-x^*\|
+            & =\left\| y' - x' + x' - x^* \right\| \\
+            & \leq \left\| y' - x' \| + \| x' - x^* \right\| \\
+            & \leq (\lambda - 1) \left\| x - x' \right\| + \frac 1 2 \left\| x - x^*\right\|^2 \\
+            & \leq (\lambda - 1) \left\| x - x^* \right\| + \frac{1}{2} \left\| x - x^* \right\| \\
+            & = (\lambda - \frac{1}{2}) \left\| x - x^*\right\| & ,\\
+    \end{aligned}
+\end{equation}
+which bounds the step of an approximated iteration. However, this enforces $ 1
+\leq \lambda < \frac 3 2$ (\emph{i.e.,} choose $\lambda = 1 + \varepsilon$ for
+an $\varepsilon \ll \frac 1 2$) in order to have $\lambda - \frac{1}{2} < 1$ and
+hence a step \emph{towards} the minimizer $y^*$ ($y'$ in a \emph{ball} of radius
+$ <\| x - x^*\|$ around $x^*$).

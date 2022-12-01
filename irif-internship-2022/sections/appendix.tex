@@ -1,0 +1,291 @@
+\appendix
+\subsection{Johnson-Lindenstrauss lemma}
+\label{ap:jllemma}
+The Johnson-Lindenstrauss lemma \cite{jl_transfrom} is a result stating that it is possible to embed
+with \textit{low-distortion}, \textit{i.e., } by preserving the pairwise
+distance between any pair of points within a factor $(1 \pm \varepsilon)$,
+points from high-dimensional into low-dimensional Euclidean space. It is
+appropriate to consider the distributional statement of the
+Johnson-Lindenstrauss lemma (DJL), in order to address it not in terms of
+parwise distances but with respect to the resulting distortion of the mapping.
+
+\begin{lemma}[Distributional Johnson-Lindenstrauss lemma]\label{jl-lemma}
+For any $0 < \varepsilon < 1$, $\delta < 1/2$ and $d \in \mathbb N$, there
+exists a distribution over $\displaystyle \mathbb {R} ^{k\times d}$ from which
+the matrix $\Pi$ is drawn such that for $k =
+O\big(\varepsilon^{-2}\log(\delta^{-1})\big)$ and any vector $\x \in \mathbb
+R^d$, the following claim holds.
+$$
+\mathbb P \Big(\left | \| \Pi \x \|_2^2 - \|\x\|_2^2 \right | > \varepsilon \cdot \| \x \| _2^2
+\Big)<\delta \, .
+$$
+\end{lemma}
+
+This lemma states that there exists a matrix $\Pi$ that reduces the column space
+of the initial space, and with probability $\geq 1-\delta$ the norm of a given
+vector in the reduced space is a good multiplicative approximation of its norm
+original norm.
+
+\subsection{$k$-independent hash functions}\label{ap:def-k-independent} It is
+important to stress that the results presented in this subsection are purely
+classical.
+\begin{definition}[$k$-independent hashing functions]\label{def:k-independent-hashing}
+    Let $\mathcal U$ be the set of keys. A family $\mathcal H = \big\{ h : \mathcal
+    U \rightarrow [m]\big\}$ is said to be $k$-independent if for all keys $x_1,
+    \cdots, x_k$ in $\mathcal U$ pairwise distinct and for all values $v_1, \cdots,
+    v_k$ in $[m]$,
+    \begin{equation*}
+        \big| \{ h \in \mathcal H \; ;\; h(x_1)=v_1, \cdots,  h(x_k)=v_k \} \big| =
+        \frac{|\mathcal H |}{m^k} \text{ ,}
+    \end{equation*}
+    in other words, by providing $\mathcal H$ with the uniform probability, for any
+    $h\in \mathcal H$
+    \begin{equation*}
+        \mathbbm{P}\Big(h(x_1)=v_1, \cdots,  h(x_k)=v_k \Big) = \frac{1}{m^k} \text{ .}
+    \end{equation*}
+\end{definition}
+Using the result of \cite{christiani_independence_2015} on $k$-wise independent
+hash functions, rephrased by \cite{apers_quantum_2020} yields the following
+theorem.
+\begin{theorem}\label{thm:k-indep-data-structure}
+    It is possible to construct in time $\tilde O(k)$ a data structure of size
+    $\tilde O(k)$ that allows to simulate queries to a k-independent hash
+    function in $\tilde O(1)$ time per query.
+\end{theorem}
+
+\subsection{Interior Points Method}\label{ap:ipm}
+In the IPM framework, the following linear program is considered, which
+corresponds to the minimum cost flow problem.
+
+\begin{equation}
+    \begin{array}{ll@{}l}
+    \text{minimize}  & c^T f \\
+    \text{subject to}& B^Tf = d   \\
+                     & f \geq 0
+    \end{array} \text{.}
+\end{equation}
+
+By using the Barrier formulation, one can put the constraints in the ojective
+and enable an iterative approximation of the optimal solution by studying the
+objective function.
+
+\begin{equation}
+  \begin{array}{ll@{}l}
+    \text{minimize } & \Phi_{\mu}(x) = - \frac{d^{T}x}{\mu} - \underbrace{\displaystyle\sum^{n}_{i=1} \ln (\underbrace{c - Bx}_{\text{slack}})}_{\text{log barrier}} \\
+  \end{array}
+\end{equation}
+
+The log term provides a penality when the slack is close to 0 (so when the
+current solution is close to the edges of the polytope). The slack should always
+be positive, i.e.\ $c - Bx \geq 0$ -- this is a difficult condition to maintain.
+The $\mu$ term should be very small for a good approximation of the optimal
+solution, e.g.{} $\mu = n^{-100}$, but in the first steps of IPM we start with a
+large value of $\mu$ in such a way that the only significant term in the
+objective function is the log barrier. We define $$X_{\mu}^{*} =
+\displaystyle\argmin_{x} \Phi_{\mu} \lvert x \rvert \text{,}$$ such that the
+$$\text{central path} = \left\{ X_{\mu}^{*}: \mu \in [0,\infty]\right\} \text{.}$$
+
+Iterating over close values of $\mu$ is efficient: i.e.\ it is efficient to
+compute $X_{\mu_{l}}^{*}$ from $X_{\mu_{l-1}}^{*}$ and $X_{\mu_{l+1}}^{*}$ from
+$X_{\mu_{l}}^{*}$, each iteration requires $\sqrt{m}$ iterations with the Newton's
+method.
+
+We consider the gradient
+$$\nabla \Phi_{\mu}(X) = - \frac{d}{\mu} + \frac{B^T}{\vec s},$$ which, when at
+optimal, gives
+$$B^{T}\frac{\mu}{\vec s} = d.$$
+We have $$\nabla^{2} \Phi_{\mu}(X) = B^{T}S^{-2}B,$$ where $S =
+\mathrm{diag}(\vec s)$. By applying the Newton's method, we obtain
+$$X'=X-(\underbrace{B^{T}S^{-2} B}_{\text{the Hessian }H})^{-1}\nabla
+\Phi_{\mu}(x) \, .$$
+% The new slacks can be expressed as
+% $$
+% \begin{aligned}
+%   \vec s \, '&= c - Bx' \\
+%     &= \vec s + B(x - x') \\
+%     &= B H^{-1} \nabla \Phi_{\mu}(X)
+% \end{aligned}
+% $$
+
+The expression $H^{-1} \nabla \Phi_{\mu}(X)$ corresponds to a $\Delta x$ that
+satisfies $B^{T} S^{-2} B \Delta x = \nabla \Phi_{\mu}(x)$ and is referred to as
+the vector potential. Thus it is not necessary to inverse $H$, one could solve
+$H \Delta x = \nabla \Phi_{\mu}(x)$ to find $\Delta x$.
+
+
+A summary of the algorithm is given here.
+\begin{algorithm}[H]
+    \caption{Interior points method}
+    \label{alg:ipm}
+    \begin{algorithmic}[1]
+        \Require $B \in \mathbb R^{n\times m}, \varepsilon > 0, \mu \gg 1,  \delta = \frac{1}{10\sqrt{m}}, x_0$ feasible solution
+        % \State $x_\mu^* \leftarrow \argmin \Phi_\mu(x)$ \Comment{Obtained with Newton Method}
+        \If {$\mu = \varepsilon$}
+            \State exit
+        \EndIf
+        \State $k \leftarrow 0$
+        \While{$\nabla \Phi_\mu(x_k) \neq 0$} \Comment{Newton's method}
+            \State $x_{k+1} \leftarrow x_k - \left[B^TS^{-2}B\right]^{-1}\nabla \Phi_\mu(x_k)$
+            \State $k \leftarrow k+1$
+        % \State $\vec s = $
+        \EndWhile \Comment{here $x = \argmin \Phi_\mu$}
+        \State $\mu \leftarrow \frac{\mu}{1 + \delta}$  \Comment{Advancing down the central path}
+        \State iterate once again with new values of $x_k$ and $\mu$
+    \end{algorithmic}
+\end{algorithm}
+
+
+Complexity-wise, it requires to solve $\tilde O(\sqrt{m})$ linear systems to
+move from $x_\mu^*$ to $x_\frac{\mu}{1 + \delta}^*$ (\emph{i.e.,} finding
+$\argmin \Phi_\mu$), hence a total of $\tilde O(\frac{\sqrt m}{\varepsilon})$ to
+get to $\mu = \varepsilon$.
+
+\subsection{Some properties of PSD matrices}\label{sec:psd-prop}
+We first define positive-semidefinite (PSD) matrices, and then expose some
+properties that we use along the report.
+\begin{definition}[PSD matrix]
+An $n \times n$ symmetric real matrix $M$ is said to be positive-semidefinite if,
+for all nonzero vector $\x \in \mathbb R^n$,
+\begin{equation*}
+    \x^T M \x \geq 0 \, .
+\end{equation*}
+And, equivalently, $M$ is said to be positive-semidefinite if all its
+eigenvalues are nonnegative.
+\end{definition}
+If $M$ is PSD, then we write $M \succcurlyeq 0$.
+\begin{proposition}[Inverse of PSD matrix]\label{prop:psd-inverse}
+    $$H  \succ 0 \Rightarrow H^{-1} \succ 0$$
+\end{proposition}
+\begin{proof}
+    If $H \succ 0$, then $H$ is invertible. Let $y := Hx $, thus for all $x$
+    \begin{equation*}
+    y^T H^{-1}y = x^T H^TH^{-1}Hx = x^T H^T x = x^THx > 0 \, .
+    \end{equation*}
+\end{proof}
+
+\begin{proposition}[Root of PSD matrix]\label{prop:psd-root}
+    $$H^{-1}  \succcurlyeq 0 \Rightarrow H^{-\frac{1}{2}} \succcurlyeq 0$$
+\end{proposition}
+\begin{proof}
+    Diagonalize $H^{-1}$, obtain $H^{-\frac{1}{2}}$ by taking the root of the
+    eigenvalues. Since the function $f : x \mapsto \sqrt x$ is a positive
+    function, all eigenvalues of $H^{-\frac{1}{2}}$ are nonnegative.
+\end{proof}
+
+\begin{proposition}[PSD matrix product]\label{prop:product-of-root-psd}
+    $$A \preccurlyeq B \Rightarrow \mathbbm 1 \preccurlyeq A^{-\frac 1 2}BA^{-\frac 1 2} \, . $$
+\end{proposition}
+\begin{proof}
+By definition of Loewner order, we say that $A \preccurlyeq B $ if and only if $
+0 \preccurlyeq B - A$, \emph{i.e.,} for all vector $x$, it holds that
+\begin{equation}\label{eq:def-psd-matrix-order}
+    x^T(B-A)x \geq 0  \, .
+\end{equation}
+Multiplying each element of \autoref{eq:def-psd-matrix-order} by $A^{-\frac 1 2}$
+gives
+\begin{equation*}
+    (A^{-\frac 1 2}x)^T(A^{-\frac 1 2}BA^{-\frac 1 2}-\mathbbm 1)(A^{-\frac 1 2}x) \geq 0 \, .
+\end{equation*}
+where we can define $y := A^{-\frac 1 2}x$, and as such it holds that for all $y$,
+\begin{equation*}
+    y^T(A^{-\frac 1 2}BA^{-\frac 1 2}-\mathbbm 1)y \geq 0 \, ,
+\end{equation*}
+that is,
+\begin{equation*}
+    \mathbbm 1  \preccurlyeq A^{-\frac 1 2}BA^{-\frac 1 2} \, .
+\end{equation*}
+\end{proof}
+\begin{proposition}[Changing the norm]\label{prop:change-norm}
+$\forall \x \in \mathbb R^{n}, H\succcurlyeq 0 \in \mathbb R^{n\times n}\, ,$
+
+$$\| \x \|_H = \| H^{\frac{1}{2}}\x\|_2 $$
+\end{proposition}
+\begin{proof}
+    By definition of the weighted norm with respect to a matrix $H$
+    (\autoref{eq:def-h-norm}), and since $H$ is assumed PSD,
+    \begin{equation*}
+        \begin{aligned}
+            \| \x \|_H & = \sqrt{\x^T H \x} \\
+                & = \sqrt{\x^T H^{\frac{1}{2}} H^{\frac{1}{2}} \x} \\
+                & = \sqrt{\x^T (H^{\frac{1}{2}})^T H^{\frac{1}{2}} \x} \\
+                & = \sqrt{(H^{\frac{1}{2}}\x)^T H^{\frac{1}{2}} \x} \\
+                & = \| H^{\frac{1}{2}} \x \|_2
+        \end{aligned}
+    \end{equation*}
+
+\end{proof}
+
+\subsection{Recursive sequences}\label{sec:recursive-sequence}
+%
+A recursive sequence $(a_k)_{k \in \mathbb N}$ is defined by as follows
+\begin{equation} \label{eq:gen-rec-seq}
+    \begin{cases}
+        a_0 \in \mathbb R \\
+        a_{k+1} = p a_k + q = f(a_k), & p, q \in \mathbb R \,
+    \end{cases} \, .
+\end{equation}
+
+\begin{definition}[Fixed point of a sequence]
+A fixed point of a sequence is an $\bar a$ such that
+\begin{equation*}
+    f(\bar a) = \bar a \, .
+\end{equation*}
+\end{definition}
+
+\begin{definition}[Contraction mapping]\label{def:contraction-mapping}
+   A function $f$ is said to be a contraction if for all $x, y$ and a constant
+   $0 \leq K < 1$,
+   \begin{equation*}
+    \| f(x)-f(y) \| \leq K \| x - y \| \, .
+   \end{equation*}
+\end{definition}
+
+\begin{theorem}[Banach fixed-point theorem, informal]\label{thm:banach-fixed-point}
+If $f: \mathbb R \rightarrow \mathbb R$ is a contraction mapping, then $f$
+admits an unique fixed point $\bar a$. Furthermore,
+\begin{equation*}
+    \lim_{k\rightarrow \infty} a_k = \bar a \, .
+\end{equation*}
+\end{theorem}
+
+Given the definition of $f$, it is possible to directly evaluate $a_{k+1}$.
+
+\begin{proposition}\label{clm:a-k+1-value}
+$\forall k \geq 0,  \quad a_{k+1} = (a_1 - \frac{q}{1-p})p^k + \frac{q}{1-p}$.
+\end{proposition}
+\begin{proof} By recurrence on $k$. \\
+    \textbf{Base case:} $(a_1 - \frac{q}{1-p})p^0 + \frac{q}{1-p} = a_1$ \\
+    \textbf{Inductive case:} We assume $$p_k : a_{k+1} = (a_1 - \frac{q}{1-p})p^k +
+    \frac{q}{1-p}$$ true, and we show that $$p_{k+1} : a_{k+2} = (a_1 -
+    \frac{q}{1-p})p^{k+1} + \frac{q}{1-p}$$ is also true.
+    \begin{equation*}
+        \begin{aligned}
+            a_{k+2}
+            & = p a_{k+1} + q \\
+            & = p \left((a_1 - \frac{q}{1-p})p^k + \frac{q}{1-p}\right) + q \\
+            & = (a_1 - \frac{q}{1-p})p^{k+1} + \frac{pq}{1-p} + \frac{q(1-p)}{1-p} \\
+            & = (a_1 - \frac{q}{1-p})p^{k+1} + \frac{pq - pq + q}{1-p} \\
+            & = (a_1 - \frac{q}{1-p})p^{k+1} + \frac{q}{1-p} \\
+        \end{aligned}
+    \end{equation*}
+\textbf{Conclusion:} $p_k$ implies $p_{k+1}$ for all $k$, which proves
+\autoref{clm:a-k+1-value}.
+\end{proof}
+
+\begin{proposition}\label{prop:f-convergence-mapping}
+    $f$ as defined in \autoref{eq:gen-rec-seq} is a contraction mapping if $0
+    \leq |p| < 1$.
+\end{proposition}
+\begin{proof}
+    For all $x,y$ we have
+    \begin{equation*}
+        \begin{aligned}
+            \| f(x) - f(y) \| = \| p(x-y) \| \leq |p| \cdot \| x-y \| \, .
+        \end{aligned}
+    \end{equation*}
+    Thus, by \autoref{def:contraction-mapping} $f$ is a contraction mapping if
+    and only if $0 \leq |p| < 1$.
+\end{proof}
+
+\subsection{Proofs}
+\printProofs

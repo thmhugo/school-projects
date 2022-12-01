@@ -1,0 +1,77 @@
+\subsection{Convergence of the Approximate Newton's method}
+
+See \autoref{sec:recursive-sequence} for the method for finding the
+$k$-th term of a recursive sequence. We first recall that we have
+the following bound
+\begin{equation}\label{eq:upper-bound-a-1}
+    \| y_1 - x^* \|_H \leq \frac{9}{10} \| y_0 - x^* \|_H + \varepsilon \, ,
+\end{equation}
+as such we can define the following recursive sequence :
+\begin{equation}\label{eq:definition-f-ipm}
+    \begin{cases}
+        a_0 = \| y_0 - x^* \|_H \\
+        a_{k+1} = \frac{9}{10} a_k + \varepsilon
+    \end{cases} \, ,
+\end{equation}
+It is easy to see that \autoref{eq:upper-bound-a-1} shows an upper bound on
+$a_1$. For the sake of simplicity, we can set $a_1 = \| y_1 - x^* \|_H$.
+\begin{theoremEnd}{claim}
+    With \autoref{clm:a-k+1-value}, we show that
+    \begin{equation*}
+        a_{k+1} = (\frac{9}{10})^{k+1} a_0 + O(\varepsilon) \, .
+    \end{equation*}
+    proving that our procedure converges.
+\end{theoremEnd}
+\begin{proofEnd} Here $p = \frac{9}{10}$ and $q = \varepsilon$.
+    \begin{equation}\label{eq:valueof-ak-1}
+        \begin{aligned}
+            a_{k+1}
+                & = (a_1 - \frac{q}{1-p})p^k + \frac{q}{1-p} \\
+                & = (a_1 - 10 \varepsilon)(\frac{9}{10})^k + 10 \varepsilon \\
+                & = (\frac{9}{10})^k a_1 - (\frac{9}{10})^k 10 \varepsilon + 10 \varepsilon \\
+                & \leq (\frac{9}{10})^k (\frac{9}{10} a_0 + \varepsilon) - (\frac{9}{10})^k 10 \varepsilon + 10 \varepsilon \\
+                & = (\frac{9}{10})^k \frac{9}{10} a_0 + (\frac{9}{10})^k \varepsilon - (\frac{9}{10})^k 10 \varepsilon + 10 \varepsilon \\
+                & = (\frac{9}{10})^{k+1} a_0 + 10 \varepsilon \left(\frac{1}{10}(\frac{9}{10})^k - (\frac{9}{10})^k +1\right) \\
+                & = (\frac{9}{10})^{k+1} a_0 + 10 \varepsilon \left((\frac{9}{10})^k (\frac{1}{10} - 1) +1\right) \\
+                & = (\frac{9}{10})^{k+1} a_0 + 10 \varepsilon \left(- (\frac{9}{10})^k \frac{9}{10} +1\right) \\
+                & = (\frac{9}{10})^{k+1} a_0 + 10 \varepsilon \left(1 - (\frac{9}{10})^{k+1}\right) \\
+        \end{aligned}
+    \end{equation}
+\end{proofEnd}
+By reducing \autoref{prop:f-convergence-mapping} to our case where is $f$
+defined in \autoref{eq:definition-f-ipm} we have $p = \frac{9}{10}$, hence, $f$
+is a contraction mapping. \autoref{thm:banach-fixed-point} states that $f$ has
+an unique fixed point $\bar a$. Since
+\begin{equation*}
+    \lim_{k \rightarrow \infty} (\frac{9}{10})^{k} = 0 \, ,
+\end{equation*}
+The fixed point of $f$ is
+\begin{equation*}
+    \begin{aligned}
+        \bar a
+            & = \lim_{k \rightarrow \infty} a_{k} \\
+            & = \lim_{k \rightarrow \infty} \left( (\frac{9}{10})^{k} a_0 + 10 \varepsilon \left(1 - (\frac{9}{10})^{k}\right) \right) \\
+            & = 10\varepsilon
+    \end{aligned}
+\end{equation*}
+
+It is important to stress that $y^*$ such that $\tilde \nabla \Phi(y^*) = 0$ is
+never computed. Typically there is not a finite rank $r$ such that $a_r = \bar
+a$. However, $a_r$ can be arbitrarily close to $\bar a$ for a finite $r$. We
+choose $r$ such that, for instance, $a_r \leq \frac{11}{10} \bar a$, which
+implies that for all $k > r$,
+\begin{equation*}
+    \|y_k - x^*\| \leq 11\varepsilon \, .
+\end{equation*}
+Thus, for all such $k$, Newton's steps will keep on oscillating inside the
+$11\varepsilon$-ball around $x^*$. As such, as soon as we obtain a $y_k$ that is
+within the $11\varepsilon$-ball around $x^*$, it is wise to stop the procedure
+since doing one more step will produce a $y_{k+1}$ for which we have no way to
+say whether it will be closer to $x^*$ than $y_k$ was. Using
+\autoref{eq:valueof-ak-1}, we can easily show that
+\begin{equation*}
+    r \leq \log_p(\varepsilon^{-1}) \, ,
+\end{equation*}
+with $p = \frac{9}{10}$. Consequently, the stop-condition of \autoref{alg:ipm}
+becomes $\|y_k - x^*\| \leq 11 \varepsilon$, and we can expect that to happen
+after $\log_p(\varepsilon^{-1})$ Newton's steps.

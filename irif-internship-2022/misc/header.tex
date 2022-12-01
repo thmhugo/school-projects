@@ -1,0 +1,204 @@
+\documentclass[10pt, letterpaper, twocolumn]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{ geometry }
+\geometry{margin=1.5cm, top=2cm, bottom=2cm}
+\usepackage{ amssymb }
+\usepackage{ bbm }
+\usepackage{ braket }
+\usepackage{ mathrsfs }
+\usepackage{ geometry }
+\usepackage{ amsmath }
+\usepackage{ hyperref }
+\usepackage{ enumitem }
+\usepackage{ graphicx }
+\setlength{\columnsep}{0.8cm}
+\usepackage{ blindtext }
+\usepackage{ caption }
+\usepackage{ bookmark }
+\usepackage{ float }
+\usepackage{ stfloats }
+\usepackage{ pgf }
+\usepackage{ tikz }
+\usepackage{ pgfplots }
+\usetikzlibrary{graphs,graphs.standard,quotes,arrows.meta}
+\usepackage{ authblk }
+\usepackage{ sectsty } % section/subsection font size
+\usepackage{ algorithm }
+\usepackage[noend]{ algpseudocode }
+\usepackage{ amssymb }
+\usepackage{ bbm }
+\usepackage{ braket }
+\usepackage{ mathrsfs }
+\usepackage{ comment }
+\usepackage{ amsthm }
+\usepackage{ xcolor }
+\usepackage{ geometry }
+\usepackage{ amsmath }
+%\usepackage[alphabetic]{amsrefs}
+\usepackage{ hyperref }
+\usepackage{ bbm }
+\usepackage{ diagbox }
+\usepackage{ multirow }
+\usepackage[super]{ nth }
+\usepackage{ authblk }
+\usepackage{ cleveref }
+\usepackage{ proof-at-the-end }
+\usepackage[english]{ babel }
+
+\usepackage[style=alphabetic,natbib=true,backend=bibtex]{biblatex}
+\usepackage{refcount}
+
+
+% Custom commands
+\newcommand{\<}{\leftarrow}
+\renewcommand{\>}{\rightarrow}
+
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\A}{\boldsymbol A}
+\newcommand{\B}{\boldsymbol B}
+
+\newcommand{\esp}[1]{\mathbb E \left[ #1 \right]} % Command for E[..]
+
+\newcommand{\hpa}[1]{\textcolor{teal}{#1}}
+\newcommand{\ft}[1]{\textcolor{blue}{#1}}
+\newcommand{\hft}[1]{\textcolor{purple}{#1}}
+
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\x}{\chi}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+
+\addbibresource{misc/bibliography.bib} %Imports bibliography file
+
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{decorations}
+\usetikzlibrary{arrows.meta}
+
+% Top bar with the current section title
+\usepackage{ fancyhdr }
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\leftmark}
+\fancyfoot[COE]{\thepage}
+
+% Style of the first page
+\fancypagestyle{firststyle}
+{
+   \fancyhf{}
+   \fancyfoot[C]{\thepage}
+   \renewcommand{\headrulewidth}{0pt} % removes horizontal header line
+   \newgeometry{margin=1.5cm, bottom=2cm}
+}
+
+\fancypagestyle{appendix}
+{
+   \fancyhf{}
+   \fancyfoot[C]{\thepage}
+   \fancyhead[LOE]{\uppercase{Appendices}}
+  %  \renewcommand{\headrulewidth}{0pt} % removes horizontal header line
+  %  \newgeometry{margin=1.5cm, bottom=2cm}
+}
+
+% Define environments
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{claim}[theorem]{Claim}
+
+
+\newcommand{\sref}[2]{\hyperref[#2]{#1 \ref{#2}}}
+
+
+
+% Figures in muticols.
+% Captions with \captionof{figure}{}
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+
+% Flush left the title and authors.
+\makeatletter
+\renewcommand{\maketitle}{\bgroup\setlength{\parindent}{0pt}
+\begin{flushleft}
+  \begin{center}\Large{\centering\textbf{\@title}}\end{center}
+  \normalsize\@author
+  \vspace{.5cm}
+  \begin{center}\@date\end{center}
+
+\end{flushleft}\egroup
+}
+\makeatother
+
+\renewcommand\Authands{ and }
+
+\sectionfont{\fontsize{12}{12}\selectfont}
+\subsectionfont{\fontsize{11}{11}\selectfont}
+
+
+
+%%%%%%%%%%%
+% Autoref %
+%%%%%%%%%%%
+
+% Rename section, subsection, subsubsection into Section in \autoref
+\addto\extrasenglish{%
+  \def\sectionautorefname{Section}
+  \def\subsectionautorefname{Section}
+  \def\subsubsectionautorefname{Section}
+  \def\algorithmautorefname{Algorithm}
+}
+
+% Abstract style
+\renewenvironment{abstract}
+{\small
+  \begin{center}
+    \bfseries Abstract\vspace{-.5em}\vspace{0pt}
+  \end{center}
+  \list{}{
+    \setlength{\leftmargin}{0mm}
+    \setlength{\rightmargin}{\leftmargin}
+  }
+\item\relax}
+{\endlist}
+
+
+% Bibliography style
+\usepackage[small]{titlesec}
+
+\DeclareFieldFormat*{citetitle}{\textit{#1}}
+\DeclareCiteCommand{\citejournal}
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+    \usebibmacro{journal}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+
+% Bibloiography entries content
+  \AtEveryBibitem{
+    \clearfield{urlyear}
+    \clearfield{urlmonth}
+    \clearfield{url}
+    % \clearfield{doi}
+    \clearfield{note}
+    \clearfield{issn}
+}
+
+
+% Appendices' sections renumbering
+\usepackage{ apptools }
+
+\AtAppendix{\counterwithin{definition}{subsection}}
+\AtAppendix{\counterwithin{theorem}{subsection}}
+\AtAppendix{\counterwithin{proposition}{subsection}}
+\AtAppendix{\counterwithin{lemma}{subsection}}
+\AtAppendix{\counterwithin{claim}{subsection}}
+\AtAppendix{\renewcommand{\thesubsection}{\Alph{subsection}}}
+\AtAppendix{\addcontentsline{toc}{section}{Appendices}}
+\AtAppendix{\pagestyle{appendix}}
+% \AtAppendix{\titleformat{\section}[block]{\large\bfseries\filcenter}{}{1em}{}}
+\AtAppendix{\section*{Appendices}}
