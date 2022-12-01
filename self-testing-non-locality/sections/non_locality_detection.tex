@@ -1,0 +1,82 @@
+\section{Non-locality detection}\label{sec:nonloc-detection}
+
+According to Propositions \ref{convex_sum} and \ref{eq:quant-correlation}, it is possible to
+detect a non-local behaviour using linear programming (see \Autoref{sec:math-opt}).
+\subsection{Linear Programming formulation}\label{primal-LP}
+Let $\mathcal P$ be the behaviour for which one want to learn whether it is
+local, and let $\mathbbm{1}$ be the behaviour corresponding to the random outcome
+strategy. Observe that $\mathbbm{1}$ is a local behaviour. One can test if a behaviour $\mathcal P$
+is nonlocal by solving the following linear program
+\begin{equation} \label{eq:primal}
+    \begin{aligned}
+            & \min_{\alpha,\overrightarrow{\mu}} \; \alpha \\
+	  s.t.  &
+        \begin{cases}
+            (1-\alpha) \mathcal{P}+ \alpha \mathbbm{1} & \leq \sum_\lambda\mu_\lambda \mathbf{d_\lambda} \\
+            \sum_\lambda \mu_\lambda & = 1 \\
+            \alpha & \leq 1 \\
+            \mu_\lambda,\ \alpha & \geq 0 \quad \forall \lambda
+        \end{cases}
+    \end{aligned}
+\end{equation}
+that expresses how much $\mathcal P$ can be mixed with a random behavior to become local.
+In the case of an optimal value of $\alpha^* = 0$, $\mathcal{P}$ is a local behaviour
+since it can be written as
+\begin{equation*}
+    \mathcal{P} =  \sum_\lambda \mu^*_\lambda \mathbf{d_\lambda} \text{ ,}
+\end{equation*}
+where the $\mathbf{\mu^*_\lambda}$ are the coefficients found at the optimum; 
+whereas an optimal value of $\alpha^* > 0$ means that $\mathcal{P}$ is non-local.
+\subsection{CHSH correlations}\label{CHSH_primal}
+
+The behaviour obtained by solving the system of equations induced
+by the quantum correlations exposed in \Autoref{eq:corr_chsh} is
+
+\renewcommand\arraystretch{1.5}
+\begin{table}[H]
+\centering
+\begin{tabular}{|cc|cccc|}
+\hline
+\multicolumn{2}{|c|}{\multirow{2}{*}{$\mathcal{P}$}} & \multicolumn{4}{c|}{$(a,b)$} \\ \cline{3-6} 
+\multicolumn{2}{|c|}{} & \multicolumn{1}{c|}{(-1, -1)} & \multicolumn{1}{c|}{(-1, 1)} & \multicolumn{1}{c|}{(1, -1)} & (1, 1) \\ \hline
+\multicolumn{1}{|c|}{\multirow{4}{*}{\rotatebox{90}{$(x,y)$}}} & (0,0) & \multicolumn{1}{c|}{$\frac{\cos^2(\pi/8)}{2}$} & \multicolumn{1}{c|}{$\frac{\sin^2(\pi/8)}{2}$} & \multicolumn{1}{c|}{$\frac{\sin^2(\pi/8)}{2}$} & $\frac{\cos^2(\pi/8)}{2}$ \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & (0,1) & \multicolumn{1}{c|}{$\frac{\cos^2(\pi/8)}{2}$} & \multicolumn{1}{c|}{$\frac{\sin^2(\pi/8)}{2}$} & \multicolumn{1}{c|}{$\frac{\sin^2(\pi/8)}{2}$} & $\frac{\cos^2(\pi/8)}{2}$ \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & (1,0) & \multicolumn{1}{c|}{$\frac{\cos^2(\pi/8)}{2}$} & \multicolumn{1}{c|}{$\frac{\sin^2(\pi/8)}{2}$} & \multicolumn{1}{c|}{$\frac{\sin^2(\pi/8)}{2}$} & $\frac{\cos^2(\pi/8)}{2}$ \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & (1,1) & \multicolumn{1}{c|}{$\frac{\sin^2(\pi/8)}{2}$} & \multicolumn{1}{c|}{$\frac{\cos^2(\pi/8)}{2}$} & \multicolumn{1}{c|}{$\frac{\cos^2(\pi/8)}{2}$} & $\frac{\sin^2(\pi/8)}{2}$ \\ \hline
+\end{tabular}
+\caption{CHSH probability distribution}
+\end{table}
+and solving \sref{Linear Program}{eq:primal} with the aforementioned behaviour gives an 
+optimal value of 
+\begin{equation}
+    \alpha^*_{CHSH} \approx 1 - \frac{1}{\sqrt{2}} \text{ .}
+\end{equation}
+
+\subsection{Mayers-Yao's correlations}
+
+Similarly, the behaviour obtained by solving the system of equations induced
+by the quantum correlations shown in \Autoref{eq:mayers-yao-correlations} is given in \Autoref{table:my-prob-dist} and \sref{Linear Program}{eq:primal} gives an optimal value of
+\begin{equation} \label{eq:opt-primal-my}
+    \alpha^*_{MY} \approx 0.1715 \text{ .}
+\end{equation}
+
+\renewcommand\arraystretch{1.5}
+\begin{table}[t]
+\centering
+\begin{tabular}{|lc|cccc|}
+\hline
+\multicolumn{2}{|c|}{\multirow{2}{*}{$\mathcal{P}$}} & \multicolumn{4}{c|}{$(a,b)$} \\ \cline{3-6} 
+\multicolumn{2}{|l|}{} & \multicolumn{1}{c|}{(-1,-1)} & \multicolumn{1}{c|}{(-1,1)} & \multicolumn{1}{c|}{(1,-1)} & (1,1) \\ \hline
+\multicolumn{1}{|l|}{\multirow{9}{*}{\rotatebox{90}{$(x,y)$}}} & $(0,0)$ & \multicolumn{1}{c|}{$1/2$} & \multicolumn{1}{c|}{$0$} & \multicolumn{1}{c|}{$0$} & $1/2$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(0,1)$ & \multicolumn{1}{c|}{$1/4$} & \multicolumn{1}{c|}{$1/4$} & \multicolumn{1}{c|}{$1/4$} & $1/4$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(0,2)$ & \multicolumn{1}{c|}{$\frac{\cos^2(\pi/8)}{2}$} & \multicolumn{1}{c|}{$\frac{\sin^2(\pi/8)}{2}$} & \multicolumn{1}{c|}{$\frac{\sin^2(\pi/8)}{2}$} & $\frac{\cos^2(\pi/8)}{2}$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(1,0)$ & \multicolumn{1}{c|}{$1/4$} & \multicolumn{1}{c|}{$1/4$} & \multicolumn{1}{c|}{$1/4$} & $1/4$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(1,1)$ & \multicolumn{1}{c|}{$1/2$} & \multicolumn{1}{c|}{$0$} & \multicolumn{1}{c|}{$0$} & $1/2$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(1,2)$ & \multicolumn{1}{c|}{$\frac{\cos^2(\pi/8)}{2}$} & \multicolumn{1}{c|}{$\frac{\sin^2(\pi/8)}{2}$} & \multicolumn{1}{c|}{$\frac{\sin^2(\pi/8)}{2}$} & $\frac{\cos^2(\pi/8)}{2}$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(2,0)$ & \multicolumn{1}{c|}{$\frac{\cos^2(\pi/8)}{2}$} & \multicolumn{1}{c|}{$\frac{\sin^2(\pi/8)}{2}$} & \multicolumn{1}{c|}{$\frac{\sin^2(\pi/8)}{2}$} & $\frac{\cos^2(\pi/8)}{2}$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(2,1)$ & \multicolumn{1}{c|}{$\frac{\cos^2(\pi/8)}{2}$} & \multicolumn{1}{c|}{$\frac{\sin^2(\pi/8)}{2}$} & \multicolumn{1}{c|}{$\frac{\sin^2(\pi/8)}{2}$} & $\frac{\cos^2(\pi/8)}{2}$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(2,2)$ & \multicolumn{1}{c|}{$1/2$} & \multicolumn{1}{c|}{$0$} & \multicolumn{1}{c|}{$0$} & $1/2$ \\ \hline
+\end{tabular}
+\caption{Mayers-Yao probability distribution}
+\label{table:my-prob-dist}
+\end{table}

@@ -1,0 +1,80 @@
+\subsection*{CHSH self-test}
+
+We assume that only the correlations in Equations \ref{eq:corr_chsh} are known as well as the fact that the measurements operators are unitary.
+That is the measurement operators and the physical state shared between the
+parties $\ket{\Psi}$ are unknown. \\
+
+In order to self-test the state $\ket{\Phi^+} = \dfrac{1}{\sqrt{2}} \left(
+\ket{00} +\ket{11}\right) $, an isometry $\mathbf{\Phi}$ mapping the physical
+state $\ket{\Psi}$ to the reference state $\Phi^+$ as stated in Proposition
+\ref{prop:self-test_state}.
+
+\begin{proposition}[Anticommutativity] The measurement operators $A_0, A_1, B_0$
+and $B_1$ defined by the correlations in Equations $\ref{eq:corr_chsh}$
+anticommutes.
+\end{proposition}
+
+\begin{proof}
+We have 
+\begin{equation*}
+    \begin{aligned}
+    \bra{\Psi} A_0 B_1 + A_1 B_1 \ket{\Psi} &=& 0  \\
+    \bra{\Psi} A_0 B_1 - A_1 B_1 \ket{\Psi} &=& 1  \\
+    \bra{\Psi} A_0 B_0+ A_1 B_0 \ket{\Psi} &=& 1  \\
+    \bra{\Psi} A_0 B_0- A_1 B_0 \ket{\Psi} &=& 0  \\
+    \end{aligned}
+\end{equation*}
+Define 
+\begin{equation*}
+    \begin{aligned}
+    \mathbf{a_0} &=& \dfrac{1}{\sqrt{2}}(A_0 + A_1) \ket{\Psi} \\ 
+    \mathbf{a_1} &=& \dfrac{1}{\sqrt{2}}(A_0 - A_1) \ket{\Psi} \\ 
+    \mathbf{b_0} &=& B_0 \ket{\Psi} \\
+    \mathbf{b_1} &=& B_1 \ket{\Psi} \\
+    \end{aligned}
+\end{equation*}
+such that 
+\begin{equation*}
+    \begin{aligned}
+    \mathbf{a_0^\dagger}  \mathbf{b_0}  &=& 1   &\ ,\ & \mathbf{a_0^\dagger}   \mathbf{b_1} &=& 0 \\
+    \mathbf{a_1^\dagger}  \mathbf{b_0}  &=& 0  &\ ,\ & \mathbf{a_1^\dagger}   \mathbf{b_1} &=& 1 \\
+    \end{aligned}
+\end{equation*}
+\end{proof}
+
+One can easily notice that $|\mathbf{b_0}| =  |\mathbf{b_1}| = 1 $ since the measurement operators are unitary. 
+The Cauchy-Schwartz inequality gives 
+\begin{equation*}
+    \begin{aligned}
+        |\mathbf{a_i}| |\mathbf{b_i}| &\ \geq\ & 1 \ \ \forall i =0,1 \\
+        |\mathbf{a_i}| &\ \geq\ & 1 \ \ \forall i =0,1 \\
+    \end{aligned}
+\end{equation*}
+Noticing that 
+\begin{equation*}
+    \begin{aligned}
+        |\mathbf{a_0}|^2 + |\mathbf{a_1}|^2 &\ =\ & A_0 A_0^\dagger + A_1 A_1^\dagger\\
+         |\mathbf{a_0}|^2 + |\mathbf{a_1}|^2 &\ =\ & 2
+    \end{aligned}
+\end{equation*}
+it is induced that $|\mathbf{b_0}| =  |\mathbf{b_1}| = 1 $ 
+Since the vectors $\mathbf{a_i}$ and $ \mathbf{b_i}$ have unit norms, 
+\begin{equation*}
+    \begin{aligned}
+         \ &\mathbf{a_0^\dagger}  \mathbf{b_0}  = 1  \ ,\    \mathbf{a_1^\dagger}   \mathbf{b_1} = 1 \\
+     \Leftrightarrow\ \ &  \mathbf{a_i} = \mathbf{b_i} \ \forall i \\
+     \Leftrightarrow\ \ & B_0 = \dfrac{1}{\sqrt{2}} (A_0 +A_1) \ ,\  B_1 = \dfrac{1}{\sqrt{2}} (A_0 -A_1)   
+         \end{aligned}
+\end{equation*}
+
+Therefore
+\begin{equation*}
+\begin{aligned}
+    \left\{ B_0, B_1 \right\}\ket{\Psi} & = (B_0B_1 + B_1 B_0)\ket{\Psi} \\
+    & =  \dfrac{(A_0-A_1)(A_0+A_1) + (A_0+A_1)(A_0-A_1)}{2} \ket{\Psi} \\
+    & =  0
+\end{aligned}
+\end{equation*}
+
+Since the correlations are symmetric, proving $\left\{ A_0, A_1 \right\}=0$ is similar. 
+

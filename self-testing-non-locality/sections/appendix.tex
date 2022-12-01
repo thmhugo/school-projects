@@ -1,0 +1,102 @@
+\appendix
+\section{Mathematical optimization} \label{sec:math-opt}
+Mathematical optimization aims to maximize (or minimize) the value of a function\footnote{the \emph{objective
+function}}, under specific \emph{constraints}. The simplest instance of mathematical optimization is
+\emph{linear programming}, where both the objective and the constraints are \emph{linear functions} of the variables.
+
+Both linear optimization and nonlinear optimization will be examined.
+
+For all the numerical simulations and the corresponding implementations, Gurobi
+\cite{gurobi} (a solver that can handle both linear and quadratic optimization
+problems) was used.
+
+\subsection{Linear optimization}
+
+The field of linear optimization grew in tandem with the field of Computer
+Science, and the \emph{"programmatic"} approach to linear optimization became
+very popular. As such, it will be explained via \emph{linear programming}
+conventions and notations.
+
+A \emph{linear program} is written as
+\begin{equation}
+\begin{aligned}
+    \max \ or\ \min & \ z = c^T x \\
+    s.t. &
+    \begin{cases}
+    Ax & \leq b \\
+    x & \geq 0
+    \end{cases}\text{ ,}
+\end{aligned} \label{eq:general-primal}
+\end{equation}
+where $c^t = ( c_1, \cdots, c_n )$ corresponds to the \emph{objective function
+coefficients}, $x^t = (x_1, \cdots, x_n)$ to the \emph{decision variables}, $b^t
+= (b_1, \cdots, b_m)$ to the \emph{value of the constraints} and
+$$A =\begin{pmatrix}a_{11} & \cdots & a_{1n} \\ \hdots & \ddots & \hdots \\
+a_{m1} & \cdots & a_{mn} \\ \end{pmatrix}$$ to the \emph{constraint
+coefficients}. Here, $z$ corresponds to the \emph{objective function}.
+
+% \begin{table}[H]
+% \centering
+% \begin{tabular}{ll}
+% $\begin{aligned}c^t & = ( c_1, \cdots, c_n ) \\ x^t & = (x_1, \cdots, x_n) \\ b^t & = (b_1, \cdots, b_m) \\ \end{aligned}$ & ;
+% $A =\begin{pmatrix}a_{11} & \cdots & a_{1n} \\ \hdots & \ddots & \hdots \\ a_{m1} & \cdots & a_{mn} \\ \end{pmatrix}$
+% \end{tabular}
+% \end{table}
+% where $c$ is the vector of coefficients in the objective function, $x$ is the
+% vector of variables, and $b$ is the value of the constrains.
+
+The choice of inequality ($\geq$ or $\leq$) is arbitrary, since one can always
+multiply both sides by a negative coefficient and obtain the other. To obtain an
+equality, one can use two separate inequalities.
+
+The problem formulated in \Autoref{eq:general-primal} is generally referred to as the
+\textit{primal} problem, and its \textit{dual} form is
+\begin{equation}
+\begin{aligned}
+    \min \ or\ \max & \ z' = v^T b \\
+    s.t. &
+    \begin{cases}
+    A^Tv & \geq c \\
+    v & \geq 0
+    \end{cases} \text{ .}
+\end{aligned} \label{eq:dual-primal}
+\end{equation}
+
+In \Autoref{seq:ineq-dual}, the dual form is very important. To switch from one
+form to the other, \Autoref{th:strong-duality} is important since it states that
+the optimum of either objective form is the same. The following definitions are
+preliminaries for its introduction.
+
+
+\begin{definition}[Feasible solution]
+$x\in \mathbbm R^n$ is a feasible solution as long as it satisfies every
+constraints of the problem.
+\end{definition}
+
+\begin{definition}[Optimal solution]
+$x\in \mathbbm R^n$ is an optimal solution whenever it gives to $z$ its optimal
+value.
+\end{definition}
+
+\begin{theorem}[Strong duality] \label{th:strong-duality} If there exists a
+feasible solution for the primal, then the primal optimal objective and the dual
+optimal objective are equal.
+\end{theorem}
+
+Lastly, an important thing to keep in mind is that in linear optimization, the
+optimal solution is often an extremal point of a polytope belonging to $\mathbbm
+R^n$, whose facets are described by the constraints.
+
+\subsection{Nonlinear optimization}
+Nonlinear optimization, unlike linear optimization, handles with problems where
+the constraints are nonlinear functions of the variables, such as exponentials,
+trigonometric, or polynomial functions. In \Autoref{sec:non-linear}, the
+formulated problems only deals with quadratic function, which are quite easy
+problem to solve.
+
+While linear optimization can be solved in polynomial time
+\cite{karmarkar_new_1984}, nonlinear optimization is, except for some cases, an
+NP-Hard problem \cite{hochbaum_complexity_2007}. In addition, there are
+fundamental issues with nonlinear optimization inherent in digital computer
+e.g., floating point arithmetic precision. Consequently, the techniques for
+finding the optimal solutions are not exposed here.

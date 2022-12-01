@@ -1,0 +1,34 @@
+\appendix
+
+\section{QRAM Model}\label{ap:qram}
+
+To achieve the speed-up promised by the quantum algorithms presented hereby, we assume the existence of a quantum device able to run quantum subroutines on at most $O(\log N)$ qubits, where $N$ is the size of the problem or the input. \\
+
+Besides, we assume an access to a Quantum Random Access Memory (QRAM) which is, as its classical analog, composed of an \emph{input} register, a \emph{memory} array and an \emph{output} register. The main variations are that the input and output registers are composed of qubits rather than bits. Thus, the quantum computer can address memory in superposition meaning that a superposition of inputs returns a superposition of outputs, so that one can design the following quantum unitary
+\begin{equation*}
+    \sum_j \lambda_j \ket{j}_{in} \ket{0}_{out}  \ \xrightarrow{QRAM \ access} \ \sum_j \lambda_j  \ket{j}_{in} \ket{v_j}_{out}  \ \ ,
+\end{equation*}
+where $in$, $out$ represent respectively the \emph{input} and the \emph{output} registers and $v_j$ the value contained in the $j-th$ register. Hence, a reading operation corresponds to a quantum query to the classical bits stored in the memory array, whereas the operation of writing a bit in the QRAM stays classical.\\
+
+Within this computational model, the complexity of an algorithm can have several definitions.  One can consider either the \emph{time complexity}, which counts the number of elementary gates (classical and quantum), of quantum queries to the input and of QRAM operations, or the \emph{query complexity} which only counts the number of quantum queries to the input. As an example of actual QRAM, a quantum optical implementation is presented in \cite{QRAM}. 
+
+
+\section{$k$-independent hash functions}\label{ap:def-k-independent}
+
+\begin{definition}[$k$-independent hashing]\label{def:k-independent-hashing}
+Let $\mathcal U$ be the set of keys. A family $\mathcal H = \big\{ h : \mathcal
+U \rightarrow [m]\big\}$ is said to be $k$-independent if for all keys $x_1,
+\cdots, x_k$ in $\mathcal U$ pairwise distinct and for all values $v_1, \cdots,
+v_k$ in $[m]$,
+\begin{equation*}
+    \big| \{ h \in \mathcal H \; ;\; h(x_1)=v_1, \cdots,  h(x_k)=v_k \} \big| =
+    \frac{|\mathcal H |}{m^k} \text{ ,}
+\end{equation*}
+in other words, by providing $\mathcal H$ with the uniform probability, for any
+$h\in \mathcal H$
+\begin{equation*}
+    \mathbbm{P}\big(h(x_1)=v_1, \cdots,  h(x_k)=v_k \big) = \frac{1}{m^k} \text{ .}
+\end{equation*}
+\end{definition}
+
+

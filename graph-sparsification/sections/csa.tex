@@ -1,0 +1,130 @@
+\section{Classical Sparsification Algorithm}
+\label{seq:classical_sparsification}
+
+The classical algorithm for graph sparsification is based on edge sampling,
+where each edge is added to the sparsifier according to a fixed probability
+distribution.
+
+In order to be sure $L_H$ effectively approximates $L_G$, the choice of each
+$p_e$ cannot be done at random. A nearly-linear classical sparsification
+algorithm was introduced by Spielman and Srivastava
+\cite{spielman_graph_2011}, by approximating effective resistance
+between any two edges in the graph efficiently, and thus introducing a way to
+correctly sampling the edges.
+
+\subsection{Effective resistance}
+% If the graph is interpreted as an electrical network, the effective 
+% resistance is the
+
+% The effective resistance of an edge is a value that is associated with it,
+% which can be seen as , when $G$ is interpreted as an electrical network.
+
+In the case of unweighted graphs, the effective resistance of an edge can be
+related to the connectivity of the graph: edges belonging to strong components
+have a low effective resistance, and vertex cut (whose removal renders G
+disconnected) tends to have a high effective resistance.
+
+\begin{Figure}
+    \centering
+    \begin{tikzpicture}[scale=0.25]
+        \coordinate (right) at (8,1) {}; \coordinate (left) at (-8, 1) {};
+
+        \begin{scope}[shift={(right)},rotate=30,transform shape]
+            \graph [nodes={draw,circle,as=}]
+                { subgraph K_n [name=right,n=6,clockwise,radius=5cm] };
+        \end{scope}
+        \begin{scope}[shift={(left)},rotate=-30,transform shape]
+            \graph [nodes={draw,circle,as=}]
+                { subgraph K_n [name=left,n=6,clockwise,radius=5cm] };
+        \end{scope}
+        \draw[line width=2pt] (right 6) -- (left 2);
+      \end{tikzpicture}
+    \captionof{figure}{Graph illustrating edge of high effective resistance.}
+\end{Figure}
+
+The effective resistance of the bold edge is roughly $r_e = 1$, while the
+effective resistance of the other is $r_e \in O(\frac{1}{n})$. Spielman and
+Srivastava associated then the probability for an edge to be kept while
+constructing the sparsifier proportionally to $r_e \omega_e$.
+
+In a graph $G=(V,E)$ the effective resistance $r_e$ of an edge $e=(u,v)$, with $u,v$ two nodes, 
+can be expressed with the quadratic form
+\begin{equation}\label{eq:effective-resistance}
+   R_{u,v} = (\x_u - \x_v)^TL_G^+(\x_u - \x_v) \text{ ,}
+\end{equation}
+where $\x_i$ is the $i^{th}$ vector of the canonical basis. \cite{spielman_graph_2011}
+
+
+\subsection{Graph spanner}
+The \textit{distance} between two nodes $u$ and $v$ with respect to $G$ is
+defined as:
+\begin{equation*}
+    \delta_G(u,v) = \min_{u\rightarrow v} \sum_{i} \omega(p_{i}, p_{i+1})^{-1},
+\end{equation*}
+which is consistent with the previous definition of effective resistance of an
+edge, where $\{ u\rightarrow v\}$ is the set of all paths from $u$ to $v$ in
+$G$, each element $u\rightarrow v = \{p_0, \cdots, p_k\}$ is a set of vertices
+of $V$. A spanner $H$ of a graph $G$ is a subgraph of $G$ with fewer edges,
+where a trade-off is made between the number of edges and the stretching of
+distances.
+\begin{definition}
+    An $(\alpha,\beta)$-spanner of the graph $G=(V,E)$ is a subgraph $H = (V,
+    E_H)$ with $E_H \subseteq E$, such that $\forall u, v \in V$,
+    \begin{equation*}
+        \delta_G(u,v) \leq \delta_H(u,v) \leq \alpha\delta_G(u,v) + \beta.
+    \end{equation*}
+\end{definition}
+This definition holds for weighted graphs, in which case the weight of the kept
+edges stay unchanged. In the following only multiplicative spanners are
+considered, i.e. $\beta = 0$ and $\alpha = 2 \log n$, namely, $2\log
+n$-spanners. Furthermore, key objects of the algorithm for graph
+$\epsilon$-spectral sparsification described below are $r$-packings spanners.
+\begin{definition}\label{def:packing-spanner}
+    Let $G$ be a graph, an $r$-packings spanner of $G$ is an ordered set $H=(H_1,
+    \cdots, H_r)$ of $r$ edge-disjoint subgraphs of $G$ such that $H_i$ is a
+    spanner for the graph $G - \bigcup_{j=1}^{i-1} H_j$.
+\end{definition}
+
+%One can notice that $G - \bigcup_{j=1}^{i-1} H_j$ is the remaining graph after 
+%removal of the edges of all previous spanners. 
+
+Koutis and Xu proposed the following algorithm \cite{koutis_simple_2016}, 
+using the effective resistance of each edge as exhibited by Spielman and 
+Srivastava to construct $t$-packings spanner of the input graph:
+% Sparsification by edge sampling algorithm
+\begin{algorithm}[H]
+    \caption{\textbf{ClassicallySparsify}($G,
+    \epsilon$)}\label{alg:classical-sparsify}
+    \begin{algorithmic}[1]
+    \State \textit{construct an $O(\frac{\log n}{\epsilon ^2})$-packing spanner
+    $H$ of $G$} 
+    \State $\tilde{G} \< H $ \ForAll{$e \notin H$} \\
+    \textit{$\;$ w.p. $\frac{1}{4}$ add e to $\tilde{G}$, with weight
+    $4\omega_e$} \EndFor \\
+    \Return $\tilde{G}$
+    \end{algorithmic}
+\end{algorithm}
+and provided the following theorem:
+\begin{theorem}[Classical sparsifier]\label{thm:classical-sparsifier} The output
+    $\tilde{G}$ of \textbf{ClassicallySparsify} on inputs $G$ and $\epsilon$
+    satisfies with probability $1 - \frac{1}{n^2}$
+    \begin{equation*}
+        (1 - \epsilon) L_G \preccurlyeq L_{\tilde{G}} \preccurlyeq (1 + \epsilon) L_G
+    \end{equation*}
+    Moreover, the expected number of edges in $\tilde{G}$ is at most
+    $\tilde{O}(\frac{n}{\epsilon ^2} + \frac{m}{2})$.
+\end{theorem}
+
+The proof of Theorem \ref{thm:classical-sparsifier}
+\cite{koutis_simple_2016} ensures that the output of
+\textbf{ClassicallySparsify} is an $\epsilon$-spectral sparsifier. A single
+iteration of the above procedure divides the number of edges in the output graph
+by roughly two. Hence, repeating $ t \in O(\log \frac{m}{n})$ times
+\textbf{ClassicallySparsify($G, \epsilon'$)} with $\epsilon' \in
+O(\frac{\epsilon}{t}) $ results in an $\epsilon$-spectral sparsifier with
+$\tilde{O}(\frac{n}{\epsilon ^2})$ edges.
+
+Complexity-wise, the execution time of the provided algorithm is mostly
+dominated by the construction of the $\tilde{O}(\frac{1}{\epsilon^2})$ spanners,
+each of which requires time $\tilde{O}(m)$, giving a total time complexity of
+$\tilde{O}(\frac{m}{\epsilon^2})$.

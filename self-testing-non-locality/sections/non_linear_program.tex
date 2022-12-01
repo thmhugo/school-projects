@@ -1,0 +1,116 @@
+\section{Non-linear programming}\label{sec:non-linear}
+
+Considering \sref{Linear Program}{eq:primal}, one can transform the vector
+$\mathcal P$ into a vector of variables. This converts the initial program into 
+a nonlinear program, more specifically a quadratic program, and provides as a result a behavior $\mathcal P$. This kind of transformation adds new 
+difficulties for the resolution, such as non-convex constraints, but all of these 
+are left over to the solver.
+
+\subsection{Finding the optimal probability distribution}
+
+Adding the constraints for $\mathcal P$
+to be a probability vector yields the following nonlinear program
+\begin{equation} \label{eq:primal-nl}
+	\begin{aligned}
+			  & \max \; \beta_{CHSH}\\
+		s.t.  &
+		\begin{cases}
+			(1-q) \mathcal P + q \mathbbm{1}
+                & = \sum_\lambda \mu_\lambda \mathbf{d}_\lambda \\
+			\sum_\lambda \mu_\lambda & = 1 \\
+            \sum_{a,b} p(a,b|x,y) & = 1, \; \forall (x,y) \in \{0,1\}^2 \\
+			q & \leq 1 \\
+		    \mu_\lambda \geq 0 \; \forall \lambda, \; q \geq 0
+		\end{cases}
+	\end{aligned}
+\end{equation}
+that one could solve to find the maximal value for $\beta_{CHSH}$, whose value is
+the given by the left-hand side of \Autoref{eq:chsh}. However, 
+it must be remembered that the maximal value one can obtain doing this is
+$\beta_{CHSH} = 4$, where the resulting probability distribution describes a 
+behavior belonging to $\NS \setminus \Q$.
+
+Finding the boundaries between the sets $\Q$ and $\NS$ i.e., inequalities
+violated by behaviors in $\NS \setminus \Q $, is an open problem when
+considering arbitrary values of $\Delta$ and $m$. For bipartite scenarios with
+binary outcomes ($\Delta = 2$, $m = 2$), \Autoref{eq:bound-ns-q}
+\begin{equation} \label{eq:bound-ns-q}
+    | \asin \braket{A_0 B_0}
+    + \asin \braket{A_0 B_1}
+    + \asin \braket{A_1 B_0}
+    - \asin \braket{A_1 B_1} | \leq \pi,
+\end{equation}
+introduced by \citeauthor{Masanes2003NecessaryAS} in \cite{Masanes2003NecessaryAS}, 
+provides an explicit description of behaviours
+belonging to $\Q$. Moreover, the two sides are equal whenever the behavior
+maximally violates the CHSH \sref{Inequality}{eq:chsh}.
+
+While simple to understand, this constraint cannot be enforced by Gurobi, that
+cannot handle constraints described by trigonometric functions. Nonetheless, it
+will only be used to check whether a behavior stays in $\Q$. 
+
+Taking into consideration both \sref{Quadratic Program}{eq:primal-nl} and
+\Autoref{eq:bound-ns-q} yields the following procedure to find the
+maximal value of $\beta_{CHSH}$
+
+\begin{algorithm}[H]
+\caption{Numerical upper bound for CHSH inequality violation}
+\begin{algorithmic}[1]
+    \Require $\delta$  is the precision, roughly corresponds to the number of number of significant digits
+    \Require $\Pi = 2$ is the starting upper bound
+    \While{$|\sum_{x,y} (-1)^{xy} \asin \braket{A_x B_y}| \leq \pi$}
+        \State $\Pi \leftarrow \Pi + \delta$
+        \State \textit{solve \sref{linear program}{eq:primal-nl} with constraint $\beta_{CHSH} \leq \Pi$}
+    \EndWhile
+    \State \Return $\mathcal P$\textit{: the optimal probability distribution}
+\end{algorithmic}
+\label{alg:beta-optimal-chsh}
+\end{algorithm}
+
+The numerical result is, indeed, arbitrary close to $2 \sqrt 2$ depending on
+$\delta$. One should note that not such equation as
+\Autoref{eq:bound-ns-q} is known for the case $\Delta = 2$ and $m=3$, but it is
+possible to use the generalized CHSH inequality as depicted by \citeauthor{wehner_tsirelson_2006} in
+\cite{wehner_tsirelson_2006}. We could have use this
+for the case $\Delta = m = 2$ even though it will yield
+the same result, but we thought it was more interesting to try at least once another 
+formulation. Considering the case $\Delta = 2$ and $m=3$, we indeed obtained results 
+arbitrary close to $3 \sqrt 3$, and the associated probability distribution.
+
+\subsection{Making a behavior local}
+
+Looking for the optimal probability distribution with a non-linear approach led
+us to a side work, that is, from knowing how many elements of the behavior one 
+can infer that the behavior is local. Taking into consideration that a behavior with
+$\Delta = m = 2$ is local if and only if $\beta_{CHSH} \leq 2$, it suffices to
+set $k$ probabilities of, for instance, the behavior that maximally violates the
+CHSH inequality, and solving \sref{Nonlinear Program}{eq:primal-nl}, where the
+maximization becomes a minimization. By doing this, if the optimal value is a
+$\beta^*_{CHSH} \leq 2$, then it is possible to find a full behavior that is local,
+and its elements are given in the same time by the solver. Otherwise, one
+can be sure that it is not possible to make the behavior local.
+
+The results of the implementation with Gurobi yielded on one hand that with $k =
+4$, where for each $(x,y)$, a single $p(a,b|x,y)$ is fixed, it is not anymore
+possible to find values for the other probabilities such that the behavior is
+local, in addition, it only results on the behavior that gives $\beta_{CHSH} = 2
+\sqrt 2$, since it removes all degrees of freedom for the other probabilities
+in the light of the normalization constraints (\Autoref{eq:norm_cons_1}) and 
+(\Autoref{eq:norm_cons_2}).
+
+Moreover, fixing only one expectation $\braket{A_x B_y}$ gives an
+optimal of 0 with $\beta_{CHSH} = 0$, while fixing an arbitrary number of 
+probabilities among up to 3 expectations yields a local behavior, with an optimal
+0, yet $\beta_{CHSH} \approx 1.1213$.
+
+Besides, thanks to the implementation of \sref{Nonlinear Program}{eq:primal-nl}, we were able to
+generate a behavior $\mathcal P_{\Delta}$ whose CHSH value is $\beta_{CHSH} = 2
++ \Delta$, hence that violates the inequality with an arbitrary small precision 
+$\Delta$. It yielded for the both aforementioned cases exactly the same results.
+
+For the case of the Mayers-Yao's correlations, the same result is obtained when
+fixing one probability per expectation i.e., the resulting probability distribution
+stays unchanged. One the other hand, fixing 3 arbitrary expectation also yields 
+the same optimal objective as given in \Autoref{eq:opt-primal-my}, enforcing the 
+behavior to be in $\Q$, while fixing only 2 arbitrary expectations causes the
+behavior to be local.

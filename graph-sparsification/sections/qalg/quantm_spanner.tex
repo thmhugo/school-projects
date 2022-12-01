@@ -1,0 +1,144 @@
+\subsection{Quantum spanner algorithm}
+
+
+The quantum spanner algorithm proposed by \citeauthor{apers_quantum_2019} is heavily inspired by the best classical introduced by \citeauthor{Thorup_Zwick_2005} \cite{Thorup_Zwick_2005}: as such, the classical algorithm will be introduced before the quantum one.
+
+\subsubsection{Classical spanner algorithm}
+
+In order to efficiently construct a graph spanner, Thorup and Zwick \cite{Thorup_Zwick_2005} designed a classical algorithm based on shortest-path trees.
+
+\begin{definition}[shortest-path tree]
+Inside a graph $G=(V,E)$, a shortest path tree $\mathcal T$, rooted at a node $v_0$ and covering a subset $S\subseteq V$ of vertices,
+is a subgraph of $G$ such that for all nodes $v_S \in S$, 
+the distance between $v_0$ and $v_S$ is the same as in the original graph $G$, and is minimal in $G$.
+\end{definition}
+
+Their algorithm constructs a $(2k-1)$-spanner $H$ of $G$ with $O(k n^{1+1/k})$ edges, for some $k\in \mathbb{N}$. To do so, a family $\{A_0,\dots, A_k\}$ of node subsets is generated at random such that $A_0=V$, $A_k = \emptyset$ and for all 
+$i<k$, 
+\begin{equation}\label{eq:ai-spanner}
+   A_i = \{v \in A_{i-1}\ w.p.\ n^{-1/k}\} \text{ ,} 
+\end{equation}
+
+i.e., $A_i$ contains each edge of the previous subset with probability $n^{-1/k}$.
+At each iteration $i\leq k$, for all nodes $v \notin A_i \cap A_{i-1}$, a shortest
+path tree $\mathcal T(v)$ spanning the ensemble of nodes $V'$ is built from node $v$. $V'$ is 
+defined such that for all $v' \in V'$, the distance between $v$ and $v'$ is smaller
+than the distance between $v'$ and all the nodes that belongs to $A_i$. The resulting spanner is
+the union of all the shortest path trees created thereby. 
+
+\subsubsection{Quantum spanner algorithm}
+
+The runtime of Thorup and Zwick's algorithm is dominated by the construction of the shortest path trees.  A quantum algorithm speeding up this construction exists \cite{Durr_Heiligman_2006}, and is strongly inspired by Dijkstra's algorithm. 
+In the latter, a tree $\mathcal{T}$ rooted at a node $v_0$ is recursively grown by adding the cheapest border\footnote{A border edge $(i,j)$ of $\mathcal T$ is so that $i\in \mathcal T$ and $j \notin \mathcal T$.} edge, i.e the edge $(i,j)$ such that 
+\begin{equation*}
+    cost(i,j)= \min\{ cost(u,v) | u\in\mathcal{T},v\notin \mathcal{T}\} \ ,
+\end{equation*}
+where $cost(i,j) = \delta(v_0,i) + \frac{1}{w(i,j)}$. The quantum time improvement arises from a speedup for the selection of the cheapest border edge. 
+The quantum routine called in the quantum shortest path tree algorithm is the \textit{minimum finding} quantum algorithm 
+$\textsc{MINFIND}(d,f,g)$, which takes as inputs 
+\begin{itemize}%[label=-]
+    \item a \textit{value} function $f : [N] \> \mathbb{R} \cup \{\infty\}$
+    \item a \textit{type} function $g : [N] \> \mathbb{N}$
+    \item an integer $d \leq \dfrac N2$
+\end{itemize}
+and outputs a subset $I \subseteq [N]$ of size $|I| = \min\{d,M\}$, where $M = |Im(g)|$, such that
+every distinct elements of $I$ have a different type, i.e. for all $i,j \in I$ $$g(i) \neq g(j)\ ,$$
+and for $ j\notin I$ and $i \in I$, having $f(j)<f(i)$ implies that there exists an $ i' \in I$ so that 
+$$ f(i')\leq f(i) \text{ and } g(i')= g(j)\ ,$$
+i.e., $j$ and $i'$ have the same type.
+
+Let $P_L$ be a subset of nodes and $E(P_L)$ the set of edges such that $\forall (u,v) \in E(P_L)$, $u \in P_L \text{ or } v \in P_L$. 
+In \sref{Algorithm}{alg:quantum_spt}, %the routine $\textsc{MINFIND}(f,g,d)$ will be called with $d = |P_L|$ and 
+the functions $f$ and $g$ are both defined on $E(P_L)$, in such a way that $g((u,v)) = v$ and 
+\begin{equation*}
+    f((u,v)) = \begin{cases}
+        cost(u,v)=dist(u) + \frac{1}{w(u,v)} & \text{if } u\in P_L,\, v\notin T \\
+        \infty & \text{otherwise.}
+    \end{cases}
+\end{equation*}
+
+In other words, we are looking for a subset of the border edges of the set of nodes $P_L$ that contains at most one edge for 
+each node in $P_L$, and if several edges are possible, the least costly is kept. A brief explanation follows.
+
+\begin{algorithm}[H]
+\caption{\textbf{QuantumSPT}($G=(V,E),v_0$)}\label{alg:quantum_spt}
+\begin{algorithmic}[1]
+    \Require $T =( V_T=\{v_0\}, E_T =\emptyset) $ \Comment{Shortest path tree to be grown.}
+    \Require $P_1 = \{v_0\}$ and $L=1$
+    
+    \State  set $\text{dist}(v_0) = 0$ and $\forall u\in V, u \neq v_0$, $\text{dist}(u) = \infty$. 
+    
+    \State \While{$|V_T|<n$}
+    \State $B_L = \textsc{MINFIND}(|P_L|,f,g)$ 
+    \State Let $(u,v) \in B_1 \cup \dots \cup B_L$ have minimal $\text{cost}(u,v)$ with $v\notin P_1 \cup \dots \cup P_L$. \Comment{$(u,v)$ is a border edge}
+    \If{$w(u,v)=0$}
+    \State \Return $\mathcal{T}$
+    \Else 
+    \State $V_T \< V_T \cup \{v\}$ , $E_T \< E_T \cup \{(u,v)\}$ 
+    \State $\text{dist}(v) = \text{dist}(u) + 1/w(u,v)$
+    \State $P_{L+1} \< \{v\}$ , $L\<L+1$
+    \EndIf
+    
+    \While{ $L \geq 2$ and $|P_L|=|P_{L-1}|$}
+    \State \textit{merge $P_L$ into $P_{L-1}$}
+    \State $L \< L-1$
+    
+    \EndWhile
+    \EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+In \sref{Algorithm}{alg:quantum_spt}, a set of $L$ partitions $\{P_l\}_{l=1}^L$ of the vertices covered by the shortest path tree $\mathcal T$ is generated, and the algorithm stops only when $\mathcal T$ covers the connected component of $v_0$.
+
+Step 1 initializes the distances, as does Dijkstra's algorithm. In Step 4, a set
+$B_L$ containing the $|P_L|$ cheapest border edges with disjoint target vertices
+is generated by the quantum routine $\textsc{MINFIND}(|P_L|,f,g)$. Step 10
+updates the distance of the selected vertex, in a same manner as in Dijkstra's.
+After all the merges of Step 13, the $P_k$ are sets of vertices of the growing
+tree, so that $|P_k| = 2^{L-k}$. This ensures that since $B_k$ contains $|P_k|$
+edges, then at least one of these edges has its target outside of $\cup_{j=1}^L
+P_k$ , implying in Step 5 at least one border edge exists, and is
+effectively selected, thus the correctness of the algorithm (see \cite[Appendix
+A, Proposition 5]{apers_quantum_2019}).
+As a side note, at each step $V_{\mathcal{T}}$ contains the growing tree.
+
+% Let $(u,v)$ be the cheapest border edge of $\mathcal T$ and assume $u\in P_i$, then $(u,v) \in B_i $ and selected in Step 5. 
+
+%For all $1 \leq k \leq L$ $B_k$ contains up to $|P_k|$ neighbors of $P_k$ i.e., up to $|P_k|$ least-cost border edges e.g., 
+% $B_1$ contains $|P_1| = 1$ neighbor vertex of $v_0$, the closest one considering the $cost$ function.
+
+
+\begin{theorem}\label{thm:comp-spt}
+In the worst case, \sref{Algorithm}{alg:quantum_spt} returns a shortest path tree covering the graph $G=(V,E)$ in time $\tilde{O}(\sqrt{mn})$. 
+\end{theorem}
+
+More precisely, the running time depends on the size of the connected component in which the starting node $v_0$ is.
+Taking into account \Autoref{thm:comp-spt}, one can conclude on the overall time complexity of \sref{Algorithm}{alg:quantum-spanner}.
+
+\begin{theorem}
+There exists a quantum algorithm that outputs in time $\tilde{O}(k n^{1/k} \sqrt{mn})$ with high probability a $(2k-1)$-spanner of $G$ with an expected number of edges $O(k n^{1+1/k})$. 
+\label{th:q-spanner}
+\end{theorem}
+
+\begin{algorithm}[H]\label{alg:quantum-spanner}
+\caption{\textbf{QuantumSpanner}$(G=(V,E), k)$}\label{alg:quantum-spanner}
+\begin{algorithmic}[1]
+    \Require $A_0 = V$ ans $A_k = \emptyset$
+    \Ensure \textit{$H$ is initially an empty graph}
+    \For{$i=1, \cdots, k$}
+    \If {$i<k$}
+        \textit{set $A_i$ such as defined in \Autoref{eq:ai-spanner}} 
+    \EndIf
+    \ForAll{$v \in A_{i-1} - A_i$}
+        \State $\mathcal T \< \mathbf{QuantumSPT}(G, v)$
+        \State $H \< H \cup \mathcal T$
+    \EndFor
+    \EndFor
+    \State \Return H
+\end{algorithmic}
+\end{algorithm}
+
+
+To conclude, setting $k= \log n + 1/2 $, one can construct 
+$(2 \log n)$-spanners of an input graph with $n$ nodes and $m$ edges
+in time $\tilde{O}(\sqrt{mn})$. 

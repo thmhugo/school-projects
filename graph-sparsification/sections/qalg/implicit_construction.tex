@@ -1,0 +1,130 @@
+\subsection{Implicit construction of the graph though a \textit{string}}
+
+In order to stay within a sublinear runtime, one cannot use an explicit representation as
+used by Koutis and Xu in \sref{Algorithm}{alg:classical-sparsify}: indeed, after a single iteration, 
+the outputted graph could have up to $\frac m2\in O(n^2)$ edges (see e.g., \Autoref{thm:classical-sparsifier}).
+
+Apers and de Wolf address this issue by 
+constructing a random string $r \in \{0,1\}^{m}$ encoding the discarded edges at some iteration with 0-valued bits, and later implicitly setting the corresponding weights in the graph to 0, as shown in 
+\sref{Algorithm}{alg:quantum-sparsify}.
+This enables the construction of a spanner in the remaining graph.
+One can then use a Grover search to the undiscarded $\tilde{O}(n/\epsilon^{2})$ edges, 
+whose union forms the spectral sparsifier. In addition, it is possible to further improve the classical complexity, 
+since  a $k$-query quantum algorithm cannot distinguish a $2k$-wise independent strings from a uniformly 
+random one \cite{zhandry_secure_2015}.
+
+At first, a family of independent random bit-strings 
+$$r_i \in \{0,1\}^{m} \text{, } \; i \in \big[\log \frac mn\big] \text{ ,}$$
+is considered, such that all bits are \emph{independent} and \emph{equal to 1 with probability 1/4}.
+
+Thus the graph is represented throughout the execution with a bit-string $r$, where each 
+bit $b_e$ is sampled only when edge $e$ is queried. 
+
+However, thanks to the result of \citeauthor{zhandry_secure_2015}, it is possible to discard the random strings
+by considering $k$-independent hash functions, whose definition is recalled in \Autoref{ap:def-k-independent}, \sref{Definition}{def:k-independent-hashing}. Hence,
+ such a structure allows to query for a bit-string element in time $\tilde{O}(1)$
+without even having to store the bit-string, but still being able to retrieve it.
+It is important to stress that it is a purely classical result.
+
+
+
+
+A quantum oracle that keeps track of the weight updates is easily constructed.
+Considering the $i^{th}$ iteration; given an edge $e$, let $k$ denote the number
+of spanners in which $e$ appears before this iteration.
+
+If $k=0$, the weight of the edge $e$ is re-weighted as follows:
+\begin{equation*}
+    \omega_e' =
+    \begin{cases}
+    4^i\omega_e & \text{ if } \bigvee\limits_{l=1}^i r_l(e) = 1 \\
+    0 & \text{ otherwise.}
+    \end{cases}
+\end{equation*}
+Otherwise, in the case where $k>0$, the weight of the edge $e$ is re-weighted 
+in a different manner, so that
+\begin{equation*}
+    \omega_e' =
+    \begin{cases}
+    4^{i-k}\omega_e & \text{if } \bigvee\limits_{l=1}^{j+1} r_l(e) = 1 \\
+    0 & \text{otherwise,}
+    \end{cases}
+\end{equation*}
+where $\vee$ is the logical disjunction.
+
+
+\begin{algorithm}[H]
+    \caption{\textbf{QuantumSparsify}($G,\epsilon$)}\label{alg:quantum-sparsify}
+    \begin{algorithmic}[1]
+    \Require $\forall e, \; w_e' = w_e$ and $l=\lceil \log\frac mn \rceil$
+    \Require $\forall i\in[\log(m/n)], \; r_i \in \{0,1\}^m$, \Comment{A family of
+    random strings such that all bits are independent and equal to 1 w.p. $\frac
+    1 4$.}
+    % \Ensure $\tilde{G}$ is an $\epsilon$-spectral sparsifier  of $G$ with $\tilde{O}(n/\epsilon^2)$ edges. 
+    \For{$i = 1,2,...,l$} 
+    \State \textit{create $H_i$, union of an $O(\frac{\log^2 n}{\epsilon ^2})$-packing of
+    spanners of $G' = (V,E,w')$}  
+    \ForAll{$e \notin H_i$} \If{$r_i(e) = 1$} $w_e' \leftarrow 4\,w_e'$ 
+    \Else{ $w_e' \leftarrow 0 $}\EndIf
+    \EndFor \EndFor 
+    \State \textit{use repeated Grover search to find $\tilde{E} = \{ e \in E | w_e^{'} > 0\}$ the edges of $\tilde{G}$ }
+    \State \Return $\tilde{G}$
+    \end{algorithmic}
+\end{algorithm}
+
+Intuitively, the unions of the $O(\frac{\log^2 n}{\epsilon ^2})$-packing of spanners select the \textit{most} important edges of the graph, and the conditional reweighting (Steps 4,5) is a way of keeping a fraction of the remaining edges in order to \textit{spectrally} preserve the graph (i.e., asserts that in the end it effectively $(1+\epsilon)$-approximates the input graph). In each iteration, the remaining graph is classically sparsified using
+\sref{Algorithm}{alg:classical-sparsify}. The sparsified graph is the one induced by the vertices 
+of the initial graph and the edges whose weight $w_e^{'}$ is greater than $0$. 
+
+\begin{theoremEnd}{proposition}
+The probability that all $\log \frac mn$ iterations succeed is $1 - \textsc{O}(
+\frac{\log n}{n^2})$. 
+\end{theoremEnd}
+\begin{proofEnd}
+Let $p_s$ be the probability of success and $p_f$ be the probability of failure.
+If $p_s = 1-\frac{1}{n^2}$ then $p_e = \frac{1}{n^2}$, since $\log \frac{m}{n}$ are done,
+the global probability of failure $P_f$ is the sum of each $p_f$, such that 
+$$P_f = \frac{1}{n^2} \times \log \frac{m}{n}.$$ 
+Since $m$ is the number of edges of the input graph, 
+$$m \leq \binom{n}{2}\in O(n^2),$$
+thus 
+$$\log \frac mn \in O\big(\log \frac{n^2}{n}\big) = O(\log n)\text{ ,}$$
+hence
+$$p_e = O\big(\frac{\log n}{n^2}\big)\text{ ,}$$
+the result follows.
+\end{proofEnd}
+
+The overall time complexity of the algorithm depends on whether the $(r_i)_i$ are 
+represented with a random string. By \sref{Definition}{def:packing-spanner}, the set of spanners is assumed ordered, 
+allowing to binary search through the set in time $\tilde{O}(1)$, and there is $O(i)$ calls to the aforementioned oracle. The algorithm requires $O(\log n)$ qubits, which is the number of qubits needed
+for the quantum spanner algorithm and the repeated Grover search. In addition a QRAM \footnote{See \Autoref{ap:qram} for details about the QRAM model used herein.}
+of $\tilde{O}(n/\epsilon^2)$ bits is required since the classical space complexity is dominated
+by the output size, i.e. the size of the graph.
+
+
+It is possible to simulate the random strings in
+\sref{Algorithm}{alg:quantum-sparsify} with $k$-independent hash functions, and hence improve the classical space complexity from
+$\tilde{O}(n/\epsilon^2)$ to $\tilde{O}(\sqrt{mn}/\epsilon^2)$.
+
+
+Considering the efficiently computable search function $f : E \> \{0,1\}$
+such that 
+\begin{equation*}
+       f(e) = \begin{cases}
+       1  & \text{if } w'_e >0 \\ 
+       0 & \text{otherwise}
+       \end{cases}  
+    \text{,}
+\end{equation*}
+Grover's algorithm finds a single edge in time $\tilde{O}(\sqrt{\frac{m}{n/\epsilon^2}})$. Therefore, retrieving $\tilde{O}(n/\epsilon^2)$ edges
+belonging to $\tilde{G}$ takes time $\tilde{O}(\frac{\sqrt{m\,n}}{\epsilon})$. \\ 
+As stated in \Autoref{th:q-spanner}, one can construct a $(\log^2 n / \epsilon^2)$-spanner in time $\tilde{O}(\sqrt{mn}/\epsilon^2)$. 
+
+The overall time complexity is the sum of the runtimes needed to simulate the random string, to construct a spanner and for the repeated Grover search. Therefore, the total runtime is 
+$$2 \tilde{O}(\sqrt{mn}/\epsilon^2) + \tilde{O}(\sqrt{mn}/\epsilon) = \tilde{O}(\sqrt{mn}/\epsilon^2) \ . $$ 
+
+
+\begin{theorem}[Quantum Spectral Sparsification] \label{th:qu-spectral-sparsification}
+The algorithm \textbf{QuantumSparsify}$(G,\epsilon)$ returns with probability $1-\textsc{O}(\log n/n^2)$ an $\epsilon$-spectral sparsifier of $G$ with $\tilde{O}(n/\epsilon^2)$ edges, in time $\tilde{O}(\sqrt{m\,n}/\epsilon^2)$ and using a QRAM of $\tilde{O}(\sqrt{m\,n}/\epsilon^2)$ bits. 
+\end{theorem}
+

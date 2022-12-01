@@ -1,0 +1,148 @@
+\subsection{Time improvement of quantum sparsification}
+
+
+\subsubsection{Approximate resistance oracle and spectral sparsification}
+
+From the result of Spielman and Srivastava \cite{spielman_graph_2011}, 
+one can compute a matrix $Z$ such that for all pairs $(s,t)$ of edges in $G$,
+\begin{equation}\label{eq:matrix-z}
+    (1-\epsilon) R_{s,t} \leq || Z\cdot(\x_s-\x_t)^2 || \leq (1+\epsilon) R_{s,t}
+\end{equation}
+in time $\tilde{O}(m/\epsilon^2)$. $Z$ is defined as $Z = QW^{\frac{1}{2}}BL^+$, 
+where $L=B^TWB$ with $B$ the incidence matrix and $W$ a diagonal matrix 
+such that $(W)_{ii} = \omega_{e_i}$, and $Q$ a random $\pm 1/\sqrt k$ matrix 
+(i.e., independent Bernoulli entries). Consequently, thanks to \Autoref{eq:effective-resistance}, 
+the matrix $Z$ helps $\epsilon$-approximate the effective resistance between any edge $e = (s,t)$ 
+of the initial graph.
+
+The proof of the existence of such a $Z$ matrix allows one to
+efficiently create an oracle for the quantum algorithm.
+
+
+\begin{theorem}[Sparsification with approximate resistances \cite{spielman_graph_2011}] \label{th:app-resistance-oracle} 
+Let $R_e/2 \leq \tilde{R_e} \leq 2R_e$ be a rough approximation of $R_e$,  
+for each $e\in E$ and $p_e = min(1,Cw_e\tilde{R_e}\log(n)/\epsilon^2)$. Then, 
+with probability $1-1/n$, an $\epsilon$-spectral sparsifier $H$
+with $O(n\log(n)/\epsilon^2)$ edges can be obtained by keeping every edge $e$
+independently with probability $p_e$ and rescaling its weight with $1/p_e$.
+\end{theorem}
+
+\Autoref{th:app-resistance-oracle} allows one to efficiently define the $\{p_e\}$ according the effective resistance approximations $\{\tilde {R_e}\}$.
+
+Since $H$ is an $\epsilon$-spectral sparsifier of $G$, we have that for all edge $e$ of $H$,
+\begin{equation*}
+    (1-1/\epsilon) R^G_e \leq R^H_e \leq (1+1/\epsilon) R^G_e \ ,
+\end{equation*} where $R^G_e$ and $R^H_e$ are effective resistances in $G$ and $H$, respectively. 
+From \Autoref{eq:matrix-z}, the effective resistances $R_e$ can be approximated with the matrix $Z$
+in such a way that for an edge $e = (s,t)$, the approximated resistance is 
+\begin{equation*}
+    \tilde{R_e} = || Z \cdot (\x_s-\x_t)^2 || \text{ .}
+\end{equation*}
+The probability $p_e$ of keeping an edge $e$ is taken to be proportional to $ \tilde{R_e}$, since an edge will be more important if it belongs to a weak component, i.e. if it has a high effective resistance. Thanks to the result of 
+\citeauthor{bollobas_modern_1998} \cite[Theorem 25]{bollobas_modern_1998}, 
+$$\sum_e w_e R_e = n-1$$
+for connected graphs of order $n$ \footnote{i.e. with $n$ edges}, and thus, one has that $\sum_e w_e \tilde{R_e} = O(n)$. Since $\sum_e p_e$ represents the number of edges in the sparsifier, if one wants to end up with  $O(n \log n /\epsilon^2)$ edges in the resulting graph, $p_e$ should be taken proportional to $w_e \tilde{R_e} \log (n) / \epsilon^2$. 
+
+
+In order to keep a satisfying approximation of the weights $\{w_e\}$ in the sparsifier, we want to keep unchanged the expectation value of the weight of each edge.
+Hence\footnote{Let $\tilde{W}$ be the random variable such that $P(\tilde{W}= \tilde{w_e}) = p_e$ and $P(\tilde{W}= {0}) = 1 - p_e$. Then the expectation value of $\tilde{W}$ is $\mathbb{E}(\tilde{W}) = p_e \tilde{w_e} + (1-p_e) \times 0  = p_e \tilde{w_e}$.}, every weight $w_e$ is re-scaled by $1/p_e$ i.e., $\tilde{w_e} = \frac{w_e}{p_e}$. 
+
+
+\subsubsection{Edge sampling}
+
+Classically, \sref{Algorithm}{alg:classical-edge-sampling} shows how one can sample
+a subset of edges that contains every edge $e$ independently with
+probability $p_e$, in time $\tilde{O}(m + \sum_e p_e)$.
+
+\begin{algorithm}[H]
+    \caption{\textbf{ClassicalEdgeSampling}($G,\epsilon$)}\label{alg:classical-edge-sampling}
+    \begin{algorithmic}[1]
+    \Require $S = \emptyset$
+    \State \textit{approximate $\{p_e\}_{e\in E}$ using \Autoref{eq:matrix-z}}
+        \ForAll{$e \in E$} 
+        \State \textit{add edge $e$ to $S$ with probability $p_e$ }
+        \EndFor 
+    \State \Return S
+    \end{algorithmic}
+\end{algorithm}
+
+
+A quantum algorithm could sample a subset of edges more efficiently. 
+We assume we have access to a random string $r \in \{0,1\}^{\tilde{O}(m)}$  through the hash function $h_r: E\times [0,1] \rightarrow \{0,1\}$,
+such that for all $e\in E$, $h_r(e,p_e) = 1$ with probability $p_e$ and $h_r(e,p_e)=0$ otherwise.
+From this, it is possible to construct the following oracle
+\begin{equation*}
+O_s : \ket{e} \ket{v} \ket{w} \longmapsto \ket{e} \ket{v \oplus p_e} \ket{w \oplus h_r(e,p_e)} \ . 
+\end{equation*}
+
+Due to the fact that the expected number of edges $e$ for which $h_r(e,p_e)=1$ is $\sum_e p_e$, a repeated Grover search 
+finds the desired edges in time $\tilde{O}(\sqrt{m \sum_e p_e})$. 
+
+
+\subsubsection{Refined quantum sparsification algorithm}
+
+The runtime of \sref{Algorithm}{alg:quantum-sparsify} can be improved to
+$\tilde{O}(\sqrt{mn}/\epsilon)$ by creating a first "rough"
+$\epsilon$-sparsifier $H$, estimating the effective resistances of $G$ from $H$
+using Laplacian solving, and then using quantum sampling in order to sample a subset
+containing $\tilde{O}(n/\epsilon^2)$ edges.
+
+
+\begin{algorithm}
+    \caption{\textbf{RefinedQuantumSparsify}($G,\epsilon$)}\label{alg:quantum-sparsify2}
+    \begin{algorithmic}[1]
+    
+    \State \textit{use
+    \sref{Algorithm}{alg:quantum-sparsify} to construct a $(1/100)$-spectral sparsifier $H$ of $G$} 
+    \State \textit{create a $(1/100)$-approximate resistance oracle of
+    $H$ using \Autoref{th:app-resistance-oracle}, yielding estimations
+    $\tilde{R_e}$} 
+    \State \textit{use quantum sampling to sample a subset of the
+    edges, keeping every edge with probability $p_e =
+    min(1,Cw_e\tilde{R_e}\log(n)/\epsilon^2)$}
+    \end{algorithmic}
+\end{algorithm}
+
+The Step 1 of \sref{Algorithm}{alg:quantum-sparsify2} requires for
+$\tilde{O}(\sqrt{mn})$ to construct the $1/100$-spectral sparsifier $H$, in which each edge $e$ is such that its effective resistance $R_e^H$ satisfies 
+\begin{equation*}
+        (1-1/100) R^G_e \leq R^H_e \leq (1+1/100) R^G_e\ . 
+\end{equation*}
+According to \Autoref{eq:matrix-z}, there exists an oracle to derive approximated resistances $\{\tilde{R_e}\}$ in Step 2 such that, for all edges $e=(s,t)$,
+\begin{equation*}
+    (1-1/100) R^H_e \leq \tilde{R^H_e} \leq (1+1/100) R^H_e \ ,
+\end{equation*}
+where $\tilde{R^H_e} = || Z\cdot(\x_s-\x_t)^2 || $. One can then deduce that 
+\begin{equation*}
+    (1-1/100)^2 R^G_e \leq \tilde{R^H_e} \leq (1+1/100)^2 R^G_e \ . 
+\end{equation*}
+
+Supposing that each edge $e$ is kept with probability 
+$$p_e = \min(1,C w_e \tilde{R^H_e} \log(n)/\epsilon^2) \ ,$$
+an $\epsilon$-spectral sparsifier can be constructed with $O(n \log(n)/\epsilon^2)$ edges according to \Autoref{th:app-resistance-oracle}. The approximate oracle needed for this step requires time $\tilde{O}(n)$ to be constructed. % \Autoref{}
+
+The quantum routine of Step 3 takes time $\tilde{O}(\sqrt{m \sum_e p_e})$ where
+\begin{equation*}
+\begin{aligned}
+    \sum_e p_e
+        & \leq \frac{C \log(n)}{\epsilon^2} \sum_e w_e \tilde{R^H_e} \\
+        & \leq \dfrac{(1+1/100)^2 C \log(n)}{\epsilon^2} \sum_e w_e R^G_e \ .
+\end{aligned}
+\end{equation*}
+As stated in \cite{bollobas_modern_1998}, one always has that for a connected graph of order $n$, $\sum_e w_e R^G_e = n-1$. Therefore, we can conclude that $\sum_e p_e \in \tilde{O}(n/\epsilon^2)$ which implies that the total runtime of the quantum sampling routine is $\tilde{O}(\sqrt{mn}/\epsilon)$.
+
+One can notice that Step 2 only succeeds with probability $1-\frac 1n$ as claimed by \Autoref{th:app-resistance-oracle}. According to that, one can abort the algorithm as soon as the runtime exceeds $\tilde{O}(\sqrt{mn}/\epsilon)$ and start again, yielding a runtime of $\tilde{O}(2 \sqrt{mn}/\epsilon) = \tilde{O}(\sqrt{mn}/\epsilon)$ in the worst case.\\
+
+The total runtime of \sref{Algorithm}{alg:quantum-sparsify2} is the sum of the runtimes of the three steps and it is therefore $\tilde{O}(\sqrt{mn})$. 
+
+
+\begin{theorem}[Quantum Spectral Sparsification]\label{th:raf-spectral-sparisifaction}
+\textbf{RefinedQuantumSparsify}($G$,$\epsilon)$ returns with high probability an
+$\epsilon$-spectral sparsifier $H$ with $\tilde{O}(n/\epsilon^2)$ edges, and has
+runtime $\tilde{O}(\sqrt{mn}/\epsilon)$. The algorithm uses $O(\log\, n)$ qubits
+and a QRAM of $\tilde{O}(\sqrt{mn}/\epsilon)$.
+\end{theorem}
+
+Having arrived to \Autoref{th:raf-spectral-sparisifaction}, the main result of the paper was made explicit. \citeauthor{apers_quantum_2019}'s algorithm thus implies a quantum speedup for solving Laplacian systems and for approximating a range of cut problems such as min cut and sparsest cut.
+
+This result can probably be combined with recent classical results such as \cite{chen_maximum_2022} to yield even faster algorithms. Stay tuned...

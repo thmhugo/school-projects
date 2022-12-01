@@ -1,0 +1,39 @@
+  \begin{tikzpicture}
+    %%% Alice
+    % big square
+    \node (alice) [fill = gray!20, draw = gray!70,line width = 0.75mm, minimum size=2cm, draw, rounded corners = 0.15cm] at (-2.5,0.0) {};
+    % triangle
+    \node [isosceles triangle, isosceles triangle apex angle=90, line width=0.5mm, rotate=180, minimum size=0.25cm, draw, fill=teal!40] at (-2.15, 0.0) {};
+    % measuring device
+    \node (a_measure) [fill = teal!40, line width=0.5mm, minimum size=1cm, draw, rounded corners = 0.1cm] at (-2.70, 0.0) {$M_{a | x}$};
+    % receive x
+    \draw [-to, line width=0.5mm, rounded corners= 0.05cm] (-2.5, 1.5) node[above] {\large $x$} -- (-2.5, 0.85) -- (-2.70,0.85) -- (-2.70, 0.55);
+    % output a
+    \draw [-to, line width=0.5mm, rounded corners= 0.05cm] (-2.7, -0.55) -- (-2.7, -0.85) -- (-2.5, -0.85) -- (-2.5, -1.5) node[below] {\large $a$};
+
+    %%% Bob
+    % big square
+    \node [fill = gray!20, draw = gray!70,line width = 0.75mm, minimum size=2cm, draw, rounded corners = 0.15cm] at (2.5, 0.0) {};
+    % triangle
+    \node [isosceles triangle, isosceles triangle apex angle=90, line width=0.5mm, minimum size=0.25cm, draw, fill=purple!40] at (2.15, 0.0) {};
+    % measuring device
+    \node [fill = purple!40, line width=0.5mm, minimum size=1cm, draw, rounded corners = 0.1cm] at (2.7, 0.0) {$N_{b | y}$};
+    % receive y
+    \draw [-to, line width=0.5mm, rounded corners= 0.05cm] (2.5, 1.5) node[above] {\large $y$} -- (2.5, 0.85) -- (2.70,0.85) -- (2.70, 0.55);
+    % output b
+    \draw [-to, line width=0.5mm, rounded corners= 0.05cm] (2.7, -0.55) -- (2.7, -0.85) -- (2.5, -0.85) -- (2.5, -1.5) node[below] {\large$b$};
+
+    %%% Entanglement sharing
+    % photon source
+    \node (psi) [line width=0.5mm, rounded corners = 0.05cm, draw, label={south: \large$\ket{\psi}$}] {Source};
+    % line to A
+    \draw[decorate, decoration={snake}, line width = 0.5mm] (-1.65,0.0) -- (-0.75,0.0) node[above=4] {} -- (psi);
+    % line to B
+    \draw[decorate, decoration={snake}, line width = 0.5mm] (psi) -- (0.75,0.0) node[above=4] {} -- (1.65, 0.0);
+    % prolong non-squiggly part of the line
+    \draw[line width = 0.5mm] (-1.75, 0.0) -- (-1.65,0.0);
+    \draw[line width = 0.5mm] (1.75, 0.0) -- (1.65,0.0);
+    % draw circle at the end
+    \draw[fill] (-1.75, 0.0) circle (.05cm);
+    \draw[fill] (1.75, 0.0) circle (.05cm);
+  \end{tikzpicture}

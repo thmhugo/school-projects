@@ -1,0 +1,234 @@
+\section{Inequalities from duality}
+\label{seq:ineq-dual}
+
+The linear program for non-locality detection also comes in a useful dual form
+
+\begin{equation} \label{eq:dual}
+    \begin{aligned}
+          & \max_{\gamma,\mathbf{y}} \; \mathcal{P}\cdot \mathbf{y} + \gamma - \omega\\
+     s.t. &
+        \begin{cases}
+            (\mathcal{P} - \mathbbm{1}) \cdot \mathbf{y} - \omega & \leq 1 \\
+            \gamma + \mathbf{d_\lambda} \cdot \mathbf{y} & \leq 0 \ \ \forall \lambda \\
+            \mathbf{y} \in \mathbb{R}_+^n, \gamma \in \mathbb{R}, \omega \geq 0
+        \end{cases}
+    \end{aligned}
+\end{equation}
+that can be interpreted as a way to express Bell inequalities. Letting $\delta^*$ be the optimal objective
+value, we can write 
+\begin{equation}
+\mathcal{P}\cdot \mathbf{y^*} \ \leq \  \delta^* + \omega^* - \gamma^*\text{ .}
+\label{eq:ineq_dual_1}
+\end{equation}
+
+Given that an inequality can be multiplied by a positive value, there exist many different
+inequalities we could derive, since
+\begin{equation*}
+    \begin{aligned}
+        &\mathcal{P}\cdot \mathbf{y} &\ \leq \ &  \delta^* + \omega - \gamma \\
+        \Leftrightarrow \hspace{0.2cm} & \ \ M  \,( \mathcal{P}\cdot \mathbf{y} )&\ \leq \ &M\, (\delta^* + \omega - \gamma ) \ \ \forall M \in \mathbb{R}^+ \text{ .}
+    \end{aligned}
+\end{equation*}
+
+
+\subsection{CHSH correlations}
+
+The optimal solution is given by $\mathbf{y^*_{CHSH}}$ in \Autoref{tab:CHSH_dual},
+$\gamma^*_{CHSH} \approx - 2 \sqrt{2}$ and $\omega^*_{CHSH} =0$. \\
+Therefore, we obtain the following Bell inequality
+\begin{equation}
+    \mathcal{P} \cdot \mathbf{y^*_{CHSH}} \ \lesssim\ 3.1213 
+    \label{eq:chsh_ineq1}
+\end{equation}
+Multiplying \Autoref{eq:chsh_ineq1} by 
+ \begin{equation*}
+     M = \dfrac{\gamma^*_{CHSH}}{\delta^* + \omega^*_{CHSH} - \gamma^*_{CHSH}}  
+\end{equation*}
+gives
+\begin{equation}
+    \mathcal{P} \cdot \mathbf{z^*_{CHSH}} \ \lesssim\ 2 \sqrt{2} \text{ ,}
+\end{equation}
+where 
+\begin{equation*}
+\mathbf{z^*_{CHSH}} = M \, \mathbf{y^*_{CHSH}} \text{ .}
+\end{equation*}
+
+
+
+\begin{table}[t]
+    \centering
+    \begin{tabular}{|lc|cccc|}
+\hline
+\multicolumn{2}{|c|}{\multirow{2}{*}{$\mathbf{y^*_{CHSH}}$}} & \multicolumn{4}{c|}{$(a,b)$} \\ \cline{3-6} 
+\multicolumn{2}{|l|}{} & \multicolumn{1}{c|}{$(-1,-1)$} & \multicolumn{1}{c|}{$ (-1,1) $} & \multicolumn{1}{c|}{$ (1,-1) $} & $ (1,1)$ \\ \hline
+\multicolumn{1}{|l|}{\multirow{4}{*}{\rotatebox{90}{$(x,y) $}}} & $(0,0) $ & \multicolumn{1}{c|}{$ 1.414$} & \multicolumn{1}{c|}{$ 0 $} & \multicolumn{1}{c|}{$ 1.414$} & $ 1.414$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(0,1) $ & \multicolumn{1}{c|}{$ 1.414$} & \multicolumn{1}{c|}{$ 0$} & \multicolumn{1}{c|}{$0$} & $0$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(1,0) $ & \multicolumn{1}{c|}{$ 0$} & \multicolumn{1}{c|}{$ 0$} & \multicolumn{1}{c|}{$0 $} & $ 1.414$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(1,1) $ & \multicolumn{1}{c|}{$ 0 $} & \multicolumn{1}{c|}{$ 1.414$} & \multicolumn{1}{c|}{$0$} & $0$ \\ \hline
+\end{tabular}
+    \caption{Optimal solution of the dual}
+    \label{tab:CHSH_dual}
+\end{table}
+Using this dual with a local strategy such as
+\begin{table}[h]
+\centering
+\begin{tabular}{|cc|cccc|}
+\hline
+\multicolumn{2}{|c|}{\multirow{2}{*}{$\mathcal{P}_{loc}$}} & \multicolumn{4}{c|}{$(a,b)$} \\ \cline{3-6} 
+\multicolumn{2}{|l|}{} & \multicolumn{1}{c|}{$ (-1,-1) $} & \multicolumn{1}{c|}{$ (-1,1) $} & \multicolumn{1}{c|}{$ (1,-1) $} & $ (1,1)$ \\ \hline
+\multicolumn{1}{|l|}{\multirow{4}{*}{\rotatebox{90}{$(x,y)$}}} & $(0,0) $ & \multicolumn{1}{c|}{$ 1 $} & \multicolumn{1}{c|}{$ 0 $} & \multicolumn{1}{c|}{$ 0 $} & $ 0$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(0,1) $ & \multicolumn{1}{c|}{$ 0 $} & \multicolumn{1}{c|}{$ 0$} & \multicolumn{1}{c|}{$1$} & $0$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(1,0) $ & \multicolumn{1}{c|}{$ 0$} & \multicolumn{1}{c|}{$ 1/2$} & \multicolumn{1}{c|}{$0$} & $ 1/2$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(1,1) $ & \multicolumn{1}{c|}{$ 0 $} & \multicolumn{1}{c|}{$ 1/2 $} & \multicolumn{1}{c|}{$1/2$} & $0$ \\ \hline
+\end{tabular}
+\caption{Example of a local behaviour}
+\end{table}
+
+we obtain optimal values $\gamma_{loc}^* = -1$ and $\omega_{loc}^* = 0 $. Hence, if $\mathcal{P}$ is local, we have 
+\begin{equation}
+    \mathcal{P}_{loc} \cdot \mathbf{y^*_{loc}} \leq 2 
+\end{equation}
+
+
+\subsection{Mayers-Yao's correlation}
+
+The optimal solution of the \sref{Dual}{eq:dual} is given by $\mathbf{y^*_{MY}}$ in \Autoref{tab:MY_dual},
+$\gamma^*_{MY} \approx 3.313 $ and $\omega^*_{MY} =0$. Besides, we can notice that 
+$\gamma^*_{MY} \approx 8 \sqrt{\alpha^*_{MY}}$, where $\alpha^*_{MY}$ comes from
+\Autoref{eq:opt-primal-my}.
+Therefore, we obtain the following Bell inequality
+\begin{equation}
+     \mathcal{P} \cdot \mathbf{y^*_{MY}} \ \lesssim \ 3.49
+ \end{equation}
+ 
+\begin{table}[t]
+\centering
+\begin{tabular}{|lc|cccc|}
+\hline
+\multicolumn{2}{|c|}{\multirow{2}{*}{$\mathbf{y^*_{MY}}$}} & \multicolumn{4}{c|}{$(a,b)$} \\ \cline{3-6} 
+\multicolumn{2}{|c|}{} & \multicolumn{1}{c|}{$ (-1,-1) $} & \multicolumn{1}{c|}{$ (-1,1) $} & \multicolumn{1}{c|}{$ (1,-1) $} & $ (1,1)$ \\ \hline
+\multicolumn{1}{|l|}{\multirow{9}{*}{\rotatebox{90}{$(x,y) $}}} & $(0,0) $ & \multicolumn{1}{c|}{$ 0 $} & \multicolumn{1}{c|}{$ 0 $} & \multicolumn{1}{c|}{$ 0 $} & $ 0$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(0,1) $ & \multicolumn{1}{c|}{$ 0 $} & \multicolumn{1}{c|}{$ 0 $} & \multicolumn{1}{c|}{$ 0 $} & $ 0$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(0,2) $ & \multicolumn{1}{c|}{$ 0 $} & \multicolumn{1}{c|}{$ 0 $} & \multicolumn{1}{c|}{$ 0 $} & $ 0$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(1,0) $ & \multicolumn{1}{c|}{$ 0 $} & \multicolumn{1}{c|}{$ 1.657 $} & \multicolumn{1}{c|}{$ 0 $} & $ 0$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(1,1) $ & \multicolumn{1}{c|}{$ 0 $} & \multicolumn{1}{c|}{$ 0 $} & \multicolumn{1}{c|}{$ 0 $} & $ 0$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(1,2) $ & \multicolumn{1}{c|}{$ 0 $} & \multicolumn{1}{c|}{$ 0 $} & \multicolumn{1}{c|}{$ 0 $} & $ 1.657$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(2,0) $ & \multicolumn{1}{c|}{$ 1.657 $} & \multicolumn{1}{c|}{$ 0 $} & \multicolumn{1}{c|}{$ 0 $} & $ 0$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(2,1)$ & \multicolumn{1}{c|}{$0$} & \multicolumn{1}{c|}{$0 $} & \multicolumn{1}{c|}{$ 0 $} & $ 0$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(2,2) $ & \multicolumn{1}{c|}{$ 1.657 $} & \multicolumn{1}{c|}{$ 0 $} & \multicolumn{1}{c|}{$ 1.657 $} & $ 1.657$ \\ \hline
+\end{tabular}
+\caption{Optimal solution of the dual for Mayers-Yao's correlations}
+\label{tab:MY_dual}
+\end{table}
+With a local strategy, we obtain again the following inequality
+\begin{equation}
+    \mathcal{P}_{loc} \cdot \mathbf{y^*_{loc}} \lesssim 2 
+\end{equation}
+
+From the optimal solution $\mathbf{y^*_{MY}}$ obtained with the quantum correlations 
+shown in \Autoref{tab:MY_dual}, one can notice that the input $x=0$ on Alice's side is never
+used. Therefore, one could assume that Alice needs only two measurements instead of 
+three to reproduce Mayers-Yao's correlations. Similarly, it can be noticed that the
+input $y=1$ is never used by Bob in the optimal strategy. 
+
+\subsection{Restricted inputs on Alice side for Mayers-Yao's self-test}
+
+In this section, Bob still has inputs $y \in \{0,1,2\}$ but Alice's inputs are restricted to $x
+\in \{1,2\}$, meaning that Alice only measures $A_0=A_1=Z$ and $A_2 = (X+Z)/\sqrt{2} $. Hence,
+we have less correlations to consider in the linear programs and the basis $\{p(a,b|x,y)\}$ will
+have a smaller dimension, but the primal and the dual keep the same form. 
+
+The primal gives $\alpha^*_{MY,\{1,2;0,1,2\}} \approx 0.1715 \approx \alpha^*_{MY}$ and the dual gives 
+$\gamma^*_{MY,\{1,2;0,1,2\}} \approx 3.313 $ , $\omega^*_{MY,\{1,2;0,1,2\}} =0$ and $\mathbf{y^*_{MY,\{1,2;0,1,2\}}}$ in \Autoref{tab:MY_dual_res}. 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|lc|cccc|}
+\hline
+\multicolumn{2}{|c|}{\multirow{2}{*}{$\mathbf{y^*_{MY,\{1,2;0,1,2\}}}$}} & \multicolumn{4}{c|}{$(a,b)$} \\ \cline{3-6} 
+\multicolumn{2}{|c|}{} & \multicolumn{1}{c|}{$(-1,-1)$} & \multicolumn{1}{c|}{$(-1,1)$} & \multicolumn{1}{c|}{$(1,-1)$} & $(1,1)$ \\ \hline
+\multicolumn{1}{|l|}{\multirow{6}{*}{\rotatebox{90}{$(x,y)$}}} & $(1,0)$ & \multicolumn{1}{c|}{$0$} & \multicolumn{1}{c|}{$1.657$} & \multicolumn{1}{c|}{$1.657$} & $1.657$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(1,1)$ & \multicolumn{1}{c|}{$0$} & \multicolumn{1}{c|}{$0$} & \multicolumn{1}{c|}{$0$} & $0$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(1,2)$ & \multicolumn{1}{c|}{$1.657$} & \multicolumn{1}{c|}{$0$} & \multicolumn{1}{c|}{$0$} & $0$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(2,0)$ & \multicolumn{1}{c|}{$1.657$} & \multicolumn{1}{c|}{$0$} & \multicolumn{1}{c|}{$0$} & $0$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(2,1)$ & \multicolumn{1}{c|}{$0$} & \multicolumn{1}{c|}{$0$} & \multicolumn{1}{c|}{$0$} & $0$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(2,2)$ & \multicolumn{1}{c|}{$0$} & \multicolumn{1}{c|}{$0$} & \multicolumn{1}{c|}{$0$} & $1.657$ \\ \hline
+\end{tabular}
+\caption{Optimal solution of the dual for Mayers-Yao's correlations with the inputs on Alice's side restricted to $\{1,2\}$}
+\label{tab:MY_dual_res}
+\end{table}
+
+The results are almost exactly the same as before, except that the strategy is modified: given an input $(x,y)$, the outputs $(a,b)$ are not the same as before. However, we still find the same objective value $\alpha^*_{MY}$ and the same Bell inequality.  \\
+
+
+In \Autoref{tab:MY_dual}, one can notice that Bob does not use the input $y=1$, i.e the measurement $Y_1=Z$. However, restricting also the inputs on Bob's side to $y \in \{0,2\}$  does not give exactly the same result. We obtain $\alpha^*_{MY,\{1,2;0,2\}} \approx 0.1715 \approx \alpha^*_{MY}$ with the primal and the dual gives 
+$\gamma^*_{MY,\{1,2;0,2\}} \approx 2.485  $ , $\omega^*_{MY,\{1,2;0,2\}} =0$ and $\mathbf{y^*_{MY,\{1,2;0,2\}}}$ in  \Autoref{tab:MY_dual_res2}. 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|lc|cccc|}
+\hline
+\multicolumn{2}{|c|}{\multirow{2}{*}{$\mathbf{y^*_{MY,\{1,2;0,2\}}}$}} & \multicolumn{4}{c|}{$(a,b)$} \\ \cline{3-6} 
+\multicolumn{2}{|c|}{} & \multicolumn{1}{c|}{$(-1,-1)$} & \multicolumn{1}{c|}{$(-1,1)$} & \multicolumn{1}{c|}{$(1,-1)$} & $(1,1)$ \\ \hline
+\multicolumn{1}{|l|}{\multirow{4}{*}{\rotatebox{90}{$(x,y)$}}} & $(1,0)$ & \multicolumn{1}{c|}{$0$} & \multicolumn{1}{c|}{$0.828$} & \multicolumn{1}{c|}{$0.828$} & $0$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(1,2)$ & \multicolumn{1}{c|}{$0.828$} & \multicolumn{1}{c|}{$0$} & \multicolumn{1}{c|}{$0$} & $0.828$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(2,0)$ & \multicolumn{1}{c|}{$0.828$} & \multicolumn{1}{c|}{$0$} & \multicolumn{1}{c|}{$0$} & $0.828$ \\ \cline{2-6} 
+\multicolumn{1}{|l|}{} & $(2,2)$ & \multicolumn{1}{c|}{$0.828$} & \multicolumn{1}{c|}{$0$} & \multicolumn{1}{c|}{$0$} & $0.828$ \\ \hline
+\end{tabular}
+\caption{Optimal solution of the dual for Mayers-Yao's correlations with the 
+inputs on Alice's side restricted to $x \in \{1,2\}$ and on Bob's side to $y \in
+\{0,2\}$. }
+\label{tab:MY_dual_res2}
+\end{table}
+
+Therefore, even though the optimal strategy is changed, the correlations considered are still nonlocal for the restricted inputs $x\in\{1,2\}$,$y\in\{0,2\}$. 
+
+
+\subsection{Alternative dual formulation }
+
+From the numerical results, we observed that the first constraint of the
+\sref{Primal}{eq:primal} is always fulfilled and substituting the inequality by an equality
+yields the same results. However, this modified primal form provides an alternative
+dual for detecting non-locality
+
+\begin{equation}\label{eq:dual2}
+    \begin{aligned}
+        & \max_{\gamma,\mathbf{w}} \; - \mathcal{P}\cdot \mathbf{w} + 
+        \gamma - \omega  \\
+    s.t. &
+        \begin{cases}
+            (\mathbbm{1} - \mathcal{P}) \cdot \mathbf{w}  - \omega & \leq  1\\
+            \gamma + \mathbf{d_\lambda} \cdot \mathbf{w} &\ \leq  0, \ \forall
+            \lambda\\
+            \mathbf{w} \in \mathbb{R}^n ,\ \gamma \in \mathbb{R}, \omega & \geq 0
+        \end{cases}
+    \end{aligned}
+\end{equation}
+
+
+The results from CHSH and Mayers-Yao exhibit that one always has at the optimum
+\begin{equation*}
+    \begin{aligned}
+        \mathcal{P} \cdot \mathbf{w}^* & =  -\alpha^*, \\
+        \mathbbm{1} \cdot \mathbf{w}^* & =  1 - \alpha^*
+    \end{aligned}
+\end{equation*}
+and thus, multiplying the first constraint of the primal by $\mathbf{w}^*$, one
+finds that
+
+\begin{equation}
+    \sum_\lambda \mu^*_\lambda \mathbf{d_\lambda} \cdot \mathbf{w}^* = 0 \text{ ,}
+\end{equation}
+which means that the solution $\mathbf{w}^*$ of the dual problem is
+orthogonal to the optimal convex sum of deterministic behaviours. 
+
+According to the \Autoref{th:strong-duality} of \emph{strong duality}, the optimal 
+objective value is the same as the one from the primal and the following 
+inequality is derived
+\begin{equation*}
+        -\mathbf{w}^* \cdot \mathcal{P} \leq \alpha^* + \omega^* - \gamma^*
+\end{equation*}
+The main difference with \Autoref{eq:ineq_dual_1} is that the vector $\mathbf{w^*}$ belongs to $\mathbb{R}^n$.
+
+For CHSH, we find $-\mathbf{w^* _{CHSH}}\cdot \mathcal{P} \leq \alpha^*_{CHSH} $ and
+for Mayers-Yao's, $-\mathbf{w^*_{MY}} \cdot \mathcal{P} \leq  \alpha^*_{MY} $. 
